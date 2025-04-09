@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>链接转换工具</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>链接转换工具</h1>
+        <div>
+            <label for="inputUrl">输入链接：</label>
+            <textarea id="inputUrl" placeholder="请输入需要转换的链接"></textarea>
+        </div>
+        <div>
+            <button onclick="convertUrl()">转换</button>
+        </div>
+        <div>
+            <label for="outputUrl">转换结果：</label>
+            <textarea id="outputUrl" readonly></textarea>
+        </div>
+        <div class="result" id="resultDisplay"></div>
+    </div>
+
+    <script>
+        function convertUrl() {
+            // 获取输入的链接
+            const inputUrl = document.getElementById('inputUrl').value.trim();
+            
+            if (!inputUrl) {
+                alert('请输入链接');
+                return;
+            }
+            
+            try {
+                // 解析URL
+                const url = new URL(inputUrl);
+                
+                // 获取查询参数
+                const params = new URLSearchParams(url.search);
+                
+                // 移除page=true参数
+                params.delete('page');
+                
+                // 获取access-token参数
+                let accessToken = params.get('access-token') || '';
+                
+                // 获取token参数
+                let token = params.get('token') || '';
+                
+                // 如果token是undefined，则设置为空字符串
+                if (token === 'undefined') {
+                    token = '';
+                }
+                
+                // 设置token参数
+                params.set('token', token);
+                
+                // 添加sign参数，值为access-token
+                params.set('sign', accessToken);
+                
+                // 重建URL
+                url.search = params.toString();
+                
+                // 输出结果
+                const result = url.toString();
+                document.getElementById('outputUrl').value = result;
+                document.getElementById('resultDisplay').textContent = result;
+            } catch (error) {
+                alert('链接格式不正确: ' + error.message);
+            }
+        }
+    </script>
+</body>
+</html>
+
