@@ -50,6 +50,8 @@
         <div>
             <label for="inputUrl">输入链接：</label>
             <textarea id="inputUrl" placeholder="请输入需要转换的链接"></textarea>
+            <label for="accessToken">Access Token：</label>
+            <input type="text" id="accessToken" placeholder="请输入access token，将会拼接到sign参数后">
         </div>
         <div>
             <button onclick="convertUrl()">转换</button>
@@ -92,14 +94,15 @@
                     token = '';
                 }
                 
+                params.set('action', 'mboard.report.createDownloadFile');
                 // 设置token参数
                 params.set('token', token);
                 
                 // 添加sign参数，值为access-token
-                params.set('sign', accessToken);
-                
-                // 添加action参数
-                params.set('action', 'mboard.report.createDownloadFile');
+                // 获取用户输入的access token
+                const userAccessToken = document.getElementById('accessToken').value.trim();
+                // 如果用户输入了access token，则使用用户输入的，否则使用URL中的accessToken
+                params.set('sign', userAccessToken || accessToken);
                 
                 // 创建新的URL，使用新的基础URL
                 const newUrl = new URL('https://shop.mwee.cn/msk/api/publicTool.fileHandling.exportFile');
