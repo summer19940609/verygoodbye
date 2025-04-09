@@ -108,7 +108,8 @@
                 // 输出结果
                 const result = newUrl.toString();
                 document.getElementById('outputUrl').value = result;
-                document.getElementById('resultDisplay').textContent = result;
+                // 显示解码后的URL
+                document.getElementById('resultDisplay').textContent = decodeURIComponent(result);
             } catch (error) {
                 alert('链接格式不正确: ' + error.message);
             }
