@@ -58,7 +58,7 @@
             <label for="outputUrl">转换结果：</label>
             <textarea id="outputUrl" readonly></textarea>
         </div>
-        <div class="result" id="resultDisplay"></div>
+        <pre class="result" id="resultDisplay"></pre>
     </div>
 
     <script>
@@ -98,11 +98,15 @@
                 // 添加sign参数，值为access-token
                 params.set('sign', accessToken);
                 
-                // 重建URL
-                url.search = params.toString();
+                // 添加action参数
+                params.set('action', 'mboard.report.createDownloadFile');
+                
+                // 创建新的URL，使用新的基础URL
+                const newUrl = new URL('https://shop.mwee.cn/msk/api/publicTool.fileHandling.exportFile');
+                newUrl.search = params.toString();
                 
                 // 输出结果
-                const result = url.toString();
+                const result = newUrl.toString();
                 document.getElementById('outputUrl').value = result;
                 document.getElementById('resultDisplay').textContent = result;
             } catch (error) {
@@ -112,4 +116,3 @@
     </script>
 </body>
 </html>
-
