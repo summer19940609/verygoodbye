@@ -1,122 +1,133 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>链接转换工具</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .result {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-            word-break: break-all;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>链接转换工具</h1>
-        <div>
-            <label for="inputUrl">输入链接：</label>
-            <textarea id="inputUrl" placeholder="请输入需要转换的链接"></textarea>
-            <label for="accessToken">Access Token：</label>
-            <input type="text" id="accessToken" placeholder="请输入access token，将会拼接到sign参数后">
-        </div>
-        <div>
-            <button onclick="convertUrl()">转换</button>
-        </div>
-        <div>
-            <label for="outputUrl">转换结果：</label>
-            <pre id="outputUrl" style="width: 100%; white-space: pre-wrap; overflow-wrap: break-word;"></pre>
-        </div>
-        <pre class="result" id="resultDisplay" style="width: 100%; white-space: pre-wrap; overflow-wrap: break-word;"></pre>
-    </div>
 
-    <script>
-        function convertUrl() {
-            // 获取输入的链接
-            const inputUrl = document.getElementById('inputUrl').value.trim();
-            
-            if (!inputUrl) {
-                alert('请输入链接');
-                return;
-            }
-            
-            try {
-                // 解析URL
-                const url = new URL(inputUrl);
-                
-                // 获取查询参数
-                const params = new URLSearchParams(url.search);
-                
-                // 移除page=true参数
-                params.delete('page');
-                
-                // 获取access-token参数
-                let accessToken = params.get('access-token') || '';
-                
-                // 获取token参数
-                let token = params.get('token') || '';
-                
-                // 如果token是undefined，则设置为空字符串
-                if (token === 'undefined') {
-                    token = '';
-                }
-                
-                params.set('action', 'mboard.report.createDownloadFile');
-                // 设置token参数
-                params.set('token', token);
-                
-                // 添加sign参数，值为access-token
-                // 获取用户输入的access token
-                const userAccessToken = document.getElementById('accessToken').value.trim();
-                // 如果用户输入了access token，则使用用户输入的，否则使用URL中的accessToken
-                params.set('sign', userAccessToken || accessToken);
-                
-                // 创建新的URL，使用新的基础URL
-                const newUrl = new URL('https://shop.mwee.cn/msk/api/publicTool.fileHandling.exportFile');
-                newUrl.search = params.toString();
-                
-                // 输出结果
-                const result = newUrl.toString();
-                document.getElementById('outputUrl').value = result;
-                // 显示解码后的URL
-                document.getElementById('resultDisplay').textContent = decodeURIComponent(result);
-            } catch (error) {
-                alert('链接格式不正确: ' + error.message);
-            }
-        }
-    </script>
+<head>
+	<meta charset="UTF-8">
+	<title>链接转换工具</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: Arial, sans-serif;
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 20px;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			gap: 15px;
+		}
+
+		textarea {
+			width: 100%;
+			height: 100px;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		button {
+			padding: 10px 15px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+			width: 100px;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+		.result {
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			background-color: #f9f9f9;
+			word-break: break-all;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>链接转换工具</h1>
+		<div>
+			<label for="inputUrl">输入链接：</label>
+			<textarea id="inputUrl" placeholder="请输入需要转换的链接"></textarea>
+			<label for="accessToken">Access Token：</label>
+			<input type="text" id="accessToken" style="width: 200px;" placeholder="请输入access token">
+		</div>
+		<div>
+			<button onclick="convertUrl()">转换</button>
+		</div>
+		<p>转换结果</p>
+		<pre class="result" id="resultDisplay"
+			style="width: 100%; white-space: pre-wrap; overflow-wrap: break-word; display: none;"></pre>
+	</div>
+
+	<script>
+		function convertUrl() {
+			// 获取输入的链接
+			const inputUrl = document.getElementById('inputUrl').value.trim();
+
+			if (!inputUrl) {
+				alert('请输入链接');
+				return;
+			}
+
+			try {
+				// 解析URL
+				const url = new URL(inputUrl);
+
+				// 获取查询参数
+				const params = new URLSearchParams(url.search);
+
+				// 移除page=true参数
+				params.delete('page');
+
+				// 获取access-token参数
+				let accessToken = params.get('access-token') || '';
+
+				// 获取token参数
+				let token = params.get('token') || '';
+
+				// 如果token是undefined，则设置为空字符串
+				if (token === 'undefined') {
+					token = '';
+				}
+
+				params.set('action', 'mboard.report.createDownloadFile');
+				// 设置token参数
+				params.set('token', token);
+
+				// 添加sign参数，值为access-token
+				// 获取用户输入的access token
+				const userAccessToken = document.getElementById('accessToken').value.trim();
+				// 如果用户输入了access token，则使用用户输入的，否则使用URL中的accessToken
+				params.set('sign', userAccessToken || accessToken);
+
+				// 创建新的URL，使用新的基础URL
+				const newUrl = new URL('https://shop.mwee.cn/msk/api/publicTool.fileHandling.exportFile');
+				newUrl.search = params.toString();
+
+				// 输出结果
+				const result = newUrl.toString();
+				// 显示解码后的URL
+				document.getElementById('resultDisplay').textContent = decodeURIComponent(result);
+				// 显示解码后的URL
+				document.getElementById('resultDisplay').style.display = 'block';
+			} catch (error) {
+				alert('链接格式不正确: ' + error.message);
+			}
+		}
+	</script>
 </body>
+
 </html>
