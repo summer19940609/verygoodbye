@@ -8,33 +8,33 @@
   <title>两点间距离</title>
 <!--   <link href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet"> -->
   <script src="https://cdn.tailwindcss.com"></script>
-<!--   <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" /> -->
+  <!-- <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" /> -->
 </head>
 
 <body class="h-full">
   <div id="container" class="h-full"></div>
-  <div class="input-container absolute top-2 left-2 z-50 bg-white p-4 rounded-lg shadow-lg flex flex-col gap-4 w-80">
-    <p><a target="_blank" href="https://lbs.amap.com/tools/picker" class="text-blue-500 hover:text-blue-700 underline">高德定位地址</a></p>
-    <div class="input-group flex flex-col gap-2">
-      <label for="point1" class="text-base font-bold text-gray-700">地点1</label>
-      <input type="text" id="point1" placeholder="例如: 116.368904,39.923423" class="p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none text-base">
+  <div class="input-container absolute top-2 left-2 z-50 bg-white p-2 rounded shadow flex flex-col gap-2 w-72">
+    <p><a target="_blank" href="https://lbs.amap.com/tools/picker" class="text-blue-500 hover:text-blue-700 underline text-sm">高德定位地址</a></p>
+    <div class="input-group flex flex-col gap-1">
+      <label for="point1" class="text-sm font-bold text-gray-700">地点1</label>
+      <input type="text" id="point1" placeholder="例如: 116.368904,39.923423" class="p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-sm">
     </div>
-    <div class="input-group flex flex-col gap-2">
-      <label for="point2" class="text-base font-bold text-gray-700">地点2</label>
-      <input type="text" id="point2" placeholder="例如: 116.387271,39.922501" class="p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none text-base">
+    <div class="input-group flex flex-col gap-1">
+      <label for="point2" class="text-sm font-bold text-gray-700">地点2</label>
+      <input type="text" id="point2" placeholder="例如: 116.387271,39.922501" class="p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-sm">
     </div>
-    <button onclick="updateMarkersAndCompute()" class="p-3 bg-blue-400 text-white rounded-lg hover:bg-blue-600 transition-colors text-base">查询计算</button>
-    <p id="showDistance" class="text-red-500 text-lg font-normal mt-2"></p>
+    <button onclick="updateMarkersAndCompute()" class="p-2 bg-blue-400 text-white rounded hover:bg-blue-600 transition-colors text-sm">查询计算</button>
+    <p id="showDistance" class="text-red-500 text-sm font-normal mt-1"></p>
   </div>
 
-  <div class="tool-container absolute top-2 right-2 z-50 bg-white p-4 rounded-lg shadow-lg flex flex-col w-80">
-    <h1 class="text-xl font-bold">提取经纬度</h1>
-    <textarea id="jsonInput" placeholder="请输入JSON数据..." class="mt-3 p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-500 outline-none h-32 text-base"></textarea>
-    <div class="flex gap-3 mt-3">
-      <button onclick="extractCoordinates()" class="flex-1 p-3 bg-blue-400 text-white rounded-lg hover:bg-blue-600 transition-colors text-base">提取经纬度</button>
-      <button onclick="reset()" class="flex-1 p-3 bg-red-500 text-white rounded-lg hover:bg-red-700 transition-colors text-base">重置输入框</button>
+  <div class="tool-container absolute top-2 right-2 z-50 bg-white p-2 rounded shadow flex flex-col w-72">
+    <h1 class="text-lg font-bold">提取经纬度</h1>
+    <textarea id="jsonInput" placeholder="请输入JSON数据..." class="mt-2 p-2 border border-gray-300 rounded focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none h-24 text-sm"></textarea>
+    <div class="flex gap-2 mt-2">
+      <button onclick="extractCoordinates()" class="flex-1 p-2 bg-blue-400 text-white rounded hover:bg-blue-600 transition-colors text-sm">提取经纬度</button>
+      <button onclick="reset()" class="flex-1 p-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors text-sm">重置输入框</button>
     </div>
-    <p id="output" class="text-red-500 text-lg font-normal mt-3"></p>
+    <p id="output" class="text-red-500 text-sm font-normal mt-2"></p>
   </div>
   <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=2e2ac25328182971418fd162d111e3b0"></script>
   <script type="text/javascript">
