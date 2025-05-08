@@ -24,7 +24,6 @@
     .input-container,
     .tool-container {
       position: absolute;
-      top: 8px;
       z-index: 50;
       background: white;
       padding: 8px;
@@ -34,11 +33,22 @@
     }
 
     .input-container {
+      top: 8px;
       left: 8px;
     }
 
     .tool-container {
-      right: 8px;
+      bottom: 8px;
+      left: 8px;
+    }
+
+    @media (min-width: 768px) {
+      .tool-container {
+        top: 8px;
+        left: auto;
+        right: 8px;
+        bottom: auto;
+      }
     }
 
     .input-group {
@@ -256,9 +266,5 @@
     }
   </script>
 </body>
-
-</html>
-
-</html>
 
 </html>
