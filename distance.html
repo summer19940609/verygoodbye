@@ -1,12 +1,12 @@
 <!doctype html>
 <html>
-
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
   <title>两点间距离</title>
   <style>
+    /* 保持原有样式不变 */
     * {
       box-sizing: border-box;
     }
@@ -144,36 +144,44 @@
     <p id="output"></p>
   </div>
 
-  <script type="text/javascript"
-    src="https://webapi.amap.com/maps?v=1.4.15&key=2e2ac25328182971418fd162d111e3b0"></script>
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=2e2ac25328182971418fd162d111e3b0"></script>
   <script type="text/javascript">
     // 初始化地图对象，加载地图
     var map = new AMap.Map("container", {
       resizeEnable: true,
       zoom: 13
     });
+
+    // 更新标记标签的函数
+    function updateMarkerLabel(marker, position) {
+      const lng = position.getLng().toFixed(6);
+      const lat = position.getLat().toFixed(6);
+      marker.setLabel({
+        content: `${marker === m1 ? '地点1' : '地点2'}\n[${lng},${lat}]`,
+        direction: 'right',
+        offset: new AMap.Pixel(10, 0)
+      });
+    }
+
     // 初始化两个标记
     var m1 = new AMap.Marker({
       map: map,
       draggable: true,
-      position: new AMap.LngLat(116.368904, 39.923423),
-      label: {
-        content: '地点1',
-        direction: 'right',
-        offset: new AMap.Pixel(10, 0)
-      }
+      position: new AMap.LngLat(116.368904, 39.923423)
     });
+
     var m2 = new AMap.Marker({
       map: map,
       draggable: true,
-      position: new AMap.LngLat(116.387271, 39.922501),
-      label: {
-        content: '地点2',
-        direction: 'right',
-        offset: new AMap.Pixel(10, 0)
-      }
+      position: new AMap.LngLat(116.387271, 39.922501)
     });
+
+    // 初始化标签
+    updateMarkerLabel(m1, m1.getPosition());
+    updateMarkerLabel(m2, m2.getPosition());
+
     map.setFitView();
+
     // 初始化线段和距离文本
     var line = new AMap.Polyline({
       strokeColor: 'red',
@@ -181,6 +189,7 @@
       outlineColor: 'white'
     });
     line.setMap(map);
+
     var text = new AMap.Text({
       text: '',
       style: {
@@ -190,6 +199,7 @@
       }
     });
     text.setMap(map);
+
     // 计算两点距离并更新地图显示
     function computeDis() {
       var p1 = m1.getPosition();
@@ -202,7 +212,16 @@
       text.setPosition(textPos);
       var km = (distance / 1000).toFixed(1);
       document.getElementById('showDistance').textContent = `${km} 公里`;
+
+      // 更新输入框的值
+      document.getElementById('point1').value = `${p1.getLng().toFixed(6)},${p1.getLat().toFixed(6)}`;
+      document.getElementById('point2').value = `${p2.getLng().toFixed(6)},${p2.getLat().toFixed(6)}`;
+
+      // 更新标记标签
+      updateMarkerLabel(m1, p1);
+      updateMarkerLabel(m2, p2);
     }
+
     // 解析输入的经纬度
     function parseLngLat(input) {
       var parts = input.split(',');
@@ -215,10 +234,12 @@
       }
       return null;
     }
+
     // 更新标记位置并计算距离
     function updateMarkersAndCompute() {
       var point1 = document.getElementById('point1').value;
       var point2 = document.getElementById('point2').value;
+      
       // 解析点1
       var lngLat1 = parseLngLat(point1);
       if (lngLat1) {
@@ -227,6 +248,7 @@
         alert('点1的经纬度格式不正确，请输入如 "116.368904,39.923423" 的格式');
         return;
       }
+      
       // 解析点2
       var lngLat2 = parseLngLat(point2);
       if (lngLat2) {
@@ -235,10 +257,12 @@
         alert('点2的经纬度格式不正确，请输入如 "116.387271,39.922501" 的格式');
         return;
       }
+      
       // 计算距离并更新地图
       computeDis();
       map.setFitView();
     }
+
     // 初始化计算
     computeDis();
     m1.on('dragging', computeDis);
