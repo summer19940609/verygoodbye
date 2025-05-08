@@ -1,5 +1,5 @@
 {
-  "name": "twoPointDistance",
+  "name": "verygoodbye",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/summer19940609/twoPointDistance.git"
+    "url": "git+https://github.com/summer19940609/verygoodbye.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/summer19940609/twoPointDistance/issues"
+    "url": "https://github.com/summer19940609/verygoodbye/issues"
   },
-  "homepage": "https://github.com/summer19940609/twoPointDistance#readme",
+  "homepage": "https://github.com/summer19940609/verygoodbye#readme",
   "dependencies": {
     "vercel": "^41.5.0"
   }
