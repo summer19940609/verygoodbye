@@ -1,5 +1,5 @@
 
-                <html lang="en" class="simpread-font simpread-theme-root" style='--octotree-sidebar-width: 232px; --octotree-toggler-y: 534px;'>
+                <html lang="en" class="simpread-font simpread-theme-root" style='font-size: 63%!important;--octotree-sidebar-width: 232px; --octotree-toggler-y: 534px;'>
                     <head>
                         <meta charset="utf-8">
                         <meta http-equiv="content-type" content="text/html; charset=UTF-8;charset=utf-8">
@@ -39,7 +39,7 @@
         line-height: 1.8;
     }</style>
                         
-                        
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
                         <script>setTimeout(()=>{const e=location.hash.replace("#id=","");let t,a=!1;const n=t=>{for(let n of t){let t;if((t=e.length>6?n.getAttribute("data-id"):n.getAttribute("data-idx"))==e){n.scrollIntoView({behavior:"smooth",block:"start",inline:"nearest"}),a=!0;break}}};e&&(0==(t=document.getElementsByClassName("sr-unread-card")).length&&(t=document.getElementsByTagName("sr-annote")),n(t),a||n(t=document.getElementsByClassName("sr-annote")))},500);</script>
                         
                         <title>简悦 | mac-config/win_xnj.md at main · summer19940609/mac-config</title>
@@ -48,9 +48,7 @@
                         <sr-read style='undefined'>
                             <sr-rd-title>mac-config/win_xnj.md at main · summer19940609/mac-config</sr-rd-title>
                     
-                    <sr-rd-content><div><pre>irm https://get.activated.win | iex
-
-</pre><div>
+                    <sr-rd-content><div><pre class="hljs nginx"><span class="hljs-attribute">irm</span> https://get.activated.win | iex</pre><div>
     <clipboard-copy aria-label="Copy" data-copy-feedback="Copied!" data-tooltip-direction="w" value="irm https://get.activated.win | iex" tabindex="0" role="button">
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
     <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
@@ -59,9 +57,7 @@
     <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
 </svg>
     </clipboard-copy>
-  </div></div><p></p><p dir="auto"><a href="https://github.com/massgravel/Microsoft-Activation-Scripts">https://github.com/massgravel/Microsoft-Activation-Scripts</a> 激活工具</p><p></p><p dir="auto"><strong>去除搜索界面信息流</strong></p><p></p><div><pre>reg add "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\explorer" /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f
-
-</pre><div>
+  </div></div><p></p><p dir="auto"><a href="https://github.com/massgravel/Microsoft-Activation-Scripts">https://github.com/massgravel/Microsoft-Activation-Scripts</a> 激活工具</p><p></p><p dir="auto"><strong>去除搜索界面信息流</strong></p><p></p><div><pre class="hljs cs">reg <span class="hljs-keyword">add</span> <span class="hljs-string">"HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\explorer"</span> /v DisableSearchBoxSuggestions /t reg_dword /d <span class="hljs-number">1</span> /f</pre><div>
     <clipboard-copy aria-label="Copy" data-copy-feedback="Copied!" data-tooltip-direction="w" value="reg add &quot;HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\explorer&quot; /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f" tabindex="0" role="button">
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
     <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
@@ -70,9 +66,7 @@
     <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
 </svg>
     </clipboard-copy>
-  </div></div><p></p><p dir="auto"><strong>推迟 3000 天更新</strong></p><p></p><div><pre>reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings" /v FlightSettingsMaxPauseDays /t reg_dword /d 3000 /f
-
-</pre><div>
+  </div></div><p></p><p dir="auto"><strong>推迟 3000 天更新</strong></p><p></p><div><pre class="hljs cs">reg <span class="hljs-keyword">add</span> <span class="hljs-string">"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings"</span> /v FlightSettingsMaxPauseDays /t reg_dword /d <span class="hljs-number">3000</span> /f</pre><div>
     <clipboard-copy aria-label="Copy" data-copy-feedback="Copied!" data-tooltip-direction="w" value="reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings&quot; /v FlightSettingsMaxPauseDays /t reg_dword /d 3000 /f" tabindex="0" role="button">
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
     <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
@@ -81,9 +75,7 @@
     <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"></path>
 </svg>
     </clipboard-copy>
-  </div></div><p></p><p dir="auto"><a href="https://www.sordum.org/9470/windows-update-blocker-v1-8/" rel="nofollow">https://www.sordum.org/9470/windows-update-blocker-v1-8/</a></p><p></p><p dir="auto"><a href="https://github.com/tsgrgo/windows-update-disabler">https://github.com/tsgrgo/windows-update-disabler</a></p><p></p><p dir="auto"><a href="https://github.com/ionuttbara/windows-defender-remover">https://github.com/ionuttbara/windows-defender-remover</a></p><p></p><p dir="auto">关闭 Windows 11 系统广告的工具：OFGB</p><p></p><p dir="auto"><a href="https://github.com/xM4ddy/OFGB">https://github.com/xM4ddy/OFGB</a></p><p></p><div dir="auto"><h3 tabindex="-1" dir="auto" id="sr-toc-0">清除系统保留空间</h3><a aria-label="Permalink: 清除系统保留空间" href="#清除系统保留空间"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><p></p><div><pre>DISM.exe /Online /Set-ReservedStorageState /State:Disabled
-
-</pre><div>
+  </div></div><p></p><p dir="auto"><a href="https://www.sordum.org/9470/windows-update-blocker-v1-8/" rel="nofollow">https://www.sordum.org/9470/windows-update-blocker-v1-8/</a></p><p></p><p dir="auto"><a href="https://github.com/tsgrgo/windows-update-disabler">https://github.com/tsgrgo/windows-update-disabler</a></p><p></p><p dir="auto"><a href="https://github.com/ionuttbara/windows-defender-remover">https://github.com/ionuttbara/windows-defender-remover</a></p><p></p><p dir="auto">关闭 Windows 11 系统广告的工具：OFGB</p><p></p><p dir="auto"><a href="https://github.com/xM4ddy/OFGB">https://github.com/xM4ddy/OFGB</a></p><p></p><div dir="auto"><h3 tabindex="-1" dir="auto" id="sr-toc-0">清除系统保留空间</h3><a aria-label="Permalink: 清除系统保留空间" href="#清除系统保留空间"><svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div><p></p><div><pre class="hljs javascript">DISM.exe /Online /<span class="hljs-built_in">Set</span>-ReservedStorageState /State:Disabled</pre><div>
     <clipboard-copy aria-label="Copy" data-copy-feedback="Copied!" data-tooltip-direction="w" value="DISM.exe /Online /Set-ReservedStorageState /State:Disabled" tabindex="0" role="button">
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
     <path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"></path>
