@@ -1,33 +1,10 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>1</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
-  </style>
-  <link rel="stylesheet" href="1.css" />
-</head>
-<body>
+<p>更新时间：2025年6月8日</p>
 <h1 id="mac-config">mac-config</h1>
 <h3 id="开发命令行工具">开发命令行工具</h3>
-<pre><code>xcode-select --install</code></pre>
+<pre><code>xcode-select --install
+
+sudo xattr -rd com.apple.quarantine xxxx
+</code></pre>
 <p>How to remove the ‘Last Login’ prompt from iTerm/Terminal on
 macOS?</p>
 <p>https://stackoverflow.com/questions/15769615/remove-last-login-message-for-new-tabs-in-terminal</p>
@@ -286,13 +263,11 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # brew install romkatv/gitstatus/gitstatus
 source $(brew --prefix)/opt/gitstatus/gitstatus.prompt.zsh
-
-PROMPT=&#39;%F{green}→%f %F{magenta}%1~%f ${GITSTATUS_PROMPT:+[}${GITSTATUS_PROMPT}${GITSTATUS_PROMPT:+]}${GITSTATUS_PROMPT:+ }%(!.%F{red}%B&gt;%b%f .%F{yellow}%B&gt;%b%f &#39;
+PROMPT=&#39;%F{green}→%f %F{magenta}%1~%f ${GITSTATUS_PROMPT:+[}${GITSTATUS_PROMPT}${GITSTATUS_PROMPT:+]}${GITSTATUS_PROMPT:+ }$ &#39;
 </code></pre>
-<pre><code>
+<pre><code>### clash自定义规则
 prepend:
   - &#39;DOMAIN,alilang-unify-struct-log.cn-hangzhou.log.aliyuncs.com,REJECT&#39;
 append: []
 delete: []</code></pre>
-</body>
-</html>
+<!-- Generated at Sun Jun  8 05:37:50 UTC 2025 -->
