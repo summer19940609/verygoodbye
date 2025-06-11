@@ -25,6 +25,18 @@ defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）</co
 <pre><code>defaults write com.apple.dock autohide-time-modifier -int 0.5;killall Dock</code></pre>
 <p>恢复：</p>
 <pre><code>defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre>
+<h3 id="菜单栏间距调整">菜单栏间距调整</h3>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定间距</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSpacing <span class="at">-int</span> 10</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定内边距</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSelectionPadding <span class="at">-int</span> 6</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 当前间距查询</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 重置</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div>
 <p>macOS 14 输入法提示去除</p>
 <pre><code>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 
@@ -270,4 +282,4 @@ prepend:
   - &#39;DOMAIN,alilang-unify-struct-log.cn-hangzhou.log.aliyuncs.com,REJECT&#39;
 append: []
 delete: []</code></pre>
-<!-- Generated at Sun Jun  8 05:37:50 UTC 2025 -->
+<!-- Generated at Wed Jun 11 04:20:03 UTC 2025 -->
