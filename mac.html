@@ -398,11 +398,11 @@ sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#3
 <pre><code># 关闭 CursorUIViewService 防止导致卡顿，并重启
 sudo mkdir -p /Library/Preferences/FeatureFlags/Domain &amp;&amp; sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&quot; /Library/Preferences/FeatureFlags/Domain/UIKit.plist &amp;&amp; sudo shutdown -r now</code></pre>
 <p>切换中英文延迟</p>
-<p>hidutil property –set ‘{“CapsLockDelayOverride”:0}’</p>
-<p>brew install –cask capslocknodelay</p>
+<p><code>hidutil property --set &#39;{&quot;CapsLockDelayOverride&quot;:0}&#39;</code></p>
+<p><code>brew install --cask capslocknodelay</code></p>
 <p>开启任意位置拖动窗口功能,重启,
-需要按住control+command，然后再去用鼠标拖动窗口的任意位置</p>
-<p>defaults write -g NSWindowShouldDragOnGesture -bool true</p>
+需要按住<code>control+command</code>，然后再去用鼠标拖动窗口的任意位置</p>
+<p><code>defaults write -g NSWindowShouldDragOnGesture -bool true</code></p>
 <h3 id="quick-look-plugins">Quick Look plugins</h3>
 <p>quicklook 插件</p>
 <p>https://github.com/sindresorhus/quick-look-plugins</p>
@@ -638,4 +638,4 @@ append: []
 delete: []</code></pre>
 </body>
 </html>
-<!-- Generated at Mon Jul 21 02:22:11 UTC 2025 -->
+<!-- Generated at Mon Jul 21 02:23:37 UTC 2025 -->
