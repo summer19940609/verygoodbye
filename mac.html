@@ -393,7 +393,12 @@ defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）</co
 <p>macOS 14 输入法提示去除</p>
 <pre><code>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 
-sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&quot; /Library/Preferences/FeatureFlags/Domain/UIKit.plist</code></pre>
+sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&quot; /Library/Preferences/FeatureFlags/Domain/UIKit.plist
+
+
+# 关闭 macos 自带的切换输入法提示体验更佳！
+sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool NO
+</code></pre>
 <pre><code># 关闭 CursorUIViewService 防止导致卡顿，并重启
 sudo mkdir -p /Library/Preferences/FeatureFlags/Domain &amp;&amp; sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&quot; /Library/Preferences/FeatureFlags/Domain/UIKit.plist &amp;&amp; sudo shutdown -r now</code></pre>
 <p>切换中英文延迟</p>
@@ -637,4 +642,4 @@ append: []
 delete: []</code></pre>
 </body>
 </html>
-<!-- Generated at Mon Jul 21 02:24:28 UTC 2025 -->
+<!-- Generated at Wed Jul 30 02:12:45 UTC 2025 -->
