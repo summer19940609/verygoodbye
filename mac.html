@@ -355,7 +355,7 @@ page-break-after: avoid;
 </style>
 </head>
 <body>
-    <p style="margin-top: 0; margin-bottom: 1em;">更新时间: 2025-08-04</p>
+    <p style="margin-top: 0; margin-bottom: 1em;">更新时间: 2025-08-06</p>
 
 <h1 id="mac-config">mac-config</h1>
 <pre><code># 防止在网络驱动器上创建.DS_Store 文件
@@ -511,10 +511,7 @@ canvas_binary_host_mirror=https://registry.npmmirror.com/node-canvas-prebuilt/
 unsafe-perm=true
 
 → ~ $ cat ~/.config/husky/init.sh
-# eval &quot;$(fnm env --use-on-cd)&quot;
-
-export NVM_DIR=&quot;$HOME/.nvm&quot;
-[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;
+eval &quot;$(fnm env --use-on-cd)&quot;
 
 
 # 安装其他版本
@@ -538,17 +535,6 @@ $ fnm install 16 --node-dist-mirror=https://npmmirror.com/mirrors/node
 
 ]</code></pre>
 <h3 id="pyenv">pyenv</h3>
-<h3 id="nvm-安装-node">nvm 安装 node</h3>
-<pre><code>curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash 或者
-
-wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | bash
-
-安装了 `nvm-lazy` 后不需要下面的命令
-
-export NVM_DIR=&quot;$HOME/.nvm&quot;
-[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;  # This loads nvm
-[ -s &quot;$NVM_DIR/bash_completion&quot; ] &amp;&amp; \. &quot;$NVM_DIR/bash_completion&quot;  # This loads nvm bash_completion
-</code></pre>
 <h3 id="fnm-use">fnm use</h3>
 <pre><code>eval &quot;$(fnm env --use-on-cd --shell zsh)&quot;  # zshrc
 
@@ -657,4 +643,4 @@ append: []
 delete: []</code></pre>
 </body>
 </html>
-<!-- Generated at Mon Aug  4 10:44:27 UTC 2025 -->
+<!-- Generated at Wed Aug  6 09:21:15 UTC 2025 -->
