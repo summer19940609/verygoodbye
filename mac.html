@@ -590,43 +590,9 @@ cat ~/.huskyrc
 eval &quot;$(fnm env --use-on-cd)&quot;</code></pre>
 <h3 id="油猴脚本安装列表">油猴脚本安装列表</h3>
 <h3 id="zshrc">zshrc</h3>
-<pre><code># 历史记录文件和大小
-HISTFILE=~/.zsh_history
+<pre><code>HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
-
-# autocd：直接通过路径更改目录
-# extendedglob：使用额外的模式匹配特性
-# nomatch：未匹配的模式导致错误
-# beep：错误时发出蜂鸣声
-# notify：立即报台作业状态的变化
-setopt extendedglob nomatch notify
-unsetopt autocd beep
-
-setopt HIST_IGNORE_SPACE
-# 忽略重复记录
-setopt HIST_IGNORE_DUPS
-
-# 关掉 flowcontrol
-unsetopt flowcontrol
-
-DISABLE_MAGIC_FUNCTIONS=true
-
-if type brew &amp;&gt;/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
-  autoload -Uz compinit
-  compinit
-fi
-
-# zsh git 提示
-# autoload -Uz vcs_info
-# precmd_vcs_info() { vcs_info }
-# precmd_functions+=( precmd_vcs_info )
-# setopt prompt_subst
-# PROMPT=&#39;%F{green}→%f %F{magenta}%1~%f ${vcs_info_msg_0_} %F{green}$%f &#39;
-# zstyle &#39;:vcs_info:git:*&#39; formats &#39;[%F{cyan}%b%f]&#39;
-
-# PROMPT=&#39;%F{green}→%f %F{magenta}%1~%f %F{green}$%f&#39;
 
 export EDITOR=&#39;code&#39;
 
@@ -637,25 +603,15 @@ export LC_CTYPE=en_US.UTF-8
 alias gco=&quot;git checkout&quot;
 alias glo=&quot;git log --oneline&quot;
 alias gb=&quot;git branch&quot;
-alias gst=&quot;git status&quot;
+alias gst=&quot;git status -s&quot;
 alias ll=&quot;ls -lAh&quot;
+
+# alias setproxy=&quot;export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897&quot;
+# alias unsetproxy=&quot;unset ALL_PROXY&quot;
+
+alias zsh-rosetta=&quot;arch -x86_64 zsh&quot;
+alias killdock=&quot;killall Dock&quot;
 alias src=&quot;source ~/.zshrc&quot;
-alias clrhist=&#39;cat /dev/null &gt; ~/.zsh_history &amp;&amp; fc -R ~/.zsh_history&#39;
-
-# zsh-autosuggestions 卡顿
-pasteinit() {
-  OLD_SELF_INSERT=${${(s.:.)widgets[self-insert]}[2,3]}
-  zle -N self-insert url-quote-magic # I wonder if you&#39;d need `.url-quote-magic`?
-}
-pastefinish() {
-  zle -N self-insert $OLD_SELF_INSERT
-}
-zstyle :bracketed-paste-magic paste-init pasteinit
-zstyle :bracketed-paste-magic paste-finish pastefinish
-
-# 代理
-alias setproxy=&#39;export https_proxy=http://127.0.0.1:7897 http_proxy=http://127.0.0.1:7897 all_proxy=socks5://127.0.0.1:7897&#39;
-alias unsetproxy=&#39;unset https_proxy http_proxy all_proxy&#39;
 
 # java管理
 # export JAVA_8_HOME=/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home
@@ -664,27 +620,37 @@ alias unsetproxy=&#39;unset https_proxy http_proxy all_proxy&#39;
 # alias jdk8=&quot;export JAVA_HOME=$JAVA_8_HOME&quot;
 # alias jdk11=&quot;export JAVA_HOME=$JAVA_11_HOME&quot;
 
-eval &quot;$(fnm env --use-on-cd --shell zsh)&quot;
+# pip源 阿里源
+export PIP_INDEX_URL=https://mirrors.aliyun.com/pypi/simple
+
+# 阿里云源
+export FNM_NODE_DIST_MIRROR=https://npmmirror.com/mirrors/node/
+export NPM_CONFIG_REGISTRY=https://npmmirror.com/mirrors/npm/
+
+export NVM_NODEJS_ORG_MIRROR=https://npmmirror.com/mirrors/node/
 
 # 先尝试从历史记录中查找建议，如果找不到，再从补全引擎中查找。
 export ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
+alias awdloff=&#39;sudo ifconfig awdl0 down&#39;
+
+eval &quot;$(fnm env --use-on-cd --shell zsh)&quot;
+
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+source $(brew --prefix)/opt/gitstatus/gitstatus.prompt.zsh
+
+# # 设置提示符，只在git仓库中显示git信息
+PROMPT=&#39;%F{green}→%f %F{magenta}%1~%f${GITSTATUS_PROMPT:+ ($GITSTATUS_PROMPT)} &#39;
+
 [ -f $HOMEBREW_PREFIX/etc/profile.d/autojump.sh ] &amp;&amp; . $HOMEBREW_PREFIX/etc/profile.d/autojump.sh
 
-# eval &quot;$(pyenv init -)&quot;
-
-# brew install romkatv/gitstatus/gitstatus
-source $(brew --prefix)/opt/gitstatus/gitstatus.prompt.zsh
-PROMPT=&#39;%F{green}→%f %F{magenta}%1~%f ${GITSTATUS_PROMPT:+[}${GITSTATUS_PROMPT}${GITSTATUS_PROMPT:+]}${GITSTATUS_PROMPT:+ }$ &#39;
+# 设置CapsLock延迟为0
+hidutil property --set &#39;{&quot;CapsLockDelayOverride&quot;:0}&#39; &gt; /dev/null 2&gt;&amp;1
 </code></pre>
 <pre><code>### clash自定义规则
-prepend:
-  - &#39;DOMAIN,alilang-unify-struct-log.cn-hangzhou.log.aliyuncs.com,REJECT&#39;
-append: []
-delete: []</code></pre>
+</code></pre>
 <h3 id="orbstack">orbstack</h3>
 <p>开启 Rosetta，在 Apple Silicon (ARM) 上运行 Intel 架构
 (x86/x86_64/amd64) 镜像。</p>
@@ -700,4 +666,4 @@ pip install ragas           #安装包
 deactivate                  #退出</code></pre>
 </body>
 </html>
-<!-- Generated at Wed Aug 13 02:58:21 UTC 2025 -->
+<!-- Generated at Wed Aug 13 03:20:38 UTC 2025 -->
