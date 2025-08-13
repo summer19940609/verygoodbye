@@ -367,7 +367,7 @@ page-break-after: avoid;
 </style>
 </head>
 <body>
-    <p style="margin-top: 0; margin-bottom: 1em;">更新时间: 2025-08-08</p>
+    <p style="margin-top: 0; margin-bottom: 1em;">更新时间: 2025-08-13</p>
 
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -409,7 +409,12 @@ crontab: installing new crontab
 <h3 id="重建索引">重建索引</h3>
 <pre><code>sudo mdutil -a -i off
 sudo mdutil -a -i on
-sudo mdutil -E</code></pre>
+sudo mdutil -E
+
+// 清理Preboot，重建索引
+sudo mdutil -X /; sudo mdutil -X /System/Volumes/Preboot
+sudo mdutil -X /System/Volumes/Data
+</code></pre>
 <h3 id="开发命令行工具">开发命令行工具</h3>
 <pre><code>xcode-select --install
 
@@ -695,4 +700,4 @@ pip install ragas           #安装包
 deactivate                  #退出</code></pre>
 </body>
 </html>
-<!-- Generated at Fri Aug  8 05:46:44 UTC 2025 -->
+<!-- Generated at Wed Aug 13 02:58:21 UTC 2025 -->
