@@ -367,7 +367,7 @@ page-break-after: avoid;
 </style>
 </head>
 <body>
-    <p style="margin-top: 0; margin-bottom: 1em;">更新时间: 2025-08-18</p>
+    <p style="margin-top: 0; margin-bottom: 1em;">更新时间: 2025-08-22</p>
 
 <nav id="TOC" role="doc-toc">
 <ul>
@@ -394,6 +394,7 @@ plugins</a></li>
 <li><a href="#zshrc" id="toc-zshrc">zshrc</a></li>
 <li><a href="#orbstack" id="toc-orbstack">orbstack</a></li>
 <li><a href="#系统python环境" id="toc-系统python环境">系统python环境</a></li>
+<li><a href="#禁用siri" id="toc-禁用siri">禁用Siri</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -670,7 +671,16 @@ orb restart
 <pre><code>python3 -m venv .venv       #创建虚拟环境 
 source .venv/bin/activate   #激活
 pip install ragas           #安装包
-deactivate                  #退出</code></pre>
+deactivate                  #退出
+</code></pre>
+<h3 id="禁用siri">禁用Siri</h3>
+<pre><code>defaults write com.apple.assistant.support &#39;Siri Data Sharing Opt-In Status&#39; -int 2
+
+defaults write com.apple.assistant.backedup &#39;Use device speaker for TTS&#39; -int 3
+
+defaults write com.apple.assistant.support &#39;Assistant Enabled&#39; -bool false
+
+defaults write com.apple.SetupAssistant &#39;DidSeeSiriSetup&#39; -bool True</code></pre>
 </body>
 </html>
-<!-- Generated at Mon Aug 18 01:56:05 UTC 2025 -->
+<!-- Generated at Fri Aug 22 02:24:28 UTC 2025 -->
