@@ -310,6 +310,7 @@ plugins</a></li>
 <li><a href="#orbstack" id="toc-orbstack">orbstack</a></li>
 <li><a href="#系统python环境" id="toc-系统python环境">系统python环境</a></li>
 <li><a href="#禁用siri" id="toc-禁用siri">禁用Siri</a></li>
+<li><a href="#adb记录" id="toc-adb记录">adb记录</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -602,6 +603,13 @@ defaults write com.apple.assistant.backedup &#39;Use device speaker for TTS&#39;
 defaults write com.apple.assistant.support &#39;Assistant Enabled&#39; -bool false
 
 defaults write com.apple.SetupAssistant &#39;DidSeeSiriSetup&#39; -bool True</code></pre>
+<h3 id="adb记录">adb记录</h3>
+<pre><code>brew install --cask android-platform-tools
+
+
+adb devices
+adb shell
+settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </body>
 </html>
-<!-- Generated at Tue Aug 26 06:22:32 UTC 2025 -->
+<!-- Generated at Tue Aug 26 11:15:05 UTC 2025 -->
