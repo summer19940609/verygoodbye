@@ -282,12 +282,13 @@ display: none;
 </style>
 </head>
 <body>
-    <p>更新时间: 2025-08-26</p>
+    <p>更新时间: 2025-08-29</p>
 
 <nav id="TOC" role="doc-toc">
 <ul>
 <li><a href="#mac-config" id="toc-mac-config">mac-config</a>
 <ul>
+<li><a href="#启动台行列" id="toc-启动台行列">启动台行列</a></li>
 <li><a href="#定时任务" id="toc-定时任务">定时任务</a></li>
 <li><a href="#重建索引" id="toc-重建索引">重建索引</a></li>
 <li><a href="#开发命令行工具" id="toc-开发命令行工具">开发命令行工具</a></li>
@@ -317,6 +318,15 @@ plugins</a></li>
 <h1 id="mac-config">mac-config</h1>
 <pre><code># 防止在网络驱动器上创建.DS_Store 文件
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</code></pre>
+<h3 id="启动台行列">启动台行列</h3>
+<pre><code># 7行9列，设置生效
+defaults write com.apple.dock springboard-rows -int 7
+defaults write com.apple.dock springboard-columns -int 9
+defaults write com.apple.dock ResetLaunchPad -bool true;killall Dock
+
+# 恢复默认
+defaults write com.apple.dock springboard-rows Default defaults write com.apple.dock springboard-columns Default killall Dock
+</code></pre>
 <h3 id="定时任务">定时任务</h3>
 <pre><code>→ ~ EDITOR=vi crontab -e
 crontab: installing new crontab
@@ -362,16 +372,16 @@ defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）</co
 <p>恢复：</p>
 <pre><code>defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre>
 <h3 id="菜单栏间距调整">菜单栏间距调整</h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定间距</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSpacing <span class="at">-int</span> 10</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定内边距</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSelectionPadding <span class="at">-int</span> 6</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 当前间距查询</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 重置</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定间距</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSpacing <span class="at">-int</span> 10</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定内边距</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSelectionPadding <span class="at">-int</span> 6</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 当前间距查询</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 重置</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div>
 <p>macOS 14 输入法提示去除</p>
 <pre><code>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 
@@ -612,4 +622,4 @@ adb shell
 settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </body>
 </html>
-<!-- Generated at Tue Aug 26 11:15:05 UTC 2025 -->
+<!-- Generated at Fri Aug 29 03:27:05 UTC 2025 -->
