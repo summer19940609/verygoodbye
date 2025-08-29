@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title></title>
+  <meta name="viewport" content="width=device - width, initial - scale = 1.0, maximum - scale = 1.0, minimum - scale = 1.0, user - scalable = no">
+  <title>配置</title>
   <style type="text/css">html {
 line-height: 1.15; 
 -webkit-text-size-adjust: 100%; 
@@ -12,7 +12,7 @@ line-height: 1.15;
 
 
 body {
-margin: 50px;
+margin: 20px;
 }
 
 main {
@@ -249,6 +249,11 @@ border: none;
 border-radius: 4px;
 cursor: pointer;
 }
+@media (max - width: 768px) {
+#TOC {
+width: 200px;
+}
+}
 </style>
 </head>
 <body>
@@ -265,7 +270,7 @@ cursor: pointer;
     <ul>
     <li><a href="#mac-config" id="toc-mac-config">mac-config</a>
     <ul>
-    <li><a href="#启动台行列" id="toc-启动台行列">启动台行列</a></li>
+    <li><a href="#启动台行列设置" id="toc-启动台行列设置">启动台行列设置</a></li>
     <li><a href="#定时任务" id="toc-定时任务">定时任务</a></li>
     <li><a href="#重建索引" id="toc-重建索引">重建索引</a></li>
     <li><a href="#开发命令行工具" id="toc-开发命令行工具">开发命令行工具</a></li>
@@ -302,7 +307,7 @@ cursor: pointer;
 <h1 id="mac-config">mac-config</h1>
 <pre><code># 防止在网络驱动器上创建.DS_Store 文件
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</code></pre>
-<h3 id="启动台行列">启动台行列</h3>
+<h3 id="启动台行列设置">启动台行列设置</h3>
 <pre><code># 7行9列，设置生效
 defaults write com.apple.dock springboard-rows -int 6
 defaults write com.apple.dock springboard-columns -int 8
@@ -656,4 +661,4 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </script>
 </body>
 </html>
-<!-- Generated at Fri Aug 29 07:11:50 UTC 2025 -->
+<!-- Generated at Fri Aug 29 08:56:02 UTC 2025 -->
