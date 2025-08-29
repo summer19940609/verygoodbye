@@ -271,7 +271,6 @@ cursor: pointer;
 <li><a href="#开发命令行工具" id="toc-开发命令行工具">开发命令行工具</a></li>
 <li><a href="#mac-安装任何来源" id="toc-mac-安装任何来源">mac
 安装任何来源</a></li>
-<li><a href="#菜单栏间距调整" id="toc-菜单栏间距调整">菜单栏间距调整</a></li>
 <li><a href="#quick-look-plugins" id="toc-quick-look-plugins">Quick Look
 plugins</a></li>
 <li><a href="#brew" id="toc-brew">brew</a></li>
@@ -326,46 +325,47 @@ sudo mdutil -X /System/Volumes/Data
 <pre><code>xcode-select --install
 
 sudo xattr -rd com.apple.quarantine xxxx</code></pre>
+<blockquote>
 <p>How to remove the ‘Last Login’ prompt from iTerm/Terminal on
 macOS?</p>
+</blockquote>
+<blockquote>
 <p>https://stackoverflow.com/questions/15769615/remove-last-login-message-for-new-tabs-in-terminal</p>
+</blockquote>
 <pre><code>touch .hushlogin</code></pre>
 <h3 id="mac-安装任何来源">mac 安装任何来源</h3>
 <pre><code>`sudo spctl --master-disable`
 
-关闭AWDL：`sudo ifconfig awdl0 down`
-
-开启AWDL：`sudo ifconfig awdl0 up`
-
-取消开机声音
-
-sudo nvram StartupMute=%01
-
-dock 栏显示/隐藏无延迟
-
-defaults write com.apple.Dock autohide-delay -float 0 &amp;&amp; killall Dock
-
-延迟
-defaults write com.apple.dock autohide-delay -int 0（时间设为最短）
-
-defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）
-
-延迟动画
-defaults write com.apple.dock autohide-time-modifier -int 0.5;killall Dock
-
-恢复：
-defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre>
-<h3 id="菜单栏间距调整">菜单栏间距调整</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定间距</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSpacing <span class="at">-int</span> 10</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定内边距</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSelectionPadding <span class="at">-int</span> 6</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 当前间距查询</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 重置</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div>
+#### AWDL</code></pre>
+<p>关闭AWDL：<code>sudo ifconfig awdl0 down</code></p>
+<p>开启AWDL：<code>sudo ifconfig awdl0 up</code></p>
+<pre><code>#### 取消开机声音</code></pre>
+<p>sudo nvram StartupMute=%01</p>
+<pre><code>
+#### dock栏设置</code></pre>
+<p>defaults write com.apple.Dock autohide-delay -float 0 &amp;&amp;
+killall Dock</p>
+<p>延迟 defaults write com.apple.dock autohide-delay -int
+0（时间设为最短）</p>
+<p>defaults write com.apple.dock autohide-delay -int 0.5（时间设为
+0.5s）</p>
+<p>延迟动画 defaults write com.apple.dock autohide-time-modifier -int
+0.5;killall Dock</p>
+<p>恢复： defaults delete com.apple.dock autohide-time-modifier;killall
+Dock</p>
+<pre><code>
+### 菜单栏间距调整
+```bash
+# 指定间距
+defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10
+# 指定内边距
+defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 6
+# 当前间距查询
+defaults -currentHost read -globalDomain NSStatusItemSpacing
+defaults -currentHost read -globalDomain NSStatusItemSelectionPadding
+# 重置
+defaults -currentHost delete -globalDomain NSStatusItemSpacing
+defaults -currentHost delete -globalDomain NSStatusItemSelectionPadding</code></pre>
 <p>macOS 14 输入法提示去除</p>
 <pre><code>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 
@@ -629,4 +629,4 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </script>
 </body>
 </html>
-<!-- Generated at Fri Aug 29 06:36:50 UTC 2025 -->
+<!-- Generated at Fri Aug 29 06:39:55 UTC 2025 -->
