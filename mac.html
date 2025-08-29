@@ -259,13 +259,55 @@ cursor: pointer;
     <p>更新时间: 2025-08-29</p>
 
 
-<!-- 添加目录切换按钮 -->
+<!-- 目录切换按钮 -->
 <button class="toc-toggle">目录</button>
 
+
+<!-- 这里是关键：确保<ul>
+<li><a href="#mac-config" id="toc-mac-config">mac-config</a>
+<ul>
+<li><a href="#启动台行列设置"
+id="toc-启动台行列设置">启动台行列设置</a></li>
+<li><a href="#定时任务" id="toc-定时任务">定时任务</a></li>
+<li><a href="#重建索引" id="toc-重建索引">重建索引</a></li>
+<li><a href="#开发命令行工具"
+id="toc-开发命令行工具">开发命令行工具</a></li>
+<li><a href="#mac-安装任何来源" id="toc-mac-安装任何来源">mac
+安装任何来源</a>
+<ul>
+<li><a href="#awdl" id="toc-awdl">AWDL</a></li>
+<li><a href="#取消开机声音" id="toc-取消开机声音">取消开机声音</a></li>
+<li><a href="#dock栏设置" id="toc-dock栏设置">dock栏设置</a></li>
+</ul></li>
+<li><a href="#菜单栏间距调整"
+id="toc-菜单栏间距调整">菜单栏间距调整</a></li>
+<li><a href="#输入法提示" id="toc-输入法提示">输入法提示</a></li>
+<li><a href="#quick-look-plugins" id="toc-quick-look-plugins">Quick Look
+plugins</a></li>
+<li><a href="#brew" id="toc-brew">brew</a></li>
+<li><a href="#git" id="toc-git">git</a></li>
+<li><a href="#npm" id="toc-npm">npm</a></li>
+<li><a href="#vscode" id="toc-vscode">vscode</a></li>
+<li><a href="#ssh" id="toc-ssh">ssh</a></li>
+<li><a href="#配置" id="toc-配置">配置</a></li>
+<li><a href="#dockerorbstack"
+id="toc-dockerorbstack">docker、orbstack</a></li>
+<li><a href="#pyenv" id="toc-pyenv">pyenv</a></li>
+<li><a href="#fnm-use" id="toc-fnm-use">fnm use</a></li>
+<li><a href="#油猴脚本安装列表"
+id="toc-油猴脚本安装列表">油猴脚本安装列表</a></li>
+<li><a href="#zshrc" id="toc-zshrc">zshrc</a></li>
+<li><a href="#orbstack" id="toc-orbstack">orbstack</a></li>
+<li><a href="#系统python环境"
+id="toc-系统python环境">系统python环境</a></li>
+<li><a href="#禁用siri" id="toc-禁用siri">禁用Siri</a></li>
+<li><a href="#adb记录" id="toc-adb记录">adb记录</a></li>
+</ul></li>
+</ul>变量存在 -->
 <ul>
 <li><a href="#mac-config" id="toc-mac-config">mac-config</a>
 <ul>
-<li><a href="#启动台行列" id="toc-启动台行列">启动台行列</a></li>
+<li><a href="#启动台行列设置" id="toc-启动台行列设置">启动台行列设置</a></li>
 <li><a href="#定时任务" id="toc-定时任务">定时任务</a></li>
 <li><a href="#重建索引" id="toc-重建索引">重建索引</a></li>
 <li><a href="#开发命令行工具" id="toc-开发命令行工具">开发命令行工具</a></li>
@@ -297,10 +339,11 @@ plugins</a></li>
 <li><a href="#adb记录" id="toc-adb记录">adb记录</a></li>
 </ul></li>
 </ul>
+
 <h1 id="mac-config">mac-config</h1>
 <pre><code># 防止在网络驱动器上创建.DS_Store 文件
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</code></pre>
-<h3 id="启动台行列">启动台行列</h3>
+<h3 id="启动台行列设置">启动台行列设置</h3>
 <pre><code># 7行9列，设置生效
 defaults write com.apple.dock springboard-rows -int 6
 defaults write com.apple.dock springboard-columns -int 8
@@ -614,15 +657,21 @@ adb shell
 settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 
 <script>
-  // 确保DOM完全加载后执行
   document.addEventListener('DOMContentLoaded', function() {
-    // 获取目录元素并检查是否存在
+    // 双重检查元素是否存在
     const toc = document.getElementById('TOC');
     const toggleBtn = document.querySelector('.toc-toggle');
     
-    // 检查元素是否存在，避免null错误
-    if (!toc || !toggleBtn) {
-      console.warn('目录元素或切换按钮未找到');
+    // 如果元素不存在，尝试修复或提示
+    if (!toc) {
+      console.error('未生成目录，请确保使用了--toc参数');
+      // 隐藏切换按钮，因为没有目录可切换
+      if (toggleBtn) toggleBtn.style.display = 'none';
+      return;
+    }
+    
+    if (!toggleBtn) {
+      console.error('未找到目录切换按钮');
       return;
     }
     
@@ -631,11 +680,11 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
       toc.classList.toggle('active');
     });
     
-    // 点击目录链接后隐藏目录（可选）
+    // 点击目录链接后隐藏目录（移动设备）
     const tocLinks = toc.querySelectorAll('a');
     tocLinks.forEach(link => {
       link.addEventListener('click', function() {
-        if (window.innerWidth < 768) { // 仅在移动设备上点击后隐藏
+        if (window.innerWidth < 768) {
           toc.classList.remove('active');
         }
       });
@@ -644,4 +693,5 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </script>
 </body>
 </html>
-<!-- Generated at Fri Aug 29 06:43:14 UTC 2025 -->
+    
+<!-- Generated at Fri Aug 29 06:45:42 UTC 2025 -->
