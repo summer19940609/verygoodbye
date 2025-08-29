@@ -5,6 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title></title>
+<!-- 仅引入外部 CSS，不内置任何样式 -->
   <style type="text/css">
 
 
@@ -259,55 +260,18 @@ cursor: pointer;
     <p>更新时间: 2025-08-29</p>
 
 
-<!-- 目录切换按钮 -->
-<button class="toc-toggle">目录</button>
+<!-- 目录切换按钮：样式完全由 pandoc.css 控制 -->
+<button class="toc-toggle">显示目录</button>
 
 
-<!-- 这里是关键：确保<ul>
+<!-- 关键：强制包裹 #TOC 容器，确保 CSS 选择器生效 -->
+  <div id="TOC">
+    <!-- 目录标题：如需样式可在 pandoc.css 中定义 #TOC > h2 -->
+    <h2>目录</h2>
+    <ul>
 <li><a href="#mac-config" id="toc-mac-config">mac-config</a>
 <ul>
-<li><a href="#启动台行列设置"
-id="toc-启动台行列设置">启动台行列设置</a></li>
-<li><a href="#定时任务" id="toc-定时任务">定时任务</a></li>
-<li><a href="#重建索引" id="toc-重建索引">重建索引</a></li>
-<li><a href="#开发命令行工具"
-id="toc-开发命令行工具">开发命令行工具</a></li>
-<li><a href="#mac-安装任何来源" id="toc-mac-安装任何来源">mac
-安装任何来源</a>
-<ul>
-<li><a href="#awdl" id="toc-awdl">AWDL</a></li>
-<li><a href="#取消开机声音" id="toc-取消开机声音">取消开机声音</a></li>
-<li><a href="#dock栏设置" id="toc-dock栏设置">dock栏设置</a></li>
-</ul></li>
-<li><a href="#菜单栏间距调整"
-id="toc-菜单栏间距调整">菜单栏间距调整</a></li>
-<li><a href="#输入法提示" id="toc-输入法提示">输入法提示</a></li>
-<li><a href="#quick-look-plugins" id="toc-quick-look-plugins">Quick Look
-plugins</a></li>
-<li><a href="#brew" id="toc-brew">brew</a></li>
-<li><a href="#git" id="toc-git">git</a></li>
-<li><a href="#npm" id="toc-npm">npm</a></li>
-<li><a href="#vscode" id="toc-vscode">vscode</a></li>
-<li><a href="#ssh" id="toc-ssh">ssh</a></li>
-<li><a href="#配置" id="toc-配置">配置</a></li>
-<li><a href="#dockerorbstack"
-id="toc-dockerorbstack">docker、orbstack</a></li>
-<li><a href="#pyenv" id="toc-pyenv">pyenv</a></li>
-<li><a href="#fnm-use" id="toc-fnm-use">fnm use</a></li>
-<li><a href="#油猴脚本安装列表"
-id="toc-油猴脚本安装列表">油猴脚本安装列表</a></li>
-<li><a href="#zshrc" id="toc-zshrc">zshrc</a></li>
-<li><a href="#orbstack" id="toc-orbstack">orbstack</a></li>
-<li><a href="#系统python环境"
-id="toc-系统python环境">系统python环境</a></li>
-<li><a href="#禁用siri" id="toc-禁用siri">禁用Siri</a></li>
-<li><a href="#adb记录" id="toc-adb记录">adb记录</a></li>
-</ul></li>
-</ul>变量存在 -->
-<ul>
-<li><a href="#mac-config" id="toc-mac-config">mac-config</a>
-<ul>
-<li><a href="#启动台行列设置" id="toc-启动台行列设置">启动台行列设置</a></li>
+<li><a href="#启动台行列" id="toc-启动台行列">启动台行列</a></li>
 <li><a href="#定时任务" id="toc-定时任务">定时任务</a></li>
 <li><a href="#重建索引" id="toc-重建索引">重建索引</a></li>
 <li><a href="#开发命令行工具" id="toc-开发命令行工具">开发命令行工具</a></li>
@@ -338,12 +302,13 @@ plugins</a></li>
 <li><a href="#禁用siri" id="toc-禁用siri">禁用Siri</a></li>
 <li><a href="#adb记录" id="toc-adb记录">adb记录</a></li>
 </ul></li>
-</ul>
+</ul> <!-- Pandoc 生成的目录列表插入此处 -->
+  </div>
 
 <h1 id="mac-config">mac-config</h1>
 <pre><code># 防止在网络驱动器上创建.DS_Store 文件
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</code></pre>
-<h3 id="启动台行列设置">启动台行列设置</h3>
+<h3 id="启动台行列">启动台行列</h3>
 <pre><code># 7行9列，设置生效
 defaults write com.apple.dock springboard-rows -int 6
 defaults write com.apple.dock springboard-columns -int 8
@@ -656,36 +621,43 @@ adb devices
 adb shell
 settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 
+
+<!-- 保留优化后的交互脚本，仅负责逻辑不涉及样式 -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // 双重检查元素是否存在
+    // 1. 获取核心元素（带容错）
     const toc = document.getElementById('TOC');
     const toggleBtn = document.querySelector('.toc-toggle');
-    
-    // 如果元素不存在，尝试修复或提示
-    if (!toc) {
-      console.error('未生成目录，请确保使用了--toc参数');
-      // 隐藏切换按钮，因为没有目录可切换
-      if (toggleBtn) toggleBtn.style.display = 'none';
+    const tocTitle = toc ? toc.querySelector('h2') : null;
+
+    // 2. 容错处理：避免元素缺失导致报错
+    if (!toc || !toggleBtn) {
+      if (toggleBtn) toggleBtn.textContent = "目录未生成";
+      console.warn('目录或切换按钮缺失，请检查：1. 已添加 --toc 参数 2. pandoc.css 已引入');
       return;
     }
-    
-    if (!toggleBtn) {
-      console.error('未找到目录切换按钮');
-      return;
-    }
-    
-    // 点击按钮切换目录显示/隐藏
+
+    // 3. 按钮点击：切换目录显示/隐藏 + 动态更新按钮文字
     toggleBtn.addEventListener('click', function() {
-      toc.classList.toggle('active');
+      const isActive = toc.classList.toggle('active');
+      toggleBtn.textContent = isActive ? "隐藏目录" : "显示目录";
     });
-    
-    // 点击目录链接后隐藏目录（移动设备）
+
+    // 4. 目录标题点击：支持点击标题切换（需在 pandoc.css 中添加 cursor: pointer 优化体验）
+    if (tocTitle) {
+      tocTitle.addEventListener('click', function() {
+        const isActive = toc.classList.toggle('active');
+        toggleBtn.textContent = isActive ? "隐藏目录" : "显示目录";
+      });
+    }
+
+    // 5. 移动端适配：点击目录链接后自动隐藏目录
     const tocLinks = toc.querySelectorAll('a');
     tocLinks.forEach(link => {
       link.addEventListener('click', function() {
         if (window.innerWidth < 768) {
           toc.classList.remove('active');
+          toggleBtn.textContent = "显示目录";
         }
       });
     });
@@ -693,5 +665,4 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </script>
 </body>
 </html>
-    
-<!-- Generated at Fri Aug 29 06:45:42 UTC 2025 -->
+<!-- Generated at Fri Aug 29 06:50:01 UTC 2025 -->
