@@ -387,7 +387,7 @@ sudo mkdir -p /Library/Preferences/FeatureFlags/Domain &amp;&amp; sudo /usr/libe
 <p>切换中英文延迟</p>
 <p><code>hidutil property --set &#39;{&quot;CapsLockDelayOverride&quot;:0}&#39;</code></p>
 <p>开启任意位置拖动窗口功能,重启,
-需要按住<code>control+command</code>，然后再去用鼠标拖动窗口的任意位置</p>
+需要按住<code>control+command</code>，然后再去用鼠标拖动窗口的任意位置。</p>
 <p><code>defaults write -g NSWindowShouldDragOnGesture -bool true</code></p>
 <h3 id="quick-look-plugins">Quick Look plugins</h3>
 <p>quicklook 插件</p>
@@ -614,10 +614,17 @@ adb shell
 settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 
 <script>
-  // 目录切换功能
+  // 确保DOM完全加载后执行
   document.addEventListener('DOMContentLoaded', function() {
+    // 获取目录元素并检查是否存在
     const toc = document.getElementById('TOC');
     const toggleBtn = document.querySelector('.toc-toggle');
+    
+    // 检查元素是否存在，避免null错误
+    if (!toc || !toggleBtn) {
+      console.warn('目录元素或切换按钮未找到');
+      return;
+    }
     
     // 点击按钮切换目录显示/隐藏
     toggleBtn.addEventListener('click', function() {
@@ -637,4 +644,4 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </script>
 </body>
 </html>
-<!-- Generated at Fri Aug 29 06:41:54 UTC 2025 -->
+<!-- Generated at Fri Aug 29 06:43:14 UTC 2025 -->
