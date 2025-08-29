@@ -4,88 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>README</title>
-  <style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-
-ul.task-list[class]{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-font-size: inherit;
-width: 0.8em;
-margin: 0 0.8em 0.2em -1.6em;
-vertical-align: middle;
-}
-.display.math{display: block; text-align: center; margin: 0.5rem auto;}
-
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-{ counter-reset: source-line 0; }
-pre.numberSource code > span
-{ position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-{ content: counter(source-line);
-position: relative; left: -1em; text-align: right; vertical-align: baseline;
-border: none; display: inline-block;
--webkit-touch-callout: none; -webkit-user-select: none;
--khtml-user-select: none; -moz-user-select: none;
--ms-user-select: none; user-select: none;
-padding: 0 4px; width: 4em;
-color: #aaaaaa;
-}
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
-div.sourceCode
-{ }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } 
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.at { color: #7d9029; } 
-code span.bn { color: #40a070; } 
-code span.bu { color: #008000; } 
-code span.cf { color: #007020; font-weight: bold; } 
-code span.ch { color: #4070a0; } 
-code span.cn { color: #880000; } 
-code span.co { color: #60a0b0; font-style: italic; } 
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.do { color: #ba2121; font-style: italic; } 
-code span.dt { color: #902000; } 
-code span.dv { color: #40a070; } 
-code span.er { color: #ff0000; font-weight: bold; } 
-code span.ex { } 
-code span.fl { color: #40a070; } 
-code span.fu { color: #06287e; } 
-code span.im { color: #008000; font-weight: bold; } 
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
-code span.kw { color: #007020; font-weight: bold; } 
-code span.op { color: #666666; } 
-code span.ot { color: #007020; } 
-code span.pp { color: #bc7a00; } 
-code span.sc { color: #4070a0; } 
-code span.ss { color: #bb6688; } 
-code span.st { color: #4070a0; } 
-code span.va { color: #19177c; } 
-code span.vs { color: #4070a0; } 
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
-</style>
+  <title></title>
   <style type="text/css">
 
 
@@ -279,12 +198,70 @@ display: none;
 [hidden] {
 display: none;
 }
+
+#TOC {
+position: fixed;
+right: 0;
+top: 0;
+width: 300px;
+height: 100%;
+background-color: #f8f9fa;
+border-left: 1px solid #dee2e6;
+padding: 20px;
+overflow-y: auto;
+transform: translateX(100%);
+transition: transform 0.3s ease;
+z-index: 1000;
+}
+
+#TOC.active {
+transform: translateX(0);
+}
+
+#TOC > h1 {
+margin-top: 0;
+border-bottom: 1px solid #dee2e6;
+padding-bottom: 10px;
+cursor: pointer;
+}
+
+#TOC ul {
+list-style-type: none;
+padding-left: 20px;
+}
+#TOC li {
+margin: 8px 0;
+}
+#TOC a {
+text-decoration: none;
+color: #333;
+}
+#TOC a:hover {
+color: #007bff;
+text-decoration: underline;
+}
+
+.toc-toggle {
+position: fixed;
+right: 20px;
+top: 20px;
+z-index: 1001;
+padding: 8px 12px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
 </style>
 </head>
 <body>
     <p>更新时间: 2025-08-29</p>
 
-<nav id="TOC" role="doc-toc">
+
+<!-- 添加目录切换按钮 -->
+<button class="toc-toggle">目录</button>
+
 <ul>
 <li><a href="#mac-config" id="toc-mac-config">mac-config</a>
 <ul>
@@ -314,7 +291,6 @@ plugins</a></li>
 <li><a href="#adb记录" id="toc-adb记录">adb记录</a></li>
 </ul></li>
 </ul>
-</nav>
 <h1 id="mac-config">mac-config</h1>
 <pre><code># 防止在网络驱动器上创建.DS_Store 文件
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</code></pre>
@@ -355,32 +331,41 @@ macOS?</p>
 <p>https://stackoverflow.com/questions/15769615/remove-last-login-message-for-new-tabs-in-terminal</p>
 <pre><code>touch .hushlogin</code></pre>
 <h3 id="mac-安装任何来源">mac 安装任何来源</h3>
-<p><code>sudo spctl --master-disable</code></p>
-<p>关闭AWDL：<code>sudo ifconfig awdl0 down</code></p>
-<p>开启AWDL：<code>sudo ifconfig awdl0 up</code></p>
-<p>取消开机声音</p>
-<p><code>sudo nvram StartupMute=%01</code></p>
-<p>dock 栏显示/隐藏无延迟</p>
-<p><code>defaults write com.apple.Dock autohide-delay -float 0 &amp;&amp; killall Dock</code></p>
-<p>延迟</p>
-<pre><code>defaults write com.apple.dock autohide-delay -int 0（时间设为最短）
+<pre><code>`sudo spctl --master-disable`
 
-defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）</code></pre>
-<p>延迟动画</p>
-<pre><code>defaults write com.apple.dock autohide-time-modifier -int 0.5;killall Dock</code></pre>
-<p>恢复：</p>
-<pre><code>defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre>
+关闭AWDL：`sudo ifconfig awdl0 down`
+
+开启AWDL：`sudo ifconfig awdl0 up`
+
+取消开机声音
+
+sudo nvram StartupMute=%01
+
+dock 栏显示/隐藏无延迟
+
+defaults write com.apple.Dock autohide-delay -float 0 &amp;&amp; killall Dock
+
+延迟
+defaults write com.apple.dock autohide-delay -int 0（时间设为最短）
+
+defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）
+
+延迟动画
+defaults write com.apple.dock autohide-time-modifier -int 0.5;killall Dock
+
+恢复：
+defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre>
 <h3 id="菜单栏间距调整">菜单栏间距调整</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定间距</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSpacing <span class="at">-int</span> 10</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定内边距</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSelectionPadding <span class="at">-int</span> 6</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 当前间距查询</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 重置</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定间距</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSpacing <span class="at">-int</span> 10</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 指定内边距</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSelectionPadding <span class="at">-int</span> 6</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 当前间距查询</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 重置</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div>
 <p>macOS 14 输入法提示去除</p>
 <pre><code>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 
@@ -619,6 +604,29 @@ defaults write com.apple.SetupAssistant &#39;DidSeeSiriSetup&#39; -bool True</co
 adb devices
 adb shell
 settings put global vivo_screen_refresh_rate_mode 90</code></pre>
+
+<script>
+  // 目录切换功能
+  document.addEventListener('DOMContentLoaded', function() {
+    const toc = document.getElementById('TOC');
+    const toggleBtn = document.querySelector('.toc-toggle');
+    
+    // 点击按钮切换目录显示/隐藏
+    toggleBtn.addEventListener('click', function() {
+      toc.classList.toggle('active');
+    });
+    
+    // 点击目录链接后隐藏目录（可选）
+    const tocLinks = toc.querySelectorAll('a');
+    tocLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        if (window.innerWidth < 768) { // 仅在移动设备上点击后隐藏
+          toc.classList.remove('active');
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
-<!-- Generated at Fri Aug 29 04:01:00 UTC 2025 -->
+<!-- Generated at Fri Aug 29 06:36:50 UTC 2025 -->
