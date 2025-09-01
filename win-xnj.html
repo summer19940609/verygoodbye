@@ -311,7 +311,7 @@ win10/win11 新系统强制登录微软账号</h3>
 <p>wsreset -i 联网自动下载安装 Microsoft store</p>
 <p>或者下载 xbox，然后安装</p>
 <h3 id="win10-卓越性能">win10 卓越性能</h3>
-<p>powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61</p>
+<p><code>powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61</code></p>
 <h3 id="运行库">运行库</h3>
 <p>mefcl.com/grlpackage.html</p>
 <p>游戏运行库、游戏常用运行库 合集 | Game Runtime Libraries
@@ -328,6 +328,7 @@ Package（v6.4.25.0614）</p>
 
     if (!toc || !toggleBtn) {
       if (toggleBtn) toggleBtn.textContent = "目录未生成";
+      toggleBtn.remove(); // 移除按钮
       console.warn('目录或切换按钮缺失，请检查--toc参数和CSS引入');
       return;
     }
@@ -360,4 +361,4 @@ Package（v6.4.25.0614）</p>
 </script>
 </body>
 </html>
-<!-- Generated at Mon Sep  1 09:16:22 UTC 2025 -->
+<!-- Generated at Mon Sep  1 09:23:31 UTC 2025 -->
