@@ -255,10 +255,17 @@ cursor: pointer;
 width: 200px;
 }
 }
+blockquote {
+background-color: #eee;
+padding: 1px;
+}
+blockquote p {
+margin-left: 5px;
+}
 </style>
 </head>
 <body>
-    <p>更新时间: 2025-09-01</p>
+    <p>更新时间: 2025-09-02</p>
 
 
 <!-- 目录切换按钮 -->
@@ -625,6 +632,7 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 
     if (!toc || !toggleBtn) {
       if (toggleBtn) toggleBtn.textContent = "目录未生成";
+      toggleBtn.remove(); // 移除按钮
       console.warn('目录或切换按钮缺失，请检查--toc参数和CSS引入');
       return;
     }
@@ -657,4 +665,4 @@ settings put global vivo_screen_refresh_rate_mode 90</code></pre>
 </script>
 </body>
 </html>
-<!-- Generated at Mon Sep  1 09:10:31 UTC 2025 -->
+<!-- Generated at Tue Sep  2 03:55:12 UTC 2025 -->
