@@ -1,15 +1,15 @@
-<!doctypehtml><html xmlns="http://www.w3.org/1999/xhtml"lang="zh-CN"xml:lang="zh-CN"><meta charset="utf-8"><meta name="generator"content="pandoc"><meta name="viewport"content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><title>配置</title><style type="text/css">html{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";line-height:1.15;-webkit-text-size-adjust:100%}body{margin:20px}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{padding:1rem;overflow:auto;font-size:85%;line-height:1.45;color:#1f2328;background-color:#f6f8fa;border-radius:6px}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}#TOC{position:fixed;right:0;top:0;width:300px;height:100%;background-color:#f8f9fa;border-left:1px solid #dee2e6;padding:20px;overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;z-index:1000}#TOC.active{transform:translateX(0)}#TOC>h1{margin-top:0;border-bottom:1px solid #dee2e6;padding-bottom:10px;cursor:pointer}#TOC ul{list-style-type:none;padding-left:20px}#TOC li{margin:8px 0}#TOC a{text-decoration:none;color:#333}#TOC a:hover{color:#007bff;text-decoration:underline}.toc-toggle{position:fixed;right:20px;top:20px;z-index:1001;padding:8px 12px;background-color:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer}@media (max - width:768px){#TOC{width:200px}}blockquote{padding:0 1em;color:#59636e;border-left:.25em solid #d1d9e0}blockquote>:last-child{margin-bottom:0}blockquote>:first-child{margin-top:0}blockquote p{margin-left:5px}</style><p>更新时间: 2025-09-03</p><button class="toc-toggle">显示目录</button><div id="TOC"><h2>目录</h2><ul><li><a href="#mac-config记录"id="toc-mac-config记录"><span class="toc-section-number">1</span> mac-config记录</a><ul><li><a href="#启动台行列设置"id="toc-启动台行列设置"><span class="toc-section-number">1.0.1</span> 启动台行列设置</a><li><a href="#定时任务"id="toc-定时任务"><span class="toc-section-number">1.0.2</span> 定时任务</a><li><a href="#重建索引"id="toc-重建索引"><span class="toc-section-number">1.0.3</span> 重建索引</a><li><a href="#开发命令行工具"id="toc-开发命令行工具"><span class="toc-section-number">1.0.4</span> 开发命令行工具</a><li><a href="#mac-安装任何来源"id="toc-mac-安装任何来源"><span class="toc-section-number">1.0.5</span> mac 安装任何来源</a><li><a href="#菜单栏间距调整"id="toc-菜单栏间距调整"><span class="toc-section-number">1.0.6</span> 菜单栏间距调整</a><li><a href="#输入法提示"id="toc-输入法提示"><span class="toc-section-number">1.0.7</span> 输入法提示</a><li><a href="#quick-look-plugins"id="toc-quick-look-plugins"><span class="toc-section-number">1.0.8</span> Quick Look plugins</a><li><a href="#brew"id="toc-brew"><span class="toc-section-number">1.0.9</span> brew</a><li><a href="#git"id="toc-git"><span class="toc-section-number">1.0.10</span> git</a><li><a href="#npm"id="toc-npm"><span class="toc-section-number">1.0.11</span> npm</a><li><a href="#vscode"id="toc-vscode"><span class="toc-section-number">1.0.12</span> vscode</a><li><a href="#ssh"id="toc-ssh"><span class="toc-section-number">1.0.13</span> ssh</a><li><a href="#配置"id="toc-配置"><span class="toc-section-number">1.0.14</span> 配置</a><li><a href="#dockerorbstack"id="toc-dockerorbstack"><span class="toc-section-number">1.0.15</span> docker、orbstack</a><li><a href="#pyenv"id="toc-pyenv"><span class="toc-section-number">1.0.16</span> pyenv</a><li><a href="#fnm-use"id="toc-fnm-use"><span class="toc-section-number">1.0.17</span> fnm use</a><li><a href="#油猴脚本安装列表"id="toc-油猴脚本安装列表"><span class="toc-section-number">1.0.18</span> 油猴脚本安装列表</a><li><a href="#zshrc"id="toc-zshrc"><span class="toc-section-number">1.0.19</span> zshrc</a><li><a href="#orbstack"id="toc-orbstack"><span class="toc-section-number">1.0.20</span> orbstack</a><li><a href="#系统python环境"id="toc-系统python环境"><span class="toc-section-number">1.0.21</span> 系统python环境</a><li><a href="#禁用siri"id="toc-禁用siri"><span class="toc-section-number">1.0.22</span> 禁用Siri</a><li><a href="#adb记录"id="toc-adb记录"><span class="toc-section-number">1.0.23</span> adb记录</a></ul></ul></div><h1 data-number="1"id="mac-config记录"><span class="header-section-number">1</span> mac-config记录</h1><pre><code># 防止在网络驱动器上创建.DS_Store文件
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</code></pre><h3 data-number="1.0.1"id="启动台行列设置"><span class="header-section-number">1.0.1</span> 启动台行列设置</h3><pre><code># 7行9列，设置生效
+<!doctypehtml><html xmlns="http://www.w3.org/1999/xhtml"lang xml:lang><meta charset="utf-8"><meta name="generator"content="pandoc"><meta name="viewport"content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><title>配置</title><style type="text/css">html{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";line-height:1.15;-webkit-text-size-adjust:100%}body{margin:20px}main{display:block}h1{font-size:2em;margin:.67em 0}hr{box-sizing:content-box;height:0;overflow:visible}pre{padding:1rem;overflow:auto;font-size:85%;line-height:1.45;color:#1f2328;background-color:#f6f8fa;border-radius:6px}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}#TOC{position:fixed;right:0;top:0;width:300px;height:100%;background-color:#f8f9fa;border-left:1px solid #dee2e6;padding:20px;overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;z-index:1000}#TOC.active{transform:translateX(0)}#TOC>h1{margin-top:0;border-bottom:1px solid #dee2e6;padding-bottom:10px;cursor:pointer}#TOC ul{list-style-type:none;padding-left:20px}#TOC li{margin:8px 0}#TOC a{text-decoration:none;color:#333}#TOC a:hover{color:#007bff;text-decoration:underline}.toc-toggle{position:fixed;right:20px;top:20px;z-index:1001;padding:8px 12px;background-color:#007bff;color:#fff;border:none;border-radius:4px;cursor:pointer}@media (max - width:768px){#TOC{width:200px}}blockquote{padding:0 1em;color:#59636e;border-left:.25em solid #d1d9e0}blockquote>:last-child{margin-bottom:0}blockquote>:first-child{margin-top:0}blockquote p{margin-left:5px}</style><p>更新时间: 2025-09-03</p><button class="toc-toggle">显示目录</button><div id="TOC"><h2>目录</h2><ul><li><a href="#mac-config记录"id="toc-mac-config记录">mac-config记录</a><ul><li><a href="#启动台行列设置"id="toc-启动台行列设置">启动台行列设置</a><li><a href="#定时任务"id="toc-定时任务">定时任务</a><li><a href="#重建索引"id="toc-重建索引">重建索引</a><li><a href="#开发命令行工具"id="toc-开发命令行工具">开发命令行工具</a><li><a href="#mac-安装任何来源"id="toc-mac-安装任何来源">mac 安装任何来源</a><li><a href="#菜单栏间距调整"id="toc-菜单栏间距调整">菜单栏间距调整</a><li><a href="#输入法提示"id="toc-输入法提示">输入法提示</a><li><a href="#quick-look-plugins"id="toc-quick-look-plugins">Quick Look plugins</a><li><a href="#brew"id="toc-brew">brew</a><li><a href="#git"id="toc-git">git</a><li><a href="#npm"id="toc-npm">npm</a><li><a href="#vscode"id="toc-vscode">vscode</a><li><a href="#ssh"id="toc-ssh">ssh</a><li><a href="#配置"id="toc-配置">配置</a><li><a href="#dockerorbstack"id="toc-dockerorbstack">docker、orbstack</a><li><a href="#pyenv"id="toc-pyenv">pyenv</a><li><a href="#fnm-use"id="toc-fnm-use">fnm use</a><li><a href="#油猴脚本安装列表"id="toc-油猴脚本安装列表">油猴脚本安装列表</a><li><a href="#zshrc"id="toc-zshrc">zshrc</a><li><a href="#orbstack"id="toc-orbstack">orbstack</a><li><a href="#系统python环境"id="toc-系统python环境">系统python环境</a><li><a href="#禁用siri"id="toc-禁用siri">禁用Siri</a><li><a href="#adb记录"id="toc-adb记录">adb记录</a></ul></ul></div><h1 id="mac-config记录">mac-config记录</h1><pre><code># 防止在网络驱动器上创建.DS_Store文件
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE</code></pre><h3 id="启动台行列设置">启动台行列设置</h3><pre><code># 7行9列，设置生效
 defaults write com.apple.dock springboard-rows -int 6
 defaults write com.apple.dock springboard-columns -int 8
 defaults write com.apple.dock ResetLaunchPad -bool true;killall Dock
 
 # 恢复默认
-defaults write com.apple.dock springboard-rows Default defaults write com.apple.dock springboard-columns Default killall Dock</code></pre><h3 data-number="1.0.2"id="定时任务"><span class="header-section-number">1.0.2</span> 定时任务</h3><pre><code>→ ~ EDITOR=vi crontab -e
+defaults write com.apple.dock springboard-rows Default defaults write com.apple.dock springboard-columns Default killall Dock</code></pre><h3 id="定时任务">定时任务</h3><pre><code>→ ~ EDITOR=vi crontab -e
 crontab: installing new crontab
 → ~ crontab -l
 0 */1 * * * kill -9 $(pgrep CursorUIViewService) &gt; /dev/null 2&gt;&amp;1
-0 */1 * * * kill -9 $(pgrep SCIM) &gt; /dev/null 2&gt;&amp;1</code></pre><h3 data-number="1.0.3"id="重建索引"><span class="header-section-number">1.0.3</span> 重建索引</h3><pre><code>sudo mdutil -a -i off
+0 */1 * * * kill -9 $(pgrep SCIM) &gt; /dev/null 2&gt;&amp;1</code></pre><h3 id="重建索引">重建索引</h3><pre><code>sudo mdutil -a -i off
 sudo mdutil -a -i on
 sudo mdutil -E
 
@@ -20,11 +20,11 @@ sudo mdutil -X /
 # 删除Preboot分区索引
 sudo mdutil -X /System/Volumes/Preboot
 # 删除Data分区索引
-sudo mdutil -X /System/Volumes/Data</code></pre><h3 data-number="1.0.4"id="开发命令行工具"><span class="header-section-number">1.0.4</span> 开发命令行工具</h3><pre><code>xcode-select --install
+sudo mdutil -X /System/Volumes/Data</code></pre><h3 id="开发命令行工具">开发命令行工具</h3><pre><code>xcode-select --install
 
-sudo xattr -rd com.apple.quarantine xxxx</code></pre><blockquote><p>How to remove the ‘Last Login’ prompt from iTerm/Terminal on macOS?</blockquote><blockquote><p>https://stackoverflow.com/questions/15769615/remove-last-login-message-for-new-tabs-in-terminal</blockquote><pre><code>touch .hushlogin </code></pre><h3 data-number="1.0.5"id="mac-安装任何来源"><span class="header-section-number">1.0.5</span> mac 安装任何来源</h3><pre><code>sudo spctl --master-disable</code></pre><h4 data-number="1.0.5.1"id="awdl"><span class="header-section-number">1.0.5.1</span> AWDL</h4><pre><code>关闭AWDL：`sudo ifconfig awdl0 down`
+sudo xattr -rd com.apple.quarantine xxxx</code></pre><blockquote><p>How to remove the ‘Last Login’ prompt from iTerm/Terminal on macOS?</blockquote><blockquote><p>https://stackoverflow.com/questions/15769615/remove-last-login-message-for-new-tabs-in-terminal</blockquote><pre><code>touch .hushlogin </code></pre><h3 id="mac-安装任何来源">mac 安装任何来源</h3><pre><code>sudo spctl --master-disable</code></pre><h4 id="awdl">AWDL</h4><pre><code>关闭AWDL：`sudo ifconfig awdl0 down`
 
-开启AWDL：`sudo ifconfig awdl0 up`</code></pre><h4 data-number="1.0.5.2"id="取消开机声音"><span class="header-section-number">1.0.5.2</span> 取消开机声音</h4><pre><code>sudo nvram StartupMute=%01</code></pre><h4 data-number="1.0.5.3"id="dock栏设置"><span class="header-section-number">1.0.5.3</span> dock栏设置</h4><pre><code>defaults write com.apple.Dock autohide-delay -float 0 &amp;&amp; killall Dock
+开启AWDL：`sudo ifconfig awdl0 up`</code></pre><h4 id="取消开机声音">取消开机声音</h4><pre><code>sudo nvram StartupMute=%01</code></pre><h4 id="dock栏设置">dock栏设置</h4><pre><code>defaults write com.apple.Dock autohide-delay -float 0 &amp;&amp; killall Dock
 
 延迟
 defaults write com.apple.dock autohide-delay -int 0（时间设为最短）
@@ -35,7 +35,7 @@ defaults write com.apple.dock autohide-delay -int 0.5（时间设为 0.5s）
 defaults write com.apple.dock autohide-time-modifier -int 0.5;killall Dock
 
 恢复：
-defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre><h3 data-number="1.0.6"id="菜单栏间距调整"><span class="header-section-number">1.0.6</span> 菜单栏间距调整</h3><div class="sourceCode"id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"aria-hidden="true"tabindex="-1"></a><span class="co"># 指定间距</span></span>
+defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre><h3 id="菜单栏间距调整">菜单栏间距调整</h3><div class="sourceCode"id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"aria-hidden="true"tabindex="-1"></a><span class="co"># 指定间距</span></span>
 <span id="cb11-2"><a href="#cb11-2"aria-hidden="true"tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSpacing <span class="at">-int</span> 10</span>
 <span id="cb11-3"><a href="#cb11-3"aria-hidden="true"tabindex="-1"></a><span class="co"># 指定内边距</span></span>
 <span id="cb11-4"><a href="#cb11-4"aria-hidden="true"tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> write <span class="at">-globalDomain</span> NSStatusItemSelectionPadding <span class="at">-int</span> 6</span>
@@ -44,14 +44,14 @@ defaults delete com.apple.dock autohide-time-modifier;killall Dock</code></pre><
 <span id="cb11-7"><a href="#cb11-7"aria-hidden="true"tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> read <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span>
 <span id="cb11-8"><a href="#cb11-8"aria-hidden="true"tabindex="-1"></a><span class="co"># 重置</span></span>
 <span id="cb11-9"><a href="#cb11-9"aria-hidden="true"tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSpacing</span>
-<span id="cb11-10"><a href="#cb11-10"aria-hidden="true"tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div><h3 data-number="1.0.7"id="输入法提示"><span class="header-section-number">1.0.7</span> 输入法提示</h3><p>macOS 14 输入法提示去除<pre><code>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
+<span id="cb11-10"><a href="#cb11-10"aria-hidden="true"tabindex="-1"></a><span class="ex">defaults</span> <span class="at">-currentHost</span> delete <span class="at">-globalDomain</span> NSStatusItemSelectionPadding</span></code></pre></div><h3 id="输入法提示">输入法提示</h3><p>macOS 14 输入法提示去除<pre><code>sudo mkdir -p /Library/Preferences/FeatureFlags/Domain
 
 sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&quot; /Library/Preferences/FeatureFlags/Domain/UIKit.plist
 
 
 # 关闭 macos 自带的切换输入法提示体验更佳！
 sudo defaults write /Library/Preferences/FeatureFlags/Domain/UIKit.plist redesigned_text_cursor -dict-add Enabled -bool NO</code></pre><pre><code># 关闭 CursorUIViewService 防止导致卡顿，并重启
-sudo mkdir -p /Library/Preferences/FeatureFlags/Domain &amp;&amp; sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&quot; /Library/Preferences/FeatureFlags/Domain/UIKit.plist &amp;&amp; sudo shutdown -r now</code></pre><p>切换中英文延迟<p><code>hidutil property --set &#39;{&quot;CapsLockDelayOverride&quot;:0}&#39;</code><p>开启任意位置拖动窗口功能,重启, 需要按住<code>control+command</code>，然后再去用鼠标拖动窗口的任意位置。<p><code>defaults write -g NSWindowShouldDragOnGesture -bool true</code><h3 data-number="1.0.8"id="quick-look-plugins"><span class="header-section-number">1.0.8</span> Quick Look plugins</h3><p>quicklook 插件<blockquote><p>https://github.com/sindresorhus/quick-look-plugins</blockquote><h3 data-number="1.0.9"id="brew"><span class="header-section-number">1.0.9</span> brew</h3><p>https://gitee.com/cunkai/HomebrewCN<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
+sudo mkdir -p /Library/Preferences/FeatureFlags/Domain &amp;&amp; sudo /usr/libexec/PlistBuddy -c &quot;Add &#39;redesigned_text_cursor:Enabled&#39; bool false&quot; /Library/Preferences/FeatureFlags/Domain/UIKit.plist &amp;&amp; sudo shutdown -r now</code></pre><p>切换中英文延迟<p><code>hidutil property --set &#39;{&quot;CapsLockDelayOverride&quot;:0}&#39;</code><p>开启任意位置拖动窗口功能,重启, 需要按住<code>control+command</code>，然后再去用鼠标拖动窗口的任意位置。<p><code>defaults write -g NSWindowShouldDragOnGesture -bool true</code><h3 id="quick-look-plugins">Quick Look plugins</h3><p>quicklook 插件<blockquote><p>https://github.com/sindresorhus/quick-look-plugins</blockquote><h3 id="brew">brew</h3><p>https://gitee.com/cunkai/HomebrewCN<pre><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;
 
 /bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/HomebrewUninstall.sh)&quot;</code></pre><p>安装指定版本的 Command Line Tools for Xcode<p>https://developer.apple.com/download/more/<pre><code>// 更新
 brew update &amp;&amp; brew upgrade &amp;&amp; brew cu -a -y &amp;&amp; brew cleanup --prune 0
@@ -93,7 +93,7 @@ proxyman
 
 
 # 屏蔽 Apple music 自启动
-brew install --cask notunes</code></pre><h3 data-number="1.0.10"id="git"><span class="header-section-number">1.0.10</span> git</h3><pre><code>code ~/.gitconfig
+brew install --cask notunes</code></pre><h3 id="git">git</h3><pre><code>code ~/.gitconfig
 
 [user]
     name = xia.nianjun
@@ -106,15 +106,15 @@ brew install --cask notunes</code></pre><h3 data-number="1.0.10"id="git"><span c
 [oh-my-zsh]
     hide-dirty = 1
     hide-status = 1
-</code></pre><h3 data-number="1.0.11"id="npm"><span class="header-section-number">1.0.11</span> npm</h3><p>使用淘宝仓库<pre><code>npm i nrm -g
+</code></pre><h3 id="npm">npm</h3><p>使用淘宝仓库<pre><code>npm i nrm -g
 nrm ls
 nrm add mw XXXXXXXXXXXXX
 nrm use mw
-nrm use taobao</code></pre><h3 data-number="1.0.12"id="vscode"><span class="header-section-number">1.0.12</span> vscode</h3><pre><code>git remote prune origin</code></pre><h3 data-number="1.0.13"id="ssh"><span class="header-section-number">1.0.13</span> ssh</h3><pre><code>~/.ssh/config
+nrm use taobao</code></pre><h3 id="vscode">vscode</h3><pre><code>git remote prune origin</code></pre><h3 id="ssh">ssh</h3><pre><code>~/.ssh/config
 
 HostkeyAlgorithms +ssh-rsa
 
-PubkeyAcceptedAlgorithms +ssh-rsa</code></pre><h3 data-number="1.0.14"id="配置"><span class="header-section-number">1.0.14</span> 配置</h3><pre><code>~/.npmrc
+PubkeyAcceptedAlgorithms +ssh-rsa</code></pre><h3 id="配置">配置</h3><pre><code>~/.npmrc
 
 sass_binary_site=https://registry.npmmirror.com/node-sass/
 chromedriver_cdnurl=https://registry.npmmirror.com/chromedriver
@@ -146,15 +146,15 @@ $ fnm ls-remote | grep v16
 
 # 速度慢的时候，可以切换到国内源
 $ fnm install 16 --node-dist-mirror=https://npmmirror.com/mirrors/node
-</code></pre><h3 data-number="1.0.15"id="dockerorbstack"><span class="header-section-number">1.0.15</span> docker、orbstack</h3><p>mirrors 配置<pre><code>&quot;registry-mirrors&quot;: [
+</code></pre><h3 id="dockerorbstack">docker、orbstack</h3><p>mirrors 配置<pre><code>&quot;registry-mirrors&quot;: [
 
-]</code></pre><h3 data-number="1.0.16"id="pyenv"><span class="header-section-number">1.0.16</span> pyenv</h3><h3 data-number="1.0.17"id="fnm-use"><span class="header-section-number">1.0.17</span> fnm use</h3><pre><code>eval &quot;$(fnm env --use-on-cd --shell zsh)&quot;  # zshrc
+]</code></pre><h3 id="pyenv">pyenv</h3><h3 id="fnm-use">fnm use</h3><pre><code>eval &quot;$(fnm env --use-on-cd --shell zsh)&quot;  # zshrc
 
 ~/.config/husky/init.sh 或 ~/.huskyrc
 
 cat ~/.huskyrc
 
-eval &quot;$(fnm env --use-on-cd)&quot;</code></pre><h3 data-number="1.0.18"id="油猴脚本安装列表"><span class="header-section-number">1.0.18</span> 油猴脚本安装列表</h3><h3 data-number="1.0.19"id="zshrc"><span class="header-section-number">1.0.19</span> zshrc</h3><pre><code>HISTFILE=~/.zsh_history
+eval &quot;$(fnm env --use-on-cd)&quot;</code></pre><h3 id="油猴脚本安装列表">油猴脚本安装列表</h3><h3 id="zshrc">zshrc</h3><pre><code>HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
 
@@ -213,21 +213,21 @@ PROMPT=&#39;%F{green}→%f %F{magenta}%1~%f${GITSTATUS_PROMPT:+ ($GITSTATUS_PROM
 # 设置CapsLock延迟为0
 hidutil property --set &#39;{&quot;CapsLockDelayOverride&quot;:0}&#39; &gt; /dev/null 2&gt;&amp;1
 </code></pre><pre><code>### clash自定义规则
-</code></pre><h3 data-number="1.0.20"id="orbstack"><span class="header-section-number">1.0.20</span> orbstack</h3><p>开启 Rosetta，在 Apple Silicon (ARM) 上运行 Intel 架构 (x86/x86_64/amd64) 镜像。<pre><code>orb config set rosetta true   # 开启
+</code></pre><h3 id="orbstack">orbstack</h3><p>开启 Rosetta，在 Apple Silicon (ARM) 上运行 Intel 架构 (x86/x86_64/amd64) 镜像。<pre><code>orb config set rosetta true   # 开启
 orb config set rosetta false  # 关闭
 
 orb restart
-</code></pre><h3 data-number="1.0.21"id="系统python环境"><span class="header-section-number">1.0.21</span> 系统python环境</h3><pre><code>python3 -m venv .venv       #创建虚拟环境 
+</code></pre><h3 id="系统python环境">系统python环境</h3><pre><code>python3 -m venv .venv       #创建虚拟环境 
 source .venv/bin/activate   #激活
 pip install ragas           #安装包
 deactivate                  #退出
-</code></pre><h3 data-number="1.0.22"id="禁用siri"><span class="header-section-number">1.0.22</span> 禁用Siri</h3><pre><code>defaults write com.apple.assistant.support &#39;Siri Data Sharing Opt-In Status&#39; -int 2
+</code></pre><h3 id="禁用siri">禁用Siri</h3><pre><code>defaults write com.apple.assistant.support &#39;Siri Data Sharing Opt-In Status&#39; -int 2
 
 defaults write com.apple.assistant.backedup &#39;Use device speaker for TTS&#39; -int 3
 
 defaults write com.apple.assistant.support &#39;Assistant Enabled&#39; -bool false
 
-defaults write com.apple.SetupAssistant &#39;DidSeeSiriSetup&#39; -bool True</code></pre><h3 data-number="1.0.23"id="adb记录"><span class="header-section-number">1.0.23</span> adb记录</h3><pre><code>brew install --cask android-platform-tools
+defaults write com.apple.SetupAssistant &#39;DidSeeSiriSetup&#39; -bool True</code></pre><h3 id="adb记录">adb记录</h3><pre><code>brew install --cask android-platform-tools
 
 
 adb devices
