@@ -316,7 +316,11 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\Dwm /v OverlayTestMode /t REG_DWORD /d 5
 <p><strong>去除搜索界面信息流</strong></p>
 <pre><code>reg add &quot;HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\explorer&quot; /v DisableSearchBoxSuggestions /t reg_dword /d 1 /f</code></pre>
 <p><strong>推迟 3000 天更新</strong></p>
-<pre><code>reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings&quot; /v FlightSettingsMaxPauseDays /t reg_dword /d 3000 /f</code></pre>
+<pre><code># 3000天
+reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings&quot; /v FlightSettingsMaxPauseDays /t reg_dword /d 3000 /f
+
+# 100年
+reg add &quot;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings&quot; /v FlightSettingsMaxPauseDays /t reg_dword /d 36525 /f</code></pre>
 <p>https://www.sordum.org/9470/windows-update-blocker-v1-8/</p>
 <p>https://github.com/tsgrgo/windows-update-disabler</p>
 <p>https://github.com/ionuttbara/windows-defender-remover</p>
@@ -483,4 +487,4 @@ https://www.sordum.org/7615/easy-context-menu-v1-6/</p>
 </script>
 </body>
 </html>
-<!-- Generated at Thu Sep 18 06:34:54 UTC 2025 -->
+<!-- Generated at Thu Sep 18 06:49:48 UTC 2025 -->
