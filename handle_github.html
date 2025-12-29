@@ -113,10 +113,28 @@
             margin-top: 20px;
         }
         
-        #result {
+        /* Pre标签样式优化 */
+        #resultContainer {
+            width: 100%;
+            min-height: 80px;
+            max-height: 200px;
+            overflow-y: auto;
             background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 16px;
             color: #2d3748;
             word-break: break-all;
+            white-space: pre-wrap; /* 保留换行，自动换行 */
+        }
+        
+        /* 隐藏的输入框用于复制 */
+        #copyHelper {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
         }
         
         .tip {
@@ -160,9 +178,13 @@
         </div>
         
         <div class="result-group">
-            <label for="result">处理结果：</label>
-            <input type="text" id="result" readonly placeholder="处理后的 URL 将显示在这里...">
+            <label for="resultContainer">处理结果：</label>
+            <!-- 改用pre标签展示，支持完整查看超长URL -->
+            <pre id="resultContainer">处理后的 URL 将显示在这里...</pre>
         </div>
+        
+        <!-- 隐藏的复制辅助输入框 -->
+        <input type="text" id="copyHelper">
         
         <p class="tip">
             功能说明：仅移除 URL 中的 /refs/heads 部分（保留分支名），<br>
@@ -175,18 +197,21 @@
     <script>
         // 获取DOM元素
         const githubUrlInput = document.getElementById('githubUrl');
-        const resultInput = document.getElementById('result');
+        const resultContainer = document.getElementById('resultContainer');
+        const copyHelper = document.getElementById('copyHelper');
         const processBtn = document.getElementById('processBtn');
         const copyBtn = document.getElementById('copyBtn');
         const clearBtn = document.getElementById('clearBtn');
         const successTip = document.getElementById('successTip');
         
+        // 存储处理后的结果
+        let processedResult = '';
+        
         // 处理URL函数（精准只移除/refs/heads，保留分支名）
         function processUrl(url) {
             if (!url) return '';
             
-            // 核心修正：只移除 /refs/heads 部分，保留后面的分支名称（master/main等）
-            // 正则说明：匹配 /refs/heads 并替换为空，不影响后面的内容
+            // 核心：仅移除 /refs/heads 部分，保留后面的分支名称
             const processedUrl = url.replace(/\/refs\/heads/gi, '');
             
             // 检查是否已包含正确的gh-proxy前缀，避免重复添加
@@ -204,7 +229,7 @@
                     ? `https://${pureGithubUrl}` 
                     : pureGithubUrl);
             
-            // 拼接正确的前缀：https://gh-proxy.org/ + 处理后的完整GitHub地址
+            // 拼接正确的前缀
             return `https://gh-proxy.org/${standardGithubUrl}`;
         }
         
@@ -217,26 +242,29 @@
                 return;
             }
             
-            const result = processUrl(inputValue);
-            resultInput.value = result;
+            processedResult = processUrl(inputValue);
+            // 更新pre标签内容
+            resultContainer.textContent = processedResult;
         });
         
-        // 复制按钮点击事件（新版API+降级方案）
+        // 复制按钮点击事件（适配pre标签复制）
         copyBtn.addEventListener('click', async () => {
-            const resultValue = resultInput.value.trim();
-            if (!resultValue) {
+            if (!processedResult) {
                 alert('暂无可复制的内容！');
                 return;
             }
             
             try {
-                await navigator.clipboard.writeText(resultValue);
+                // 方案1：使用新版剪贴板API
+                await navigator.clipboard.writeText(processedResult);
                 successTip.classList.add('show');
                 setTimeout(() => {
                     successTip.classList.remove('show');
                 }, 2000);
             } catch (err) {
-                resultInput.select();
+                // 方案2：降级使用隐藏输入框复制
+                copyHelper.value = processedResult;
+                copyHelper.select();
                 document.execCommand('copy');
                 successTip.classList.add('show');
                 setTimeout(() => {
@@ -248,7 +276,8 @@
         // 清空按钮点击事件
         clearBtn.addEventListener('click', () => {
             githubUrlInput.value = '';
-            resultInput.value = '';
+            resultContainer.textContent = '处理后的 URL 将显示在这里...';
+            processedResult = '';
             githubUrlInput.focus();
         });
         
@@ -259,7 +288,7 @@
             }
         });
         
-        // 初始化焦点
+        // 初始化
         githubUrlInput.focus();
     </script>
 </body>
