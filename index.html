@@ -2,34 +2,35 @@
 <html lang="zh-CN">
 
 <head>
-    <link rel="shortcut icon" href="/favicon.ico">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>导航页</title>
-    <link rel="preconnect" href="https://gh-proxy.org">
-    <link rel="preconnect" href="https://github.com">
-    <link rel="dns-prefetch" href="//www.google.cn">
-    <link rel="dns-prefetch" href="//www.google.com">
-    <link rel="dns-prefetch" href="//h5.m.jd.com">
-    <link rel="dns-prefetch" href="//down-tencent.huorong.cn">
-    <link rel="dns-prefetch" href="//geekuninstaller.com">
-    <link rel="dns-prefetch" href="//bandisoft.app">
+    <link rel="preconnect" href="https://gh-proxy.org" />
+    <link rel="preconnect" href="https://github.com" />
+    <link rel="dns-prefetch" href="//www.google.cn" />
+    <link rel="dns-prefetch" href="//www.google.com" />
+    <link rel="dns-prefetch" href="//h5.m.jd.com" />
+    <link rel="dns-prefetch" href="//down-tencent.huorong.cn" />
+    <link rel="dns-prefetch" href="//geekuninstaller.com" />
+    <link rel="dns-prefetch" href="//bandisoft.app" />
     <style>
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                "Helvetica Neue", Arial, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 15px;
             background-color: #f5f5f5;
             min-height: 100vh;
-            line-height: 1.4
+            line-height: 1.4;
         }
 
         .nav-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
-            margin-top: 15px
+            margin-top: 15px;
         }
 
         .nav-button {
@@ -43,21 +44,21 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            transition: background-color .3s ease, box-shadow .3s ease;
-            box-shadow: 0 2px 8px rgba(76, 175, 80, .15);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 45px
+            min-height: 45px;
         }
 
         .nav-button:hover {
             background-color: #45a049;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, .25)
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.25);
         }
 
         .nav-button:active {
-            transform: scale(.98)
+            transform: scale(0.98);
         }
 
         h1 {
@@ -66,8 +67,8 @@
             font-size: 1.8rem;
             font-weight: 600;
             margin: 20px 0 10px 0;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, .1);
-            position: relative
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         h1::after {
@@ -77,14 +78,14 @@
             height: 2px;
             background-color: #4caf50;
             margin: 8px auto 0;
-            border-radius: 1px
+            border-radius: 1px;
         }
 
         .section-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, #bdc3c7, transparent);
             margin: 25px 0 15px 0;
-            border: none
+            border: none;
         }
 
         .download-section a {
@@ -92,62 +93,62 @@
             color: #1565c0;
             border: 1px solid #bbdefb;
             font-weight: 500;
-            box-shadow: 0 4px 15px rgba(21, 101, 192, .15)
+            box-shadow: 0 4px 15px rgba(21, 101, 192, 0.15);
         }
 
         .download-section a:hover {
             background-color: #bbdefb;
             color: #0d47a1;
             border-color: #90caf9;
-            box-shadow: 0 4px 15px rgba(21, 101, 192, .2)
+            box-shadow: 0 4px 15px rgba(21, 101, 192, 0.2);
         }
 
-        @media(max-width:768px) {
+        @media (max-width: 768px) {
             body {
-                padding: 10px
+                padding: 10px;
             }
 
             .nav-container {
                 grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
                 gap: 10px;
-                margin-top: 10px
+                margin-top: 10px;
             }
 
             .nav-button {
                 padding: 10px 12px;
                 font-size: 13px;
-                min-height: 40px
+                min-height: 40px;
             }
 
             h1 {
                 font-size: 1.6rem;
-                margin: 15px 0 8px 0
+                margin: 15px 0 8px 0;
             }
 
             .section-divider {
-                margin: 20px 0 10px 0
+                margin: 20px 0 10px 0;
             }
         }
 
-        @media(max-width:480px) {
+        @media (max-width: 480px) {
             .nav-container {
                 grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 8px
+                gap: 8px;
             }
 
             .nav-button {
                 padding: 8px 10px;
                 font-size: 12px;
-                min-height: 35px
+                min-height: 35px;
             }
 
             h1 {
                 font-size: 1.4rem;
-                margin: 12px 0 6px 0
+                margin: 12px 0 6px 0;
             }
 
             .section-divider {
-                margin: 15px 0 8px 0
+                margin: 15px 0 8px 0;
             }
         }
     </style>
@@ -155,24 +156,28 @@
 
 <body>
     <h1>功能导航</h1>
-    <div class="nav-container"><a href="goldPrice.html" class="nav-button">金价查询</a><a href="distance.html"
-            class="nav-button">高德经纬度距离</a><a href="text-image-generator.html" class="nav-button">单字图生成</a>
-        <a href="handle-github.html"
-            class="nav-button">自用链接处理></a><a href="text-image-generator.html" class="nav-button">单字图生成</a>
-        <a
-            href="mac.html" class="nav-button">Mac配置</a><a href="win-xnj.html" class="nav-button">Win配置</a><a
-            href="https://gh-proxy.org/https://github.com/ventoy/Ventoy/releases/download/v1.1.07/ventoy-1.1.07-windows.zip"
-            class="nav-button">Ventoy下载</a><a href="https://www.google.cn/chrome/?standalone=1"
-            class="nav-button">chrome下载</a><a href="https://www.google.com/chrome/?standalone=1&hl=zh-CN&platform=win64"
-            class="nav-button">chrome win下载</a><a
-            href="https://h5.m.jd.com/pb/016454810/2RePMzTqg6UoffvMwtwVeMcnPGeg/index.html?defaultViewTab=0&appId=null&type=25#/"
-            class="nav-button">京东保价</a><a
-            href="https://gh-proxy.org/https://raw.githubusercontent.com/summer19940609/mac-config/main/autounattend.xml"
-            class="nav-button">Ventoy无人值守文件</a></div>
-    <hr class="section-divider">
+    <div class="nav-container">
+        <a href="goldPrice.html" class="nav-button">金价查询</a>
+        <a href="distance.html" class="nav-button">高德经纬度距离</a>
+        <a href="text-image-generator.html" class="nav-button">单字图生成</a>
+        <a href="handle-github.html" class="nav-button">自用链接处理</a>
+        <a href="text-image-generator.html" class="nav-button">单字图生成</a>
+        <a href="mac.html" class="nav-button">Mac配置</a>
+        <a href="win-xnj.html" class="nav-button">Win配置</a>
+        <a href="https://gh-proxy.org/https://github.com/ventoy/Ventoy/releases/download/v1.1.07/ventoy-1.1.07-windows.zip"
+            class="nav-button">Ventoy下载</a>
+        <a href="https://www.google.cn/chrome/?standalone=1" class="nav-button">chrome下载</a>
+        <a href="https://www.google.com/chrome/?standalone=1&hl=zh-CN&platform=win64" class="nav-button">chrome
+            win下载</a>
+        <a href="https://h5.m.jd.com/pb/016454810/2RePMzTqg6UoffvMwtwVeMcnPGeg/index.html?defaultViewTab=0&appId=null&type=25#/"
+            class="nav-button">京东保价</a>
+        <a href="https://gh-proxy.org/https://raw.githubusercontent.com/summer19940609/mac-config/main/autounattend.xml"
+            class="nav-button">Ventoy无人值守文件</a>
+    </div>
+    <hr class="section-divider" />
     <h1>常用下载</h1>
-    <div class="nav-container download-section"><a
-            href="https://down-tencent.huorong.cn/sysdiag-all-x64-6.0.7.12-2025.09.24.3.exe"
+    <div class="nav-container download-section">
+        <a href="https://down-tencent.huorong.cn/sysdiag-all-x64-6.0.7.12-2025.09.24.3.exe"
             class="nav-button">火绒安全</a><a href="https://geekuninstaller.com/geek.zip" class="nav-button">geek卸载</a><a
             href="https://bandisoft.app/bandizip/BANDIZIP-SETUP-STD-ALL.EXE?20250910170411"
             class="nav-button">bandizip</a><a
