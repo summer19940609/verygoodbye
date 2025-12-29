@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub URL 处理工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #processBtn {
+            background: #667eea;
+            color: white;
+        }
+        
+        #processBtn:hover {
+            background: #5a67d8;
+        }
+        
+        #copyBtn {
+            background: #38b2ac;
+            color: white;
+        }
+        
+        #copyBtn:hover {
+            background: #319795;
+        }
+        
+        #clearBtn {
+            background: #e53e3e;
+            color: white;
+        }
+        
+        #clearBtn:hover {
+            background: #c53030;
+        }
+        
+        .result-group {
+            margin-top: 20px;
+        }
+        
+        #result {
+            background: #f7fafc;
+            color: #2d3748;
+            word-break: break-all;
+        }
+        
+        .tip {
+            margin-top: 15px;
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        
+        .success {
+            position: fixed;
+            position: fixed;
+            top: 20px;
+            background: #48bb78;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 999;
+            z-index: 999;
+        }
+        
+        .show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub URL 处理工具</h1>
+        
+        <div class="input-group">
+            <label for="githubUrl">输入 GitHub URL：</label>
+            <input type="text" id="githubUrl" placeholder="例如：https://github.com/xxx/xxx/refs/head/main">
+        </div>
+        
+        <div class="btn-group">
+            <button id="processBtn">处理 URL</button>
+            <button id="copyBtn">复制结果</button>
+            <button id="clearBtn">清空</button>
+        </div>
+        
+        <div class="result-group">
+            <label for="result">处理结果：</label>
+            <input type="text" id="result" readonly placeholder="处理后的 URL 将显示在这里...">
+        </div>
+        
+        <p class="tip">
+            功能说明：自动移除 URL 中的 refs/head（含 refs/heads）部分，<br>
+            并在开头添加 https://gh-proxy.org/ 前缀（最终格式：https://gh-proxy.org/https://github.com/xxx）
+        </p>
+    </div>
+    
+    <div class="success" id="successTip">复制成功！</div>
+
+    <script>
+        // 获取DOM元素
+        const githubUrlInput = document.getElementById('githubUrl');
+        const resultInput = document.getElementById('result');
+        const processBtn = document.getElementById('processBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const successTip = document.getElementById('successTip');
+        
+        // 处理URL函数
+        function processUrl(url) {
+            if (!url) return '';
+            
+            // 移除 refs/head 或 refs/heads 相关部分（不区分大小写）
+            const processedUrl = url.replace(/\/refs\/head(s)?\/[^\s/]+/gi, '');
+            
+            // 检查是否已包含 gh-proxy.org 前缀，避免重复添加
+            if (processedUrl.startsWith('https://gh-proxy.org/https://github.com/')) {
+                return processedUrl;
+            }
+            
+            // 移除已存在的gh-proxy前缀（如果有），确保格式统一
+            const pureGithubUrl = processedUrl.replace(/^https?:\/\/gh-proxy\.org\//i, '');
+            
+            // 确保GitHub URL以https://开头
+            const standardGithubUrl = pureGithubUrl.startsWith('https://github.com/') 
+                ? pureGithubUrl 
+                : (pureGithubUrl.startsWith('github.com/') 
+                    ? `https://${pureGithubUrl}` 
+                    : pureGithubUrl);
+            
+            // 添加正确的前缀：https://gh-proxy.org/ + 完整的GitHub URL
+            return `https://gh-proxy.org/${standardGithubUrl}`;
+        }
+        
+        // 处理按钮点击事件
+        processBtn.addEventListener('click', () => {
+            const inputValue = githubUrlInput.value.trim();
+            if (!inputValue) {
+                alert('请输入有效的 GitHub URL！');
+                githubUrlInput.focus();
+                return;
+            }
+            
+            const result = processUrl(inputValue);
+            resultInput.value = result;
+        });
+        
+        // 复制按钮点击事件（使用新版剪贴板API，兼容更好）
+        copyBtn.addEventListener('click', async () => {
+            const resultValue = resultInput.value.trim();
+            if (!resultValue) {
+                alert('暂无可复制的内容！');
+                return;
+            }
+            
+            try {
+                // 新版剪贴板API，比execCommand更稳定
+                await navigator.clipboard.writeText(resultValue);
+                // 显示复制成功提示
+                successTip.classList.add('show');
+                setTimeout(() => {
+                    successTip.classList.remove('show');
+                }, 2000);
+            } catch (err) {
+                // 降级方案
+                resultInput.select();
+                document.execCommand('copy');
+                successTip.classList.add('show');
+                setTimeout(() => {
+                    successTip.classList.remove('show');
+                }, 2000);
+            }
+        });
+        
+        // 清空按钮点击事件
+        clearBtn.addEventListener('click', () => {
+            githubUrlInput.value = '';
+            resultInput.value = '';
+            githubUrlInput.focus();
+        });
+        
+        // 回车触发处理
+        githubUrlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                processBtn.click();
+            }
+        });
+        
+        // 初始化焦点
+        githubUrlInput.focus();
+    </script>
+</body>
+</html>
