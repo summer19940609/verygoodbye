@@ -179,8 +179,8 @@
         
         <div class="result-group">
             <label for="resultContainer">处理结果：</label>
-            <!-- 改用pre标签展示，支持完整查看超长URL -->
-            <pre id="resultContainer">处理后的 URL 将显示在这里...</pre>
+            <!-- 移除默认提示文本，初始为空 -->
+            <pre id="resultContainer"></pre>
         </div>
         
         <!-- 隐藏的复制辅助输入框 -->
@@ -273,10 +273,10 @@
             }
         });
         
-        // 清空按钮点击事件
+        // 清空按钮点击事件（清空结果区域）
         clearBtn.addEventListener('click', () => {
             githubUrlInput.value = '';
-            resultContainer.textContent = '处理后的 URL 将显示在这里...';
+            resultContainer.textContent = ''; // 清空pre标签内容
             processedResult = '';
             githubUrlInput.focus();
         });
