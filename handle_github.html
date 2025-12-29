@@ -129,7 +129,6 @@
         
         .success {
             position: fixed;
-            position: fixed;
             top: 20px;
             background: #48bb78;
             color: white;
@@ -137,7 +136,6 @@
             border-radius: 8px;
             opacity: 0;
             transition: opacity 0.3s ease;
-            z-index: 999;
             z-index: 999;
         }
         
@@ -152,7 +150,7 @@
         
         <div class="input-group">
             <label for="githubUrl">输入 GitHub URL：</label>
-            <input type="text" id="githubUrl" placeholder="例如：https://github.com/xxx/xxx/refs/head/main">
+            <input type="text" id="githubUrl" placeholder="例如：https://raw.githubusercontent.com/xxx/xxx/refs/heads/master">
         </div>
         
         <div class="btn-group">
@@ -167,8 +165,8 @@
         </div>
         
         <p class="tip">
-            功能说明：自动移除 URL 中的 refs/head（含 refs/heads）部分，<br>
-            并在开头添加 https://gh-proxy.org/ 前缀（最终格式：https://gh-proxy.org/https://github.com/xxx）
+            功能说明：仅移除 URL 中的 /refs/heads 部分（保留分支名），<br>
+            并在开头添加 https://gh-proxy.org/ 前缀（最终格式：https://gh-proxy.org/完整地址）
         </p>
     </div>
     
@@ -183,29 +181,30 @@
         const clearBtn = document.getElementById('clearBtn');
         const successTip = document.getElementById('successTip');
         
-        // 处理URL函数
+        // 处理URL函数（精准只移除/refs/heads，保留分支名）
         function processUrl(url) {
             if (!url) return '';
             
-            // 移除 refs/head 或 refs/heads 相关部分（不区分大小写）
-            const processedUrl = url.replace(/\/refs\/head(s)?\/[^\s/]+/gi, '');
+            // 核心修正：只移除 /refs/heads 部分，保留后面的分支名称（master/main等）
+            // 正则说明：匹配 /refs/heads 并替换为空，不影响后面的内容
+            const processedUrl = url.replace(/\/refs\/heads/gi, '');
             
-            // 检查是否已包含 gh-proxy.org 前缀，避免重复添加
-            if (processedUrl.startsWith('https://gh-proxy.org/https://github.com/')) {
+            // 检查是否已包含正确的gh-proxy前缀，避免重复添加
+            if (processedUrl.startsWith('https://gh-proxy.org/https://')) {
                 return processedUrl;
             }
             
-            // 移除已存在的gh-proxy前缀（如果有），确保格式统一
+            // 移除已存在的错误gh-proxy前缀（如果有）
             const pureGithubUrl = processedUrl.replace(/^https?:\/\/gh-proxy\.org\//i, '');
             
             // 确保GitHub URL以https://开头
-            const standardGithubUrl = pureGithubUrl.startsWith('https://github.com/') 
+            const standardGithubUrl = pureGithubUrl.startsWith('https://') 
                 ? pureGithubUrl 
-                : (pureGithubUrl.startsWith('github.com/') 
+                : (pureGithubUrl.startsWith('raw.githubusercontent.com/') || pureGithubUrl.startsWith('github.com/')
                     ? `https://${pureGithubUrl}` 
                     : pureGithubUrl);
             
-            // 添加正确的前缀：https://gh-proxy.org/ + 完整的GitHub URL
+            // 拼接正确的前缀：https://gh-proxy.org/ + 处理后的完整GitHub地址
             return `https://gh-proxy.org/${standardGithubUrl}`;
         }
         
@@ -222,7 +221,7 @@
             resultInput.value = result;
         });
         
-        // 复制按钮点击事件（使用新版剪贴板API，兼容更好）
+        // 复制按钮点击事件（新版API+降级方案）
         copyBtn.addEventListener('click', async () => {
             const resultValue = resultInput.value.trim();
             if (!resultValue) {
@@ -231,15 +230,12 @@
             }
             
             try {
-                // 新版剪贴板API，比execCommand更稳定
                 await navigator.clipboard.writeText(resultValue);
-                // 显示复制成功提示
                 successTip.classList.add('show');
                 setTimeout(() => {
                     successTip.classList.remove('show');
                 }, 2000);
             } catch (err) {
-                // 降级方案
                 resultInput.select();
                 document.execCommand('copy');
                 successTip.classList.add('show');
