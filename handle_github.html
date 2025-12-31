@@ -136,15 +136,7 @@
             pointer-events: none;
             z-index: -1;
         }
-        
-        .tip {
-            margin-top: 15px;
-            color: #718096;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: center;
-        }
-        
+                
         .success {
             position: fixed;
             top: 20px;
@@ -168,7 +160,7 @@
         
         <div class="input-group">
             <label for="githubUrl">输入 GitHub URL：</label>
-            <input type="text" id="githubUrl" placeholder="例如：https://raw.githubusercontent.com/xxx/xxx/refs/heads/master">
+            <input type="text" id="githubUrl" placeholder="">
         </div>
         
         <div class="btn-group">
@@ -185,11 +177,7 @@
         
         <!-- 隐藏的复制辅助输入框 -->
         <input type="text" id="copyHelper">
-        
-        <p class="tip">
-            功能说明：仅移除 URL 中的 /refs/heads 部分（保留分支名），<br>
-            并在开头添加 https://gh-proxy.org/ 前缀（最终格式：https://gh-proxy.org/完整地址）
-        </p>
+      
     </div>
     
     <div class="success" id="successTip">复制成功！</div>
