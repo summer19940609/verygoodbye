@@ -13,7 +13,8 @@
         }
         
         body {
-            min-height: 100vh;
+            height: 100vh; /* 固定视口高度 */
+            overflow: hidden; /* 隐藏滚动条 */
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
             display: flex;
@@ -24,23 +25,26 @@
         
         .container {
             background: white;
-            padding: 30px;
+            padding: 25px; /* 略微减小内边距 */
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             width: 100%;
             max-width: 600px;
+            max-height: 90vh; /* 限制最大高度为视口90% */
+            display: flex;
+            flex-direction: column;
         }
         
         h1 {
             color: #2d3748;
             text-align: center;
-            margin-bottom: 25px;
-            font-size: 24px;
+            margin-bottom: 20px; /* 减小间距 */
+            font-size: 22px; /* 略微减小字体 */
             font-weight: 600;
         }
         
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* 减小间距 */
         }
         
         label {
@@ -68,7 +72,7 @@
         .btn-group {
             display: flex;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* 减小间距 */
         }
         
         button {
@@ -110,14 +114,17 @@
         }
         
         .result-group {
-            margin-top: 20px;
+            margin-top: 15px; /* 减小间距 */
+            flex: 1; /* 让结果区域自适应剩余空间 */
+            display: flex;
+            flex-direction: column;
         }
         
         /* Pre标签样式优化 */
         #resultContainer {
             width: 100%;
-            min-height: 80px;
-            max-height: 200px;
+            min-height: 60px; /* 减小最小高度 */
+            max-height: 150px; /* 减小最大高度 */
             overflow-y: auto;
             background: #f7fafc;
             border: 2px solid #e2e8f0;
@@ -127,6 +134,7 @@
             color: #2d3748;
             word-break: break-all;
             white-space: pre-wrap; /* 保留换行，自动换行 */
+            flex: 1;
         }
         
         /* 隐藏的输入框用于复制 */
@@ -151,6 +159,24 @@
         
         .show {
             opacity: 1;
+        }
+
+        /* 响应式调整 - 小屏幕优化 */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 20px;
+                margin-bottom: 15px;
+            }
+            #resultContainer {
+                min-height: 50px;
+                max-height: 120px;
+            }
         }
     </style>
 </head>
