@@ -3,54 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL 抓包规则生成器</title>
+    <title>URL 智能识别转换器</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; padding: 20px; background-color: #f5f7f9; color: #2c3e50; }
+        body { font-family: -apple-system, system-ui, sans-serif; padding: 20px; background-color: #f5f7f9; }
         .container { max-width: 800px; margin: 20px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h2 { margin-top: 0; font-size: 1.4rem; color: #333; border-left: 4px solid #007bff; padding-left: 10px; }
-        .label { font-weight: bold; margin: 15px 0 8px; display: block; font-size: 0.9rem; }
+        h2 { margin-top: 0; font-size: 1.4rem; color: #333; }
         
+        /* 状态标签样式 */
+        .status-tag { font-size: 12px; padding: 3px 10px; border-radius: 4px; margin-left: 10px; font-weight: bold; }
+        .tag-url { background: #e3f2fd; color: #1976d2; }
+        .tag-regex { background: #e8f5e9; color: #2e7d32; }
+        .tag-none { background: #eee; color: #666; }
+        
+        .label { font-weight: bold; margin: 15px 0 8px; display: block; font-size: 0.9rem; color: #555; }
         textarea { 
-            width: 100%; height: 60px; padding: 12px; box-sizing: border-box; 
-            border: 1px solid #ddd; border-radius: 6px; font-family: monospace;
-            font-size: 14px; outline: none;
+            width: 100%; height: 70px; padding: 12px; box-sizing: border-box; 
+            border: 2px solid #ddd; border-radius: 8px; font-family: monospace;
+            font-size: 14px; outline: none; transition: all 0.2s;
         }
-        textarea:focus { border-color: #007bff; }
+        textarea:focus { border-color: #007bff; background: #fff; }
 
         pre { 
             background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; 
-            overflow-x: auto; font-family: Consolas, monospace; font-size: 13px;
+            font-family: "Cascadia Code", Consolas, monospace; font-size: 13px;
             margin: 10px 0; white-space: pre-wrap; word-break: break-all;
+            min-height: 1.2em; border-left: 4px solid #ccc;
         }
 
         .copy-group { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-        .copy-group pre { flex: 1; margin: 0; }
+        .copy-group pre { flex: 1; margin: 0; border-left-color: #007bff; }
         
         button { 
-            padding: 8px 15px; border: none; border-radius: 5px; 
+            padding: 8px 15px; border: none; border-radius: 6px; 
             background: #007bff; color: white; cursor: pointer; font-size: 13px;
         }
         button:hover { background: #0056b3; }
-        .btn-success { background: #28a745; }
+        .btn-success { background: #28a745 !important; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>URL 抓包规则生成器</h2>
+    <h2>URL 智能识别转换器 <span id="status"></span></h2>
     
-    <span class="label">1. 输入原始 URL:</span>
-    <textarea id="inputUrl" placeholder="粘贴 URL，例如：https://maicai.api.ddxq.mobi/..." oninput="convert()"></textarea>
+    <span class="label">输入 URL (自动识别并转义) 或直接输入正则:</span>
+    <textarea id="inputUrl" placeholder="例如：https://maicai.api.ddxq.mobi/..." oninput="convert()"></textarea>
     
-    <span class="label">2. 纯正则结果:</span>
+    <span class="label">1. 正则化结果:</span>
     <div class="copy-group">
-        <pre id="regexResult">等待输入...</pre>
+        <pre id="regexResult"></pre>
         <button onclick="copy('regexResult')">复制</button>
     </div>
 
-    <span class="label">3. 完整指令行 (response-body-json-jq):</span>
+    <span class="label">2. 完整指令行 (Quantumult X / Loon):</span>
     <div class="copy-group">
-        <pre id="fullCommand">等待输入...</pre>
+        <pre id="fullCommand"></pre>
         <button onclick="copy('fullCommand')">复制</button>
     </div>
 </div>
@@ -60,31 +67,49 @@
         const input = document.getElementById('inputUrl').value.trim();
         const regexRes = document.getElementById('regexResult');
         const fullRes = document.getElementById('fullCommand');
+        const statusSpan = document.getElementById('status');
 
         if (!input) {
-            regexRes.innerText = "等待输入...";
-            fullRes.innerText = "等待输入...";
+            regexRes.innerText = "";
+            fullRes.innerText = "";
+            statusSpan.innerHTML = "";
             return;
         }
 
-        // 核心转换逻辑
-        let regex = input
-            .replace(/\./g, '\\.')         // . -> \.
-            .replace(/\//g, '\\/')         // / -> \/
-            .replace(/^https?/, '^https?'); // 开头 -> ^https?
+        // 1. 判断是否已经是正则 (包含 ^ 开头，或者已经转义过 \. 或 \/)
+        const isAlreadyRegex = /^(\^|.*\\\/|.*\\\.)/.test(input);
+        
+        // 2. 判断是否是标准 URL (http/https 开头)
+        const isUrl = /^(https?:\/\/)[^\s$.?#].[^\s]*$/i.test(input);
 
-        // 输出纯正则
-        regexRes.innerText = regex;
+        let finalRegex = "";
 
-        // 输出带指令的整行
-        fullRes.innerText = `${regex} response-body-json-jq ''`;
+        if (isAlreadyRegex) {
+            finalRegex = input;
+            statusSpan.innerHTML = '<span class="status-tag tag-regex">检测到：正则格式 (跳过转换)</span>';
+        } else if (isUrl) {
+            // 是 URL，执行转义逻辑
+            finalRegex = input
+                .replace(/\./g, '\\.')
+                .replace(/\//g, '\\/')
+                .replace(/^https?/, '^https?');
+            statusSpan.innerHTML = '<span class="status-tag tag-url">检测到：标准 URL (已自动转义)</span>';
+        } else {
+            // 既不是正则也不是标准 URL
+            finalRegex = input;
+            statusSpan.innerHTML = '<span class="status-tag tag-none">未知格式 (保持原样)</span>';
+        }
+
+        regexRes.innerText = finalRegex;
+        fullRes.innerText = `${finalRegex} response-body-json-jq ''`;
     }
 
-    function copy(elementId) {
+    // 复制功能
+    async function copy(elementId) {
         const text = document.getElementById(elementId).innerText;
-        if (text.includes("等待输入")) return;
-        
-        navigator.clipboard.writeText(text).then(() => {
+        if (!text) return;
+        try {
+            await navigator.clipboard.writeText(text);
             const btn = event.target;
             const oldText = btn.innerText;
             btn.innerText = "已复制";
@@ -93,7 +118,7 @@
                 btn.innerText = oldText; 
                 btn.classList.remove('btn-success');
             }, 1000);
-        });
+        } catch (err) {}
     }
 </script>
 
