@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL 智能识别转换器</title>
+    <title>URL 智能正则转换器 v2.0</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; padding: 20px; background-color: #f5f7f9; }
+        body { font-family: -apple-system, system-ui, sans-serif; padding: 20px; background-color: #f5f7f9; color: #2c3e50; }
         .container { max-width: 800px; margin: 20px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h2 { margin-top: 0; font-size: 1.4rem; color: #333; }
-        
-        /* 状态标签样式 */
         .status-tag { font-size: 12px; padding: 3px 10px; border-radius: 4px; margin-left: 10px; font-weight: bold; }
         .tag-url { background: #e3f2fd; color: #1976d2; }
         .tag-regex { background: #e8f5e9; color: #2e7d32; }
         .tag-none { background: #eee; color: #666; }
-        
         .label { font-weight: bold; margin: 15px 0 8px; display: block; font-size: 0.9rem; color: #555; }
         textarea { 
             width: 100%; height: 70px; padding: 12px; box-sizing: border-box; 
@@ -22,20 +19,18 @@
             font-size: 14px; outline: none; transition: all 0.2s;
         }
         textarea:focus { border-color: #007bff; background: #fff; }
-
         pre { 
             background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; 
             font-family: "Cascadia Code", Consolas, monospace; font-size: 13px;
             margin: 10px 0; white-space: pre-wrap; word-break: break-all;
-            min-height: 1.2em; border-left: 4px solid #ccc;
+            min-height: 1.2em; border-left: 4px solid #007bff;
         }
-
         .copy-group { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-        .copy-group pre { flex: 1; margin: 0; border-left-color: #007bff; }
-        
+        .copy-group pre { flex: 1; margin: 0; }
         button { 
             padding: 8px 15px; border: none; border-radius: 6px; 
             background: #007bff; color: white; cursor: pointer; font-size: 13px;
+            transition: background 0.2s;
         }
         button:hover { background: #0056b3; }
         .btn-success { background: #28a745 !important; }
@@ -46,8 +41,8 @@
 <div class="container">
     <h2>URL 智能识别转换器 <span id="status"></span></h2>
     
-    <span class="label">输入 URL (自动识别并转义) 或直接输入正则:</span>
-    <textarea id="inputUrl" placeholder="例如：https://maicai.api.ddxq.mobi/..." oninput="convert()"></textarea>
+    <span class="label">输入 URL (自动转义 . / ? ^https) 或直接输入正则:</span>
+    <textarea id="inputUrl" placeholder="例如：https://api.example.com/v1/user?id=100" oninput="convert()"></textarea>
     
     <span class="label">1. 正则化结果:</span>
     <div class="copy-group">
@@ -55,7 +50,7 @@
         <button onclick="copy('regexResult')">复制</button>
     </div>
 
-    <span class="label">2. 完整指令行 (Quantumult X / Loon):</span>
+    <span class="label">2. 完整指令行:</span>
     <div class="copy-group">
         <pre id="fullCommand"></pre>
         <button onclick="copy('fullCommand')">复制</button>
@@ -76,8 +71,8 @@
             return;
         }
 
-        // 1. 判断是否已经是正则 (包含 ^ 开头，或者已经转义过 \. 或 \/)
-        const isAlreadyRegex = /^(\^|.*\\\/|.*\\\.)/.test(input);
+        // 1. 判断是否已经是正则 (包含 ^ 开头，或者已经转义过 \. \/ \?)
+        const isAlreadyRegex = /^(\^|.*\\\/|.*\\\.|.*\\\?)/.test(input);
         
         // 2. 判断是否是标准 URL (http/https 开头)
         const isUrl = /^(https?:\/\/)[^\s$.?#].[^\s]*$/i.test(input);
@@ -86,25 +81,24 @@
 
         if (isAlreadyRegex) {
             finalRegex = input;
-            statusSpan.innerHTML = '<span class="status-tag tag-regex">检测到：正则格式 (跳过转换)</span>';
+            statusSpan.innerHTML = '<span class="status-tag tag-regex">检测到：正则格式</span>';
         } else if (isUrl) {
             // 是 URL，执行转义逻辑
             finalRegex = input
                 .replace(/\./g, '\\.')
                 .replace(/\//g, '\\/')
+                .replace(/\?/g, '\\?') // 处理 URL 中的问号
                 .replace(/^https?/, '^https?');
-            statusSpan.innerHTML = '<span class="status-tag tag-url">检测到：标准 URL (已自动转义)</span>';
+            statusSpan.innerHTML = '<span class="status-tag tag-url">检测到：原始 URL (已处理)</span>';
         } else {
-            // 既不是正则也不是标准 URL
             finalRegex = input;
-            statusSpan.innerHTML = '<span class="status-tag tag-none">未知格式 (保持原样)</span>';
+            statusSpan.innerHTML = '<span class="status-tag tag-none">未知格式 (不处理)</span>';
         }
 
         regexRes.innerText = finalRegex;
         fullRes.innerText = `${finalRegex} response-body-json-jq ''`;
     }
 
-    // 复制功能
     async function copy(elementId) {
         const text = document.getElementById(elementId).innerText;
         if (!text) return;
