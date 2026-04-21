@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/summer19940609/verygoodbye#readme",
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "vercel": "^41.5.0"
   }
 }
