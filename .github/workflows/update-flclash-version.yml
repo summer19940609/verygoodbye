@@ -2,7 +2,7 @@ name: Update FlClash Version
 
 on:
   schedule:
-    # 每天东京时间 09:00 运行
+    # 每天东京时间 09:00，也就是 UTC 00:00
     - cron: "0 0 * * *"
   workflow_dispatch:
 
@@ -21,21 +21,27 @@ jobs:
         id: flclash
         shell: bash
         run: |
-          LATEST_TAG=$(curl -Ls -o /dev/null -w "%{url_effective}" \
+          VERSION=$(curl -Ls -o /dev/null -w "%{url_effective}" \
             https://github.com/chen08209/FlClash/releases/latest | sed 's#.*/tag/v##')
 
-          echo "version=$LATEST_TAG" >> "$GITHUB_OUTPUT"
-          echo "Latest FlClash version: $LATEST_TAG"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "Latest FlClash version: ${VERSION}"
 
       - name: Update index.html
         shell: bash
         run: |
           VERSION="${{ steps.flclash.outputs.version }}"
 
-          # 匹配类似 0.8.92 的版本号并替换
-          sed -i -E "s/FlClash[[:space:]]*[vV]?[0-9]+\.[0-9]+\.[0-9]+/FlClash ${VERSION}/g" index.html
-          sed -i -E "s/flash[[:space:]]*[vV]?[0-9]+\.[0-9]+\.[0-9]+/flash ${VERSION}/g" index.html
-          sed -i -E "s/flclash[[:space:]]*[vV]?[0-9]+\.[0-9]+\.[0-9]+/flclash ${VERSION}/g" index.html
+          # 更新下载路径里的版本号：
+          # /releases/download/v0.8.91/ -> /releases/download/v0.8.92/
+          perl -0pi -e "s#(chen08209/FlClash/releases/download/v)[0-9]+\.[0-9]+\.[0-9]+#\${1}${VERSION}#g" index.html
+
+          # 更新文件名里的版本号：
+          # FlClash-0.8.91-xxx -> FlClash-0.8.92-xxx
+          perl -0pi -e "s#(FlClash-)[0-9]+\.[0-9]+\.[0-9]+#\${1}${VERSION}#g" index.html
+
+          echo "Current FlClash links:"
+          grep -n "FlClash" index.html || true
 
       - name: Commit changes
         shell: bash
