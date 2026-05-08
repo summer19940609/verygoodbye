@@ -2,95 +2,78 @@ name: Update Download Versions
 
 on:
   schedule:
-    # 每天 UTC 00:00（东京时间 09:00）
     - cron: "0 0 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-download-versions
+  cancel-in-progress: true
+
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # =========================
-      # 获取 FlClash 最新版本
-      # =========================
-      - name: Get latest FlClash version
+      # FlClash
+      - name: Get FlClash version
         id: flclash
-        shell: bash
         run: |
           VERSION=$(curl -Ls -o /dev/null -w "%{url_effective}" \
-            https://github.com/chen08209/FlClash/releases/latest | sed 's#.*/tag/v##')
+          https://github.com/chen08209/FlClash/releases/latest \
+          | sed 's#.*/tag/v##')
 
-          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "FlClash latest: ${VERSION}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # =========================
-      # 获取 Optimizer 最新版本
-      # =========================
-      - name: Get latest Optimizer version
+      # Optimizer
+      - name: Get Optimizer version
         id: optimizer
-        shell: bash
         run: |
           VERSION=$(curl -Ls -o /dev/null -w "%{url_effective}" \
-            https://github.com/hellzerg/optimizer/releases/latest | sed 's#.*/tag/##')
+          https://github.com/hellzerg/optimizer/releases/latest \
+          | sed 's#.*/tag/##')
 
-          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "Optimizer latest: ${VERSION}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
-      # =========================
-      # 更新 index.html
-      # =========================
+      # 更新文件
       - name: Update index.html
-        shell: bash
         run: |
-          FLCLASH_VERSION="${{ steps.flclash.outputs.version }}"
-          OPTIMIZER_VERSION="${{ steps.optimizer.outputs.version }}"
+          FLCLASH="${{ steps.flclash.outputs.version }}"
+          OPTIMIZER="${{ steps.optimizer.outputs.version }}"
 
-          echo "Updating FlClash -> ${FLCLASH_VERSION}"
-          echo "Updating Optimizer -> ${OPTIMIZER_VERSION}"
-
-          # ==================================================
           # FlClash
-          # ==================================================
+          sed -i -E \
+          "s#(chen08209/FlClash/releases/download/v)[0-9]+\.[0-9]+\.[0-9]+#\1${FLCLASH}#g" \
+          index.html
 
-          # 更新 releases/download/v0.x.x
-          perl -0pi -e "s#(chen08209/FlClash/releases/download/v)[0-9]+\.[0-9]+\.[0-9]+#\${1}${FLCLASH_VERSION}#g" index.html
+          sed -i -E \
+          "s#(FlClash-)[0-9]+\.[0-9]+\.[0-9]+#\1${FLCLASH}#g" \
+          index.html
 
-          # 更新 FlClash-0.x.x
-          perl -0pi -e "s#(FlClash-)[0-9]+\.[0-9]+\.[0-9]+#\${1}${FLCLASH_VERSION}#g" index.html
-
-          # ==================================================
           # Optimizer
-          # ==================================================
+          sed -i -E \
+          "s#(hellzerg/optimizer/releases/download/)[0-9]+\.[0-9]+#\1${OPTIMIZER}#g" \
+          index.html
 
-          # 更新 /download/16.7/
-          perl -0pi -e "s#(hellzerg/optimizer/releases/download/)[0-9]+\.[0-9]+#\${1}${OPTIMIZER_VERSION}#g" index.html
+          sed -i -E \
+          "s#(Optimizer-)[0-9]+\.[0-9]+#\1${OPTIMIZER}#g" \
+          index.html
 
-          # 更新 Optimizer-16.7.exe
-          perl -0pi -e "s#(Optimizer-)[0-9]+\.[0-9]+#\${1}${OPTIMIZER_VERSION}#g" index.html
-
-          echo "==== Current Links ===="
-          grep -nE "FlClash|Optimizer" index.html || true
-
-      # =========================
-      # 提交
-      # =========================
       - name: Commit changes
-        shell: bash
         run: |
           if git diff --quiet; then
-            echo "No changes."
+            echo "No changes"
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
 
           git add index.html
           git commit -m "Auto update download versions"
