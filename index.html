@@ -11,92 +11,190 @@
 	<link rel="dns-prefetch" href="//www.google.cn" />
 	<link rel="dns-prefetch" href="//www.google.com" />
 	<link rel="dns-prefetch" href="//h5.m.jd.com" />
+
 	<style>
 		* {
 			margin: 0;
 			padding: 0;
-			box-sizing: border-box
+			box-sizing: border-box;
+		}
+
+		:root {
+			--bg: #f4f7fb;
+			--card: #ffffff;
+			--text: #26384a;
+			--muted: #6b7c8f;
+			--green: #43a957;
+			--green-hover: #349347;
+			--blue-bg: #e8f4ff;
+			--blue-border: #b9dcff;
+			--blue-text: #1266c3;
+			--blue-hover: #d8edff;
+			--shadow: 0 8px 24px rgba(38, 56, 74, .08);
+			--radius: 14px;
 		}
 
 		body {
-			font-family: -apple-system, Segoe UI, sans-serif;
-			max-width: 1200px;
+			min-height: 100vh;
+			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+				"Microsoft YaHei", Arial, sans-serif;
+			background: var(--bg);
+			color: var(--text);
+			padding: 32px 16px;
+		}
+
+		main {
+			width: min(80dvw, 1280px);
 			margin: 0 auto;
-			padding: 15px;
-			background: #f5f5f5
+		}
+
+		.section {
+			background: var(--card);
+			border-radius: 20px;
+			padding: 28px;
+			margin-bottom: 28px;
+			box-shadow: var(--shadow);
 		}
 
 		h1 {
 			text-align: center;
-			color: #2c3e50;
-			margin: 20px 0 10px
+			font-size: clamp(28px, 4vw, 44px);
+			line-height: 1.2;
+			letter-spacing: .04em;
+			margin-bottom: 24px;
+			color: var(--text);
 		}
 
 		.nav-container {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 10px;
-			margin-top: 15px
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+			gap: 12px;
 		}
 
-		.nav-container button {
-			padding: 12px;
-			background: #4caf50;
-			color: #fff;
+		button {
+			min-height: 50px;
+			padding: 12px 16px;
 			border: 0;
-			flex: 1 1 150px;
-			font-size: 14px;
+			border-radius: var(--radius);
+			background: var(--green);
+			color: #fff;
+			font-size: 16px;
+			font-weight: 600;
+			line-height: 1.35;
 			cursor: pointer;
+			transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+			box-shadow: 0 4px 10px rgba(67, 169, 87, .18);
+		}
+
+		button:hover {
+			background: var(--green-hover);
+			transform: translateY(-2px);
+			box-shadow: 0 8px 18px rgba(67, 169, 87, .25);
+		}
+
+		button:active {
+			transform: translateY(0);
+			box-shadow: none;
+		}
+
+		button:focus-visible {
+			outline: 3px solid rgba(67, 169, 87, .28);
+			outline-offset: 3px;
 		}
 
 		.download-section button {
-			background: #e3f2fd;
-			color: #1565c0;
-			border: 1px solid #bbdefb
+			background: var(--blue-bg);
+			color: var(--blue-text);
+			border: 1px solid var(--blue-border);
+			box-shadow: none;
+		}
+
+		.download-section button:hover {
+			background: var(--blue-hover);
+			box-shadow: 0 8px 18px rgba(18, 102, 195, .12);
+		}
+
+		.download-section button:focus-visible {
+			outline-color: rgba(18, 102, 195, .24);
+		}
+
+		@media (max-width: 900px) {
+			main {
+				width: 100%;
+			}
+
+			body {
+				padding: 16px 10px;
+			}
+
+			.section {
+				padding: 20px 14px;
+				border-radius: 16px;
+			}
+
+			.nav-container {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 10px;
+			}
+
+			button {
+				font-size: 15px;
+				min-height: 48px;
+				padding: 10px 12px;
+			}
+		}
+
+		@media (max-width: 420px) {
+			.nav-container {
+				grid-template-columns: 1fr;
+			}
 		}
 	</style>
-	
-	<script>onclick=e=>e.target.value&&(location=e.target.value)</script>
+
+	<script>
+		document.addEventListener("click", e => {
+			const button = e.target.closest("button[value]");
+			if (button) location.href = button.value;
+		});
+	</script>
 </head>
 
 <body>
-	<h1>功能导航</h1>
-	<div class="nav-container">
-		<button value="https://tool.pc.wiki/">LDTools</button>
-		<button value="goldPrice.html">金价查询</button>
-		<button value="distance.html">高德经纬度距离</button>
-		<button value="text-image-generator.html">单字图生成</button>
-		<button value="handle_github.html">自用链接处理</button>
-		<button value="url-handle.html">Loon抓包url处理</button>
-		<button value="mac.html">Mac配置</button>
-		<button value="win-xnj.html">Win配置</button>
-		<button
-			value="https://mirrors.nju.edu.cn/github-release/ventoy/Ventoy">Ventoy下载</button>
-		<button value="https://www.google.cn/chrome/?standalone=1">chrome下载</button>
-		<button value="https://www.google.com/chrome/?standalone=1&hl=zh-CN&platform=win64">chrome win下载</button>
-		<button
-			value="https://h5.m.jd.com/pb/016454810/2RePMzTqg6UoffvMwtwVeMcnPGeg/index.html?defaultViewTab=0&appId=null&type=25#/">京东保价</button>
-		<button
-			value="https://gh-proxy.org/https://raw.githubusercontent.com/summer19940609/mac-config/main/autounattend.xml">Ventoy无人值守文件</button>
-	</div>
-	<h1>常用下载</h1>
-	<div class="nav-container download-section">
-		<button value="https://down-tencent.huorong.cn/sysdiag-all-x64-6.0.7.12-2025.09.24.3.exe">火绒安全</button>
-		<button value="https://geekuninstaller.com/geek.zip">geek卸载</button>
-		<button value="https://bandisoft.app/bandizip/BANDIZIP-SETUP-STD-ALL.EXE?20250910170411">bandizip</button>
-		<button
-			value="https://gh-proxy.org/https://github.com/hellzerg/optimizer/releases/download/16.7/Optimizer-16.7.exe">optimizer</button>
-		<button
-			value="https://gh-proxy.org/https://github.com/Chuyu-Team/Dism-Multi-language/releases/download/v10.1.1002.2/Dism++10.1.1002.1B.zip">Dism++</button>
-		<button
-			value="https://gh-proxy.org/https://github.com/chen08209/FlClash/releases/download/v0.8.92/FlClash-0.8.92-windows-amd64-setup.exe">FlClash_win</button>
-		<button
-			value="https://gh-proxy.org/https://github.com/chen08209/FlClash/releases/download/v0.8.92/FlClash-0.8.92-macos-arm64.dmg">FlClash_mac_apple</button>
-		<button
-			value="https://gh-proxy.org/https://github.com/chen08209/FlClash/releases/download/v0.8.92/FlClash-0.8.92-macos-amd64.dmg">FlClash_mac_intel</button>
-		<button
-			value="https://gh-proxy.org/https://raw.githubusercontent.com/summer19940609/mac-config/main/Windows11%E8%BD%BB%E6%9D%BE%E8%AE%BE%E7%BD%AE1.11%E6%AD%A3%E5%BC%8F%E7%89%88%E3%80%9020250603%E3%80%91.7z">win11轻松设置</button>
-	</div>
+	<main>
+		<section class="section">
+			<h1>功能导航</h1>
+			<div class="nav-container">
+				<button value="https://tool.pc.wiki/">LDTools</button>
+				<button value="goldPrice.html">金价查询</button>
+				<button value="distance.html">高德经纬度距离</button>
+				<button value="text-image-generator.html">单字图生成</button>
+				<button value="handle_github.html">自用链接处理</button>
+				<button value="url-handle.html">Loon抓包url处理</button>
+				<button value="mac.html">Mac配置</button>
+				<button value="win-xnj.html">Win配置</button>
+				<button value="https://mirrors.nju.edu.cn/github-release/ventoy/Ventoy">Ventoy下载</button>
+				<button value="https://www.google.cn/chrome/?standalone=1">chrome下载</button>
+				<button value="https://www.google.com/chrome/?standalone=1&hl=zh-CN&platform=win64">chrome win下载</button>
+				<button value="https://h5.m.jd.com/pb/016454810/2RePMzTqg6UoffvMwtwVeMcnPGeg/index.html?defaultViewTab=0&appId=null&type=25#/">京东保价</button>
+				<button value="https://gh-proxy.org/https://raw.githubusercontent.com/summer19940609/mac-config/main/autounattend.xml">Ventoy无人值守文件</button>
+			</div>
+		</section>
+
+		<section class="section">
+			<h1>常用下载</h1>
+			<div class="nav-container download-section">
+				<button value="https://down-tencent.huorong.cn/sysdiag-all-x64-6.0.7.12-2025.09.24.3.exe">火绒安全</button>
+				<button value="https://geekuninstaller.com/geek.zip">geek卸载</button>
+				<button value="https://bandisoft.app/bandizip/BANDIZIP-SETUP-STD-ALL.EXE?20250910170411">bandizip</button>
+				<button value="https://gh-proxy.org/https://github.com/hellzerg/optimizer/releases/download/16.7/Optimizer-16.7.exe">optimizer</button>
+				<button value="https://gh-proxy.org/https://github.com/Chuyu-Team/Dism-Multi-language/releases/download/v10.1.1002.2/Dism++10.1.1002.1B.zip">Dism++</button>
+				<button value="https://gh-proxy.org/https://github.com/chen08209/FlClash/releases/download/v0.8.92/FlClash-0.8.92-windows-amd64-setup.exe">FlClash_win</button>
+				<button value="https://gh-proxy.org/https://github.com/chen08209/FlClash/releases/download/v0.8.92/FlClash-0.8.92-macos-arm64.dmg">FlClash_mac_apple</button>
+				<button value="https://gh-proxy.org/https://github.com/chen08209/FlClash/releases/download/v0.8.92/FlClash-0.8.92-macos-amd64.dmg">FlClash_mac_intel</button>
+				<button value="https://gh-proxy.org/https://raw.githubusercontent.com/summer19940609/mac-config/main/Windows11%E8%BD%BB%E6%9D%BE%E8%AE%BE%E7%BD%AE1.11%E6%AD%A3%E5%BC%8F%E7%89%88%E3%80%9020250603%E3%80%91.7z">win11轻松设置</button>
+			</div>
+		</section>
+	</main>
 </body>
 
 </html>
