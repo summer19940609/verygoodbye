@@ -32,9 +32,6 @@
 			--blue-border: #bddcff;
 			--blue-text: #1565c0;
 			--blue-hover: #d8edff;
-
-			--radius: 0;
-			--shadow: none;
 		}
 
 		body {
@@ -61,16 +58,6 @@
 			background: var(--card);
 			padding: 28px;
 			margin-bottom: 28px;
-			box-shadow: var(--shadow);
-		}
-
-		h1 {
-			text-align: center;
-			font-size: clamp(30px, 4vw, 48px);
-			font-weight: 800;
-			letter-spacing: .05em;
-			margin-bottom: 26px;
-			color: var(--text);
 		}
 
 		.nav-container {
@@ -83,10 +70,9 @@
 			min-height: 56px;
 			padding: 14px 18px;
 			border: 0;
-			border-radius: var(--radius);
 			background: var(--green);
 			color: #fff;
-			font-size: 16px;
+			font-size: 14px;
 			font-weight: 600;
 			line-height: 1.4;
 			cursor: pointer;
@@ -144,7 +130,7 @@
 
 			button {
 				min-height: 50px;
-				font-size: 15px;
+				font-size: 14px;
 				padding: 12px;
 			}
 		}
@@ -167,7 +153,7 @@
 <body>
 	<main>
 		<section class="section">
-			<h1>功能导航</h1>
+			<h2>功能导航</h2>
 			<div class="nav-container">
 				<button value="https://tool.pc.wiki/">LDTools</button>
 				<button value="goldPrice.html">金价查询</button>
@@ -185,7 +171,7 @@
 			</div>
 		</section>
 		<section class="section">
-			<h1>常用下载</h1>
+			<h2>常用下载</h2>
 			<div class="nav-container download-section">
 				<button value="https://down-tencent.huorong.cn/sysdiag-all-x64-6.0.7.12-2025.09.24.3.exe">火绒安全</button>
 				<button value="https://geekuninstaller.com/geek.zip">geek卸载</button>
