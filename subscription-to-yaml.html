@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>YAML 规则生成器</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0f1115;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 24px;
+    }
+
+    .container {
+      width: min(1400px, 100%);
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      background: #3b82f6;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: .9;
+    }
+
+    .danger {
+      background: #ef4444;
+    }
+
+    .success {
+      background: #10b981;
+    }
+
+    .card {
+      background: #181c23;
+      border: 1px solid #2a2f3a;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    input {
+      width: 100%;
+      background: #0f1115;
+      border: 1px solid #333b48;
+      color: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 800px;
+      background: #0b0d12;
+      border: 1px solid #2d3440;
+      color: #67ff9a;
+      padding: 18px;
+      border-radius: 14px;
+      margin-top: 20px;
+      font-size: 13px;
+      line-height: 1.7;
+      resize: vertical;
+      font-family: Menlo, Monaco, Consolas, monospace;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>YAML 规则生成器</h1>
+
+    <div class="toolbar">
+      <button onclick="addItem()">新增订阅</button>
+      <button onclick="generateYaml()">生成 YAML</button>
+      <button class="success" onclick="copyYaml()">复制 YAML</button>
+    </div>
+
+    <div id="list"></div>
+
+    <textarea id="output" placeholder="生成后的 YAML 会显示在这里"></textarea>
+
+  </div>
+
+  <script>
+
+    const listEl = document.getElementById('list');
+    const outputEl = document.getElementById('output');
+
+    function addItem(name = '', url = '') {
+
+      const div = document.createElement('div');
+
+      div.className = 'card';
+
+      div.innerHTML = `
+        <div class="grid">
+          <input class="remark" placeholder="备注名" value="${name}">
+          <input class="url" placeholder="订阅链接" value="${url}">
+          <button class="danger" onclick="this.closest('.card').remove()">删除</button>
+        </div>
+      `;
+
+      listEl.appendChild(div);
+    }
+
+    function getPrefix(text) {
+
+      if (!text) return 'U';
+
+      return text.trim().charAt(0).toUpperCase();
+    }
+
+    function generateYaml() {
+
+      const cards = [...document.querySelectorAll('.card')];
+
+      let urlBlock = `#################### 节点信息start ####################\n`;
+
+      let providerBlock = `
+provider: &provider
+  type: http
+  interval: 86400
+  proxy: DIRECT
+  health-check:
+    enable: true
+    interval: 300
+    url: https://cp.cloudflare.com/generate_204
+
+proxy-providers:
+`;
+
+      cards.forEach((card, index) => {
+
+        const remark = card.querySelector('.remark').value.trim() || `备注${index + 1}`;
+        const url = card.querySelector('.url').value.trim();
+
+        const num = index + 1;
+
+        const prefix = getPrefix(remark);
+
+        urlBlock += `
+# ${remark}
+url${num}: &url${num} "${url}"
+`;
+
+        providerBlock += `
+  U${num}:
+    <<: *provider
+    url: *url${num}
+    path: ./proxy_providers/U${num}.yaml
+    override:
+      additional-prefix: "[${prefix}]"
+`;
+      });
+
+      urlBlock += `
+#################### 节点信息end ####################
+`;
+
+      const BASE_CONFIG = `
+############# 基础配置 #############
+
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+udp: true
+ipv6: false
+log-level: error
+
+geox-url:
+  geoip: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-geodata/geoip-lite.dat"
+  geosite: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-geodata/geosite-mini.dat"
+  mmdb: "https://cdn.jsdelivr.net/gh/Hackl0us/GeoIP2-CN@release/Country.mmdb"
+  asn: "https://cdn.jsdelivr.net/gh/DustinWin/ruleset_geodata@mihomo-geodata/Country-ASN.mmdb"
+
+geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 6
+
+geodata-loader: standard
+
+find-process-mode: strict
+
+global-client-fingerprint: chrome
+
+unified-delay: true
+
+tcp-concurrent: true
+
+keep-alive-interval: 1800
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+external-ui-url: https://github.com/Zephyruso/zashboard/releases/latest/download/dist.zip
+external-ui-name: verygoodbye
+external-ui: ui
+external-controller: 127.0.0.1:49469
+secret: 95185349fbc8d50ce80d90fb1c01a48f0a541025386c6f8eef6e1d94d0fed11c
+
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: true
+
+dns:
+  enabled: true
+  listen: :1053
+  enhanced-mode: fake-ip
+
+############# 锚点 #############
+
+FilterAll: &FilterAll "^(?!.*(到期|重置|剩余|时间|官网|产品|Traffic|Expire))"
+FilterUS: &FilterUS "(?i)(美|US)"
+FilterHK: &FilterHK "(?i)(港|HK)"
+FilterJP: &FilterJP "(?i)(日|JP)"
+
+PolicyBase: &PolicyBase
+  interval: 300
+  tolerance: 50
+  lazy: true
+  url: https://cp.cloudflare.com/generate_204
+  disable-udp: false
+  timeout: 2000
+  max-failed-times: 3
+  hidden: false
+  include-all-providers: false
+
+UrlTest: &UrlTest
+  <<: *PolicyBase
+  type: url-test
+
+############# 策略组 #############
+
+proxy-groups:
+  - { name: 🚀节点选择, type: select, proxies: [全部自动, 全部手动, 香港自动, 日本自动, DIRECT] }
+  - { name: 全部手动, type: select, include-all-providers: true, filter: *FilterAll }
+  - { name: 全部自动, <<: *UrlTest, include-all-providers: true, filter: *FilterAll }
+  - { name: 🐠漏网之鱼, type: select, proxies: [DIRECT, 🚀节点选择] }
+  - { name: 指定节点, type: select, proxies: [🚀节点选择, 全部手动, 香港自动, 日本自动] }
+  - { name: 香港自动, <<: *UrlTest, include-all-providers: true, filter: *FilterHK }
+  - { name: 日本自动, <<: *UrlTest, include-all-providers: true, filter: *FilterJP }
+  - { name: Ai平台, type: select, proxies: [🚀节点选择, 全部手动, 香港自动, 日本自动, DIRECT] }
+  - { name: 全球拦截, type: select, proxies: [REJECT, DIRECT] }
+  - { name: 应用净化, type: select, proxies: [REJECT, DIRECT] }
+
+# ==================== 规则集 ====================
+
+BehaviorCL:
+  &BehaviorCL { type: http, behavior: classical, interval: 3600, format: yaml }
+
+BehaviorDN:
+  &BehaviorDN { type: http, behavior: domain, interval: 86400 }
+
+# 规则提供者
+rule-providers:
+  fakeip-filter: { <<: *BehaviorDN, path: ./rules/fakeip-filter-lite.mrs, url: "https://gh-proxy.org/https://raw.githubusercontent.com/DustinWin/ruleset_geodata/mihomo-ruleset/fakeip-filter-lite.mrs", format: mrs }
+
+  fakeip-filter-lan: { <<: *BehaviorDN, path: ./rules/fakeip-filter-lan.list, url: "https://gh-proxy.org/https://gist.github.com/summer19940609/29895cc12f7f859b04350c0b0b3c2078/raw/fakeip-filter-lan.list", format: text }
+
+  个人direct: { <<: *BehaviorCL, path: ./rules/direct.list, url: "https://gh-proxy.org/https://gist.githubusercontent.com/summer19940609/da60ec3470ba5ca69a69d9d37ced1f07/raw/direct.list", format: text }
+
+  Lan: { <<: *BehaviorCL, path: ./rules/Lan.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml" }
+
+  UnBan: { <<: *BehaviorCL, path: ./rules/UnBan.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/UnBan.yaml" }
+
+  个人reject: { <<: *BehaviorCL, path: ./rules/reject.list, url: "https://gh-proxy.org/https://gist.githubusercontent.com/summer19940609/fd512258c0eb4305bb106cb805822b0d/raw/reject.list", format: text }
+
+  BanAD: { <<: *BehaviorCL, path: ./rules/BanAD.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanAD.yaml" }
+
+  BanProgramAD: { <<: *BehaviorCL, path: ./rules/BanProgramAD.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanProgramAD.yaml" }
+
+  PCDN: { <<: *BehaviorCL, path: ./rules/PCDN.yaml, url: "https://gh-proxy.org/https://gist.githubusercontent.com/summer19940609/8da569693f6ceb70ffad5adf1504ec90/raw/PCDN.yaml" }
+
+  # AWAvenue-Ads-Rule-Clash: { <<: *BehaviorCL, path: ./rules/AWAvenue-Ads-Rule-Clash.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml" }
+
+  GoogleCN: { <<: *BehaviorCL, path: ./rules/GoogleCN.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleCN.yaml" }
+
+  Apple: { <<: *BehaviorCL, path: ./rules/Apple.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Apple.yaml" }
+
+  Wechat: { <<: *BehaviorCL, path: ./rules/Wechat.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Wechat.yaml" }
+
+  Download: { <<: *BehaviorCL, path: ./rules/Download.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Download.yaml" }
+
+  ChinaDomain: { <<: *BehaviorCL, path: ./rules/ChinaDomain.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ChinaDomain.yaml" }
+
+  SteamCN: { <<: *BehaviorCL, path: ./rules/SteamCN.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/SteamCN.yaml" }
+
+  个人proxy: { <<: *BehaviorCL, path: ./rules/proxy.list, url: "https://gh-proxy.org/https://gist.githubusercontent.com/summer19940609/8e914e7254e23f6d2e774dcb8c47791f/raw/proxy.list", format: text }
+
+  ProxyMedia: { <<: *BehaviorCL, path: ./rules/ProxyMedia.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyMedia.yaml" }
+
+  ProxyGFWlist: { <<: *BehaviorCL, path: ./rules/ProxyGFWlist.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/ProxyGFWlist.yaml" }
+
+  Telegram: { <<: *BehaviorCL, path: ./rules/Telegram.list, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Telegram.list", format: text }
+
+  Twitter: { <<: *BehaviorCL, path: ./rules/Twitter.list, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list", format: text }
+
+  AI: { <<: *BehaviorCL, path: ./rules/AI.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/AI.yaml" }
+
+  OpenAi: { <<: *BehaviorCL, path: ./rules/OpenAi.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/OpenAi.yaml" }
+
+  Developer: { <<: *BehaviorCL, path: ./rules/Developer.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Developer.yaml" }
+
+  jiaotong: { <<: *BehaviorCL, path: ./rules/BOCOM.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/BOCOM/BOCOM.yaml" }
+
+  zhaoshang: { <<: *BehaviorCL, path: ./rules/CMB.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/CMB/CMB.yaml" }
+
+rules:
+  # 禁用QUIC
+  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
+  - DOMAIN-SUFFIX,undefined, REJECT-DROP
+  - DOMAIN-SUFFIX,null, REJECT-DROP
+
+  - DOMAIN,ocsp.apple.com, 全球拦截
+  - DOMAIN,ocsp2.apple.com, 全球拦截
+
+  - RULE-SET, UnBan, DIRECT
+  - RULE-SET, Lan, DIRECT
+  - RULE-SET, 个人direct, DIRECT
+
+  - RULE-SET, 个人reject, 全球拦截
+
+  - RULE-SET, Wechat, DIRECT
+
+  # - RULE-SET, AWAvenue-Ads-Rule-Clash, 应用净化
+  - RULE-SET, BanAD, 全球拦截
+  - RULE-SET, BanProgramAD, 全球拦截
+  - RULE-SET, PCDN, 全球拦截
+
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com, DIRECT
+  - DOMAIN-SUFFIX,services.googleapis.cn, DIRECT
+
+  - RULE-SET, GoogleCN, DIRECT
+  - RULE-SET, Apple, DIRECT
+
+  - RULE-SET, Download, DIRECT
+  - RULE-SET, ChinaDomain, DIRECT
+  - RULE-SET, SteamCN, DIRECT
+
+  # 银行
+  - RULE-SET, jiaotong, DIRECT
+  - RULE-SET, zhaoshang, DIRECT
+  
+  - RULE-SET, Twitter, 指定节点
+  - RULE-SET, Telegram, 指定节点
+  
+  - RULE-SET, 个人proxy, 🚀节点选择
+  - RULE-SET, AI, Ai平台
+  - RULE-SET, OpenAi, Ai平台
+  - RULE-SET, Developer, 🚀节点选择
+  - RULE-SET, ProxyGFWlist, 🚀节点选择
+  - RULE-SET, ProxyMedia, 🚀节点选择
+
+  - GEOIP, CN, DIRECT
+  - MATCH, 🐠漏网之鱼
+`;
+
+      outputEl.value = urlBlock + providerBlock + BASE_CONFIG;
+    }
+
+    async function copyYaml() {
+
+      try {
+
+        await navigator.clipboard.writeText(outputEl.value);
+
+        alert('复制成功');
+
+      } catch (e) {
+
+        alert('复制失败');
+      }
+    }
+
+    addItem('机场A', '');
+    addItem('机场B', '');
+
+  </script>
+
+</body>
+
+</html>
