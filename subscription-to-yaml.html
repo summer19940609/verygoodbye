@@ -1,175 +1,151 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YAML 规则生成器</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #f5f7fb;
-      color: #111827;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      padding: 24px;
-    }
-
-    .container {
-      width: min(1400px, 100%);
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 30px;
-      margin-bottom: 20px;
-      color: #111827;
-    }
-
-    .toolbar {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    button {
-      border: none;
-      background: #2563eb;
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    button:hover {
-      opacity: .9;
-    }
-
-    .danger {
-      background: #dc2626;
-    }
-
-    .success {
-      background: #059669;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 14px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 200px 1fr auto;
-      gap: 12px;
-      align-items: center;
-    }
-
-    input {
-      width: 100%;
-      background: #ffffff;
-      border: 1px solid #d1d5db;
-      color: #111827;
-      padding: 12px;
-      border-radius: 10px;
-      outline: none;
-      font-size: 14px;
-    }
-
-    input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-    }
-
-    input::placeholder {
-      color: #9ca3af;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 800px;
-      background: #ffffff;
-      border: 1px solid #d1d5db;
-      color: #065f46;
-      padding: 18px;
-      border-radius: 14px;
-      margin-top: 20px;
-      font-size: 13px;
-      line-height: 1.7;
-      resize: vertical;
-      font-family: Menlo, Monaco, Consolas, monospace;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-    }
-
-    textarea::placeholder {
-      color: #9ca3af;
-    }
-
-    @media (max-width: 768px) {
-      .grid {
-        grid-template-columns: 1fr;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YAML 规则生成器</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
-
+      body {
+        background: #f5f7fb;
+        color: #111827;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        padding: 24px;
+      }
+      .container {
+        width: min(1400px, 100%);
+        margin: 0 auto;
+      }
+      h1 {
+        font-size: 30px;
+        margin-bottom: 20px;
+        color: #111827;
+      }
+      .toolbar {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
       button {
-        width: 100%;
+        border: none;
+        background: #2563eb;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 14px;
       }
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>YAML 规则生成器</h1>
-
-    <div class="toolbar">
-      <button onclick="addItem()">新增订阅</button>
-      <button onclick="generateYaml()">生成 YAML</button>
-      <button class="success" onclick="copyYaml()">复制 YAML</button>
+      button:hover {
+        opacity: 0.9;
+      }
+      .danger {
+        background: #dc2626;
+      }
+      .success {
+        background: #059669;
+      }
+      .card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 14px;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 200px 1fr auto;
+        gap: 12px;
+        align-items: center;
+      }
+      input {
+        width: 100%;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        color: #111827;
+        padding: 12px;
+        border-radius: 10px;
+        outline: none;
+        font-size: 14px;
+      }
+      input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      }
+      input::placeholder {
+        color: #9ca3af;
+      }
+      textarea {
+        width: 100%;
+        min-height: 800px;
+        background: #ffffff;
+        border: 1px solid #d1d5db;
+        color: #065f46;
+        padding: 18px;
+        border-radius: 14px;
+        margin-top: 20px;
+        font-size: 13px;
+        line-height: 1.7;
+        resize: vertical;
+        font-family: Menlo, Monaco, Consolas, monospace;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      }
+      textarea::placeholder {
+        color: #9ca3af;
+      }
+      @media (max-width: 768px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        button {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>YAML 规则生成器</h1>
+      <div class="toolbar">
+        <button onclick="addItem()">新增订阅</button>
+        <button onclick="generateYaml()">生成 YAML</button>
+        <button class="success" onclick="copyYaml()">复制 YAML</button>
+      </div>
+      <div id="list"></div>
+      <textarea id="output" placeholder="生成后的 YAML 会显示在这里"></textarea>
     </div>
 
-    <div id="list"></div>
+    <script>
+      const listEl = document.getElementById("list");
+      const outputEl = document.getElementById("output");
 
-    <textarea id="output" placeholder="生成后的 YAML 会显示在这里"></textarea>
-  </div>
-
-  <script>
-    const listEl = document.getElementById('list');
-    const outputEl = document.getElementById('output');
-
-    function addItem(name = '', url = '') {
-      const div = document.createElement('div');
-      div.className = 'card';
-
-      div.innerHTML = `
+      function addItem(name = "", url = "") {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
         <div class="grid">
           <input class="remark" placeholder="备注名" value="${name}">
           <input class="url" placeholder="订阅链接" value="${url}">
           <button class="danger" onclick="this.closest('.card').remove()">删除</button>
         </div>
       `;
+        listEl.appendChild(div);
+      }
 
-      listEl.appendChild(div);
-    }
+      function getPrefix(text) {
+        if (!text) return "U";
+        return text.trim().charAt(0).toUpperCase();
+      }
 
-    function getPrefix(text) {
-      if (!text) return 'U';
-      return text.trim().charAt(0).toUpperCase();
-    }
-
-    function generateYaml() {
-      const cards = [...document.querySelectorAll('.card')];
-
-      let urlBlock = `#################### 节点信息start ####################\n`;
-
-      let providerBlock = `
+      function generateYaml() {
+        const cards = [...document.querySelectorAll(".card")];
+        let urlBlock = `#################### 节点信息start ####################\n`;
+        let providerBlock = `
 provider: &provider
   type: http
   interval: 86400
@@ -181,18 +157,15 @@ provider: &provider
 proxy-providers:
 `;
 
-      cards.forEach((card, index) => {
-        const remark = card.querySelector('.remark').value.trim() || `备注${index + 1}`;
-        const url = card.querySelector('.url').value.trim();
-        const num = index + 1;
-        const prefix = getPrefix(remark);
+        cards.forEach((card, index) => {
+          const remark =
+            card.querySelector(".remark").value.trim() || `备注${index + 1}`;
+          const url = card.querySelector(".url").value.trim();
+          const num = index + 1;
+          const prefix = getPrefix(remark);
 
-        urlBlock += `
-# ${remark}
-url${num}: &url${num} "${url}"
-`;
-
-        providerBlock += `
+          urlBlock += `\n# ${remark}\nurl${num}: &url${num} "${url}"\n`;
+          providerBlock += `
   U${num}:
     <<: *provider
     url: *url${num}
@@ -200,13 +173,11 @@ url${num}: &url${num} "${url}"
     override:
       additional-prefix: "[${prefix}]"
 `;
-      });
+        });
 
-      urlBlock += `
-#################### 节点信息end ####################
-`;
+        urlBlock += `\n#################### 节点信息end ####################\n`;
 
-      const BASE_CONFIG = `
+        const BASE_CONFIG = `
 ############# 基础配置 #############
 port: 7890
 socks-port: 7891
@@ -270,14 +241,14 @@ UrlTest: &UrlTest
 
 ############# 策略组 #############
 proxy-groups:
-  - { name: 🚀节点选择, type: select, proxies: [全部自动, 全部手动, 香港自动, 日本自动, DIRECT] }
+  - { name: 🚀节点选择, type: select, proxies: [全部手动, 香港自动, 日本自动, 美国自动, DIRECT] }
   - { name: 全部手动, type: select, include-all-providers: true, filter: *FilterAll }
-  - { name: 全部自动, <<: *UrlTest, include-all-providers: true, filter: *FilterAll }
   - { name: 🐠漏网之鱼, type: select, proxies: [DIRECT, 🚀节点选择] }
-  - { name: 指定节点, type: select, proxies: [🚀节点选择, 全部手动, 香港自动, 日本自动] }
+  - { name: 指定节点, type: select, proxies: [🚀节点选择, 全部手动, 香港自动, 日本自动, 美国自动] }
   - { name: 香港自动, <<: *UrlTest, include-all-providers: true, filter: *FilterHK }
   - { name: 日本自动, <<: *UrlTest, include-all-providers: true, filter: *FilterJP }
-  - { name: Ai平台, type: select, proxies: [🚀节点选择, 全部手动, 香港自动, 日本自动, DIRECT] }
+  - { name: 美国自动, <<: *UrlTest, include-all-providers: true, filter: *FilterUS }
+  - { name: Ai平台, type: select, proxies: [🚀节点选择, 全部手动, 香港自动, 日本自动, 美国自动, DIRECT] }
   - { name: 全球拦截, type: select, proxies: [REJECT, DIRECT] }
   - { name: 应用净化, type: select, proxies: [REJECT, DIRECT] }
 
@@ -318,18 +289,14 @@ rule-providers:
   zhaoshang: { <<: *BehaviorCL, path: ./rules/CMB.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/CMB/CMB.yaml" }
 
 rules:
-  # 禁用QUIC
-  - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
-  - DOMAIN-SUFFIX,undefined, REJECT-DROP
-  - DOMAIN-SUFFIX,null, REJECT-DROP
   - DOMAIN,ocsp.apple.com, 全球拦截
   - DOMAIN,ocsp2.apple.com, 全球拦截
+  
   - RULE-SET, UnBan, DIRECT
   - RULE-SET, Lan, DIRECT
   - RULE-SET, 个人direct, DIRECT
   - RULE-SET, 个人reject, 全球拦截
   - RULE-SET, Wechat, DIRECT
-  # - RULE-SET, AWAvenue-Ads-Rule-Clash, 应用净化
   - RULE-SET, BanAD, 全球拦截
   - RULE-SET, BanProgramAD, 全球拦截
   - RULE-SET, PCDN, 全球拦截
@@ -357,21 +324,22 @@ rules:
   - GEOIP, CN, DIRECT
   - MATCH, 🐠漏网之鱼
 `;
-
-      outputEl.value = urlBlock + providerBlock + BASE_CONFIG;
-    }
-
-    async function copyYaml() {
-      try {
-        await navigator.clipboard.writeText(outputEl.value);
-        alert('复制成功');
-      } catch (e) {
-        alert('复制失败');
+        outputEl.value = urlBlock + providerBlock + BASE_CONFIG;
       }
-    }
 
-    addItem('机场A', '');
-    addItem('机场B', '');
-  </script>
-</body>
+      async function copyYaml() {
+        try {
+          await navigator.clipboard.writeText(outputEl.value);
+          alert("复制成功");
+        } catch (e) {
+          alert("复制失败");
+        }
+      }
+
+      // 初始化默认卡片
+      addItem("山海", "");
+      addItem("良心云", "");
+      addItem("蜂鸟云", "");
+    </script>
+  </body>
 </html>
