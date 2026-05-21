@@ -49,6 +49,10 @@
       .success {
         background: #059669;
       }
+      /* 为下载按钮定制了一个优雅的紫色 */
+      .download {
+        background: #a855f7;
+      }
       .card {
         background: #ffffff;
         border: 1px solid #e5e7eb;
@@ -115,6 +119,7 @@
         <button onclick="addItem()">新增订阅</button>
         <button onclick="generateYaml()">生成 YAML</button>
         <button class="success" onclick="copyYaml()">复制 YAML</button>
+        <button class="download" onclick="downloadYaml()">下载 YAML</button>
       </div>
       <div id="list"></div>
       <textarea id="output" placeholder="生成后的 YAML 会显示在这里"></textarea>
@@ -129,11 +134,11 @@
         div.className = "card";
         div.innerHTML = `
         <div class="grid">
-          <input class="remark" placeholder="备注名" value="${name}">
-          <input class="url" placeholder="订阅链接" value="${url}">
-          <button class="danger" onclick="this.closest('.card').remove()">删除</button>
+            <input class="remark" placeholder="备注名" value="${name}">
+            <input class="url" placeholder="订阅链接" value="${url}">
+            <button class="danger" onclick="this.closest('.card').remove()">删除</button>
         </div>
-      `;
+        `;
         listEl.appendChild(div);
       }
 
@@ -158,8 +163,7 @@ proxy-providers:
 `;
 
         cards.forEach((card, index) => {
-          const remark =
-            card.querySelector(".remark").value.trim() || `备注${index + 1}`;
+          const remark = card.querySelector(".remark").value.trim() || `备注${index + 1}`;
           const url = card.querySelector(".url").value.trim();
           const num = index + 1;
           const prefix = getPrefix(remark);
@@ -253,11 +257,8 @@ proxy-groups:
   - { name: 应用净化, type: select, proxies: [REJECT, DIRECT] }
 
 # ==================== 规则集 ====================
-BehaviorCL:
-  &BehaviorCL { type: http, behavior: classical, interval: 3600, format: yaml }
-
-BehaviorDN:
-  &BehaviorDN { type: http, behavior: domain, interval: 86400 }
+BehaviorCL: &BehaviorCL { type: http, behavior: classical, interval: 3600, format: yaml }
+BehaviorDN: &BehaviorDN { type: http, behavior: domain, interval: 86400 }
 
 # 规则提供者
 rule-providers:
@@ -270,7 +271,7 @@ rule-providers:
   BanAD: { <<: *BehaviorCL, path: ./rules/BanAD.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanAD.yaml" }
   BanProgramAD: { <<: *BehaviorCL, path: ./rules/BanProgramAD.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanProgramAD.yaml" }
   PCDN: { <<: *BehaviorCL, path: ./rules/PCDN.yaml, url: "https://gh-proxy.org/https://gist.githubusercontent.com/summer19940609/8da569693f6ceb70ffad5adf1504ec90/raw/PCDN.yaml" }
-  # AWAvenue-Ads-Rule-Clash: { <<: *BehaviorCL, path: ./rules/AWAvenue-Ads-Rule-Clash.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml" }
+#   AWAvenue-Ads-Rule-Clash: { <<: *BehaviorCL, path: ./rules/AWAvenue-Ads-Rule-Clash.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml" }
   GoogleCN: { <<: *BehaviorCL, path: ./rules/GoogleCN.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleCN.yaml" }
   Apple: { <<: *BehaviorCL, path: ./rules/Apple.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Apple.yaml" }
   Wechat: { <<: *BehaviorCL, path: ./rules/Wechat.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Wechat.yaml" }
@@ -291,7 +292,6 @@ rule-providers:
 rules:
   - DOMAIN,ocsp.apple.com, 全球拦截
   - DOMAIN,ocsp2.apple.com, 全球拦截
-  
   - RULE-SET, UnBan, DIRECT
   - RULE-SET, Lan, DIRECT
   - RULE-SET, 个人direct, DIRECT
@@ -307,14 +307,11 @@ rules:
   - RULE-SET, Download, DIRECT
   - RULE-SET, ChinaDomain, DIRECT
   - RULE-SET, SteamCN, DIRECT
-
   # 银行
   - RULE-SET, jiaotong, DIRECT
   - RULE-SET, zhaoshang, DIRECT
-
   - RULE-SET, Twitter, 指定节点
   - RULE-SET, Telegram, 指定节点
-
   - RULE-SET, 个人proxy, 🚀节点选择
   - RULE-SET, AI, Ai平台
   - RULE-SET, OpenAi, Ai平台
@@ -334,6 +331,38 @@ rules:
         } catch (e) {
           alert("复制失败");
         }
+      }
+
+      // 已添加：直接根据当前文本框内容生成时间戳并下载的函数
+      function downloadYaml() {
+        const content = outputEl.value;
+        if (!content) {
+          alert("请先生成 YAML 内容后再下载！");
+          return;
+        }
+
+        // 获取当前时间并格式化为：YYYYMMDDHHmmss
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const date = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const timestamp = `${year}${month}${date}${hours}${minutes}${seconds}`;
+
+        // 创建 Blob 并模拟 a 标签点击触发浏览器下载
+        const blob = new Blob([content], { type: "text/yaml;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${timestamp}.yaml`; 
+        document.body.appendChild(a);
+        a.click();
+        
+        // 清理临时节点和对象
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
       }
 
       // 初始化默认卡片
