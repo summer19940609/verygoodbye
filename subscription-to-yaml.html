@@ -227,6 +227,7 @@ FilterAll: &FilterAll "^(?!.*(到期|重置|剩余|时间|官网|产品|Traffic|
 FilterUS: &FilterUS "(?i)(美|US)"
 FilterHK: &FilterHK "(?i)(港|HK)"
 FilterJP: &FilterJP "(?i)(日|JP)"
+FilterSG: &FilterSG "(?i)(新|SG|Singapore|狮城)"
 
 PolicyBase: &PolicyBase
   interval: 300
@@ -245,15 +246,15 @@ UrlTest: &UrlTest
 
 ############# 策略组 #############
 proxy-groups:
-  - { name: 🚀 节点选择, type: select, proxies: [🖐️ 手动切换, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, DIRECT] }
+  - { name: 🚀 节点选择, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇸🇬 狮城节点, 🖐️ 手动切换, DIRECT] }
   - { name: 🖐️ 手动切换, type: select, include-all-providers: true, filter: *FilterAll }
   - { name: 🇭🇰 香港节点, <<: *UrlTest, include-all-providers: true, filter: *FilterHK }
   - { name: 🇯🇵 日本节点, <<: *UrlTest, include-all-providers: true, filter: *FilterJP }
   - { name: 🇺🇲 美国节点, <<: *UrlTest, include-all-providers: true, filter: *FilterUS }
-  - { name: 💬 Ai平台, type: select, proxies: [🇯🇵 日本节点, 🇺🇲 美国节点, 🇭🇰 香港节点, 🖐️ 手动切换, 🚀 节点选择, DIRECT] }
-  - { name: 📲 电报消息, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🖐️ 手动切换, DIRECT] }
-  - { name: 🐦 推特消息, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🖐️ 手动切换, DIRECT] }
-  - { name: 🎯 指定节点, type: select, proxies: [🚀 节点选择, 🖐️ 手动切换, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点] }
+  - { name: 🇸🇬 狮城节点, <<: *UrlTest, include-all-providers: true, filter: *FilterSG }
+  - { name: 💬 Ai平台, type: select, proxies: [🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🇭🇰 香港节点, 🖐️ 手动切换, 🚀 节点选择, DIRECT] }
+  - { name: 📲 电报消息, type: select, proxies: [🇭🇰 香港节点, 🇸🇬 狮城节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🚀 节点选择, 🖐️ 手动切换] }
+  - { name: 🐦 推特消息, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇸🇬 狮城节点, 🚀 节点选择, 🖐️ 手动切换] }
   - { name: 🛑 全球拦截, type: select, proxies: [REJECT, DIRECT] }
   - { name: 🍃 应用净化, type: select, proxies: [REJECT, DIRECT] }
   - { name: 🐟 漏网之鱼, type: select, proxies: [DIRECT, 🚀 节点选择] }
