@@ -251,6 +251,8 @@ proxy-groups:
   - { name: 🇯🇵 日本节点, <<: *UrlTest, include-all-providers: true, filter: *FilterJP }
   - { name: 🇺🇲 美国节点, <<: *UrlTest, include-all-providers: true, filter: *FilterUS }
   - { name: 💬 Ai平台, type: select, proxies: [🇯🇵 日本节点, 🇺🇲 美国节点, 🇭🇰 香港节点, 🖐️ 手动切换, 🚀 节点选择, DIRECT] }
+  - { name: 📲 电报消息, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🖐️ 手动切换, DIRECT] }
+  - { name: 🐦 推特消息, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🖐️ 手动切换, DIRECT] }
   - { name: 🎯 指定节点, type: select, proxies: [🚀 节点选择, 🖐️ 手动切换, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点] }
   - { name: 🛑 全球拦截, type: select, proxies: [REJECT, DIRECT] }
   - { name: 🍃 应用净化, type: select, proxies: [REJECT, DIRECT] }
@@ -319,8 +321,8 @@ rules:
   - RULE-SET,jiaotong,DIRECT
   - RULE-SET,zhaoshang,DIRECT
 
-  - RULE-SET,Twitter,🎯 指定节点
-  - RULE-SET,Telegram,🎯 指定节点
+  - RULE-SET,Twitter,🐦 推特消息
+  - RULE-SET,Telegram,📲 电报消息
 
   - RULE-SET,个人proxy,🚀 节点选择
   - RULE-SET,AI,💬 Ai平台
