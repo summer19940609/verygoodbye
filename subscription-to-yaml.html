@@ -274,7 +274,6 @@ rule-providers:
   BanAD: { <<: *BehaviorCL, path: ./rules/BanAD.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanAD.yaml" }
   BanProgramAD: { <<: *BehaviorCL, path: ./rules/BanProgramAD.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/BanProgramAD.yaml" }
   PCDN: { <<: *BehaviorCL, path: ./rules/PCDN.yaml, url: "https://gh-proxy.org/https://gist.githubusercontent.com/summer19940609/8da569693f6ceb70ffad5adf1504ec90/raw/PCDN.yaml" }
-#   AWAvenue-Ads-Rule-Clash: { <<: *BehaviorCL, path: ./rules/AWAvenue-Ads-Rule-Clash.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml" }
   GoogleCN: { <<: *BehaviorCL, path: ./rules/GoogleCN.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/GoogleCN.yaml" }
   Apple: { <<: *BehaviorCL, path: ./rules/Apple.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Apple.yaml" }
   Wechat: { <<: *BehaviorCL, path: ./rules/Wechat.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Providers/Ruleset/Wechat.yaml" }
@@ -293,9 +292,6 @@ rule-providers:
   zhaoshang: { <<: *BehaviorCL, path: ./rules/CMB.yaml, url: "https://gh-proxy.org/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/CMB/CMB.yaml" }
 
 rules:
-  # 禁用 QUIC
-  # - AND,(AND,(DST-PORT,443),(NETWORK,UDP)),(NOT,((GEOIP,CN))),REJECT
-
   - DOMAIN,ocsp.apple.com,🛑 全球拦截
   - DOMAIN,ocsp2.apple.com,🛑 全球拦截
 
