@@ -294,7 +294,10 @@ rule-providers:
 rules:
   - DOMAIN,ocsp.apple.com,🛑 全球拦截
   - DOMAIN,ocsp2.apple.com,🛑 全球拦截
-
+  
+  - IP-ASN,139341,DIRECT,no-resolve
+  - IP-ASN,132203,REJECT-DROP,no-resolve
+  
   - RULE-SET,UnBan,DIRECT
   - RULE-SET,Lan,DIRECT
   - RULE-SET,个人direct,DIRECT
