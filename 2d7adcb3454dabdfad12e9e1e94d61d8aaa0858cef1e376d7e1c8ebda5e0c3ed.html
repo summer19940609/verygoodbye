@@ -6,6 +6,10 @@
 <title>上传文件到指定 Gist</title>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 body {
   max-width: 1000px;
   margin: 40px auto;
@@ -27,7 +31,6 @@ input,
 textarea,
 button {
   width: 100%;
-  box-sizing: border-box;
   font-size: 14px;
 }
 
@@ -35,11 +38,14 @@ input,
 textarea {
   padding: 10px;
   margin-bottom: 20px;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
 }
 
 textarea {
   min-height: 450px;
   font-family: Menlo, Monaco, Consolas, monospace;
+  resize: vertical;
 }
 
 button {
@@ -49,6 +55,8 @@ button {
   background: #24292f;
   color: #fff;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 button:hover {
@@ -62,11 +70,24 @@ button:disabled {
 
 .result {
   margin-top: 20px;
-  padding: 12px;
-  background: #f5f5f5;
-  border-radius: 6px;
-  white-space: pre-wrap;
+  padding: 20px;
+  background: #f6f8fa;
+  border-radius: 8px;
+  line-height: 1.8;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.result a {
+  color: #0969da;
+  text-decoration: none;
+  overflow-wrap: anywhere;
   word-break: break-all;
+}
+
+.result a:hover {
+  text-decoration: underline;
 }
 </style>
 </head>
@@ -159,23 +180,33 @@ async function uploadFile() {
     const uploadedFile = data.files[filename];
 
     result.innerHTML = `
-<b>上传成功</b>
+      <h3>上传成功</h3>
 
-Gist:
-<a href="${data.html_url}" target="_blank">
-${data.html_url}
-</a>
+      <p>
+        <strong>Gist 地址：</strong><br>
+        <a href="${data.html_url}" target="_blank">
+          ${data.html_url}
+        </a>
+      </p>
 
-文件名:
-${filename}
+      <p>
+        <strong>文件名：</strong><br>
+        ${filename}
+      </p>
 
-Raw:
-${
-  uploadedFile?.raw_url
-    ? `<a href="${uploadedFile.raw_url}" target="_blank">${uploadedFile.raw_url}</a>`
-    : '请刷新 Gist 页面查看'
-}
-`;
+      <p>
+        <strong>Raw 地址：</strong><br>
+        ${
+          uploadedFile?.raw_url
+            ? `
+            <a href="${uploadedFile.raw_url}" target="_blank">
+              ${uploadedFile.raw_url}
+            </a>
+            `
+            : '请刷新 Gist 页面查看'
+        }
+      </p>
+    `;
   } catch (error) {
     result.textContent = '请求失败：' + error.message;
   } finally {
