@@ -258,7 +258,7 @@ proxy-groups:
   - { name: 🐦 推特消息, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇸🇬 狮城节点, 🚀 节点选择, 🖐️ 手动切换] }
   - { name: 💬 Whatsapp, type: select, proxies: [🚀 节点选择, 🖐️ 手动切换] }
   - { name: 🛑 全球拦截, type: select, proxies: [REJECT, DIRECT] }
-  - { name: 🍃 应用净化, type: select, proxies: [REJECT, DIRECT] }
+  - { name: 🍃 应用净化, type: select, proxies: [DIRECT, REJECT] }
 
 # ==================== 规则集 ====================
 BehaviorCL: &BehaviorCL { type: http, behavior: classical, interval: 3600, format: yaml }
