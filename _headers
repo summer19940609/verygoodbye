@@ -1,0 +1,68 @@
+# Translated from vercel.json routes (Vercel deployment t.12156844.xyz)
+/win-xnj/*
+  Cache-Control: public, max-age=31536000, immutable
+/favicon.ico
+  Cache-Control: public, max-age=86400
+/optimize.reg
+  Cache-Control: public, max-age=86400
+  Content-Type: application/octet-stream
+/
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/index.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/access
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/access/
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/access/index.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/privacy
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/privacy/
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/privacy/index.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/2d7adcb3454dabdfad12e9e1e94d61d8aaa0858cef1e376d7e1c8ebda5e0c3ed.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/2d7adcb3454dabdfad12e9e1e94d61d8aaa0858cef1e376d7e1c8ebda5e0c3ed
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/create-sh.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/create-sh
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/distance.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/distance
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/goldPrice.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/goldPrice
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/handle_github.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/handle_github
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/mac.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/mac
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/parseUrl.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/parseUrl
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/subscription-to-yaml.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/subscription-to-yaml
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/text-image-generator.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/text-image-generator
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/url-handle.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/url-handle
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/win-xnj.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400
+/win-xnj
+  Cache-Control: public, max-age=300, stale-while-revalidate=86400

@@ -1,0 +1,14 @@
+# Serve legacy .html URLs directly (avoid Pages clean-URL 308 hop)
+/2d7adcb3454dabdfad12e9e1e94d61d8aaa0858cef1e376d7e1c8ebda5e0c3ed.html /2d7adcb3454dabdfad12e9e1e94d61d8aaa0858cef1e376d7e1c8ebda5e0c3ed 200
+/create-sh.html /create-sh 200
+/distance.html /distance 200
+/goldPrice.html /goldPrice 200
+/handle_github.html /handle_github 200
+/mac.html /mac 200
+/parseUrl.html /parseUrl 200
+/subscription-to-yaml.html /subscription-to-yaml 200
+/text-image-generator.html /text-image-generator 200
+/url-handle.html /url-handle 200
+/win-xnj.html /win-xnj 200
+/access /access/ 200
+/privacy /privacy/ 200
