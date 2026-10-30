@@ -1,6 +1,21 @@
 {
     "routes": [
         {
+            "src": "^/win-xnj/.+\\.[0-9a-f]{8}\\.webp$",
+            "headers": { "cache-control": "public, max-age=31536000, immutable" },
+            "continue": true
+        },
+        {
+            "src": "^/(?!win-xnj/).*\\.(?:ico|png|jpe?g|gif|webp|svg|reg)$",
+            "headers": { "cache-control": "public, max-age=86400" },
+            "continue": true
+        },
+        {
+            "src": "^/(?:|.*\\.html|access/?|privacy/?)$",
+            "headers": { "cache-control": "public, max-age=300, stale-while-revalidate=86400" },
+            "continue": true
+        },
+        {
             "handle": "filesystem"
         },
         {
