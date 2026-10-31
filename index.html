@@ -106,7 +106,6 @@
 		}
 
 		.drawer-toggle,
-		.drawer-toggle-static,
 		.drawer,
 		.drawer-overlay {
 			display: none;
@@ -118,12 +117,12 @@
 			}
 
 			body {
-				padding: 68px 12px 12px;
+				padding: 12px;
 				overflow-x: hidden;
 			}
 
 			.section {
-				scroll-margin-top: 68px;
+				scroll-margin-top: 12px;
 			}
 
 			html.drawer-open,
@@ -131,11 +130,7 @@
 				overflow: hidden;
 			}
 
-			/* Hamburger: fixed copy follows the scroll; static copy sits at the
-			   same spot in normal flow, so the icon still shows in browsers that
-			   hide position:fixed elements (e.g. "block floating ads" modes). */
-			.drawer-toggle,
-			.drawer-toggle-static {
+			.drawer-toggle {
 				display: block;
 				position: fixed;
 				top: 12px;
@@ -158,13 +153,7 @@
 				-webkit-tap-highlight-color: transparent;
 			}
 
-			.drawer-toggle-static {
-				position: absolute;
-				z-index: 9998;
-			}
-
-			.drawer-toggle svg,
-			.drawer-toggle-static svg {
+			.drawer-toggle svg {
 				display: block;
 				width: 24px;
 				height: 24px;
@@ -311,7 +300,6 @@
 </head>
 
 <body>
-	<button type="button" class="drawer-toggle-static" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="2.6" rx="1.3" fill="#26384a" stroke="#fff" stroke-width="1" stroke-opacity=".85"/><rect x="2" y="10.7" width="20" height="2.6" rx="1.3" fill="#26384a" stroke="#fff" stroke-width="1" stroke-opacity=".85"/><rect x="2" y="17.4" width="20" height="2.6" rx="1.3" fill="#26384a" stroke="#fff" stroke-width="1" stroke-opacity=".85"/></svg></button>
 	<button type="button" class="drawer-toggle" aria-label="打开目录" aria-controls="drawer" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><rect x="2" y="4" width="20" height="2.6" rx="1.3" fill="#26384a" stroke="#fff" stroke-width="1" stroke-opacity=".85"/><rect x="2" y="10.7" width="20" height="2.6" rx="1.3" fill="#26384a" stroke="#fff" stroke-width="1" stroke-opacity=".85"/><rect x="2" y="17.4" width="20" height="2.6" rx="1.3" fill="#26384a" stroke="#fff" stroke-width="1" stroke-opacity=".85"/></svg></button>
 	<div class="drawer-overlay" hidden></div>
 	<nav class="drawer" id="drawer" aria-label="页面目录" aria-hidden="true">
@@ -397,7 +385,6 @@
 
 			const flip = () => setOpen(!root.classList.contains("drawer-open"));
 			toggle.addEventListener("click", flip);
-			document.querySelector(".drawer-toggle-static").addEventListener("click", flip);
 			overlay.addEventListener("click", () => setOpen(false));
 			document.addEventListener("keydown", e => {
 				if (e.key === "Escape" && root.classList.contains("drawer-open")) {
