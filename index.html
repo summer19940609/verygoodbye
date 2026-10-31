@@ -101,9 +101,137 @@
 			border: 1px solid var(--teal-border);
 		}
 
+		.section {
+			scroll-margin-top: 16px;
+		}
+
+		.drawer-toggle,
+		.drawer,
+		.drawer-overlay {
+			display: none;
+		}
+
 		@media (max-width: 768px) {
+			html {
+				scroll-behavior: smooth;
+			}
+
 			body {
-				padding: 12px;
+				padding: 68px 12px 12px;
+				overflow-x: hidden;
+			}
+
+			.section {
+				scroll-margin-top: 68px;
+			}
+
+			html.drawer-open,
+			html.drawer-open body {
+				overflow: hidden;
+			}
+
+			.drawer-toggle {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: 5px;
+				position: fixed;
+				top: 12px;
+				left: 12px;
+				z-index: 30;
+				width: 44px;
+				height: 44px;
+				min-height: 0;
+				padding: 0 11px;
+				background: var(--card);
+				border: 1px solid #dfe7f0;
+				border-radius: 10px;
+				box-shadow: 0 2px 8px rgba(38, 56, 74, .12);
+			}
+
+			.drawer-toggle span {
+				display: block;
+				height: 2px;
+				background: var(--text);
+				border-radius: 2px;
+			}
+
+			.drawer-overlay {
+				display: block;
+				position: fixed;
+				inset: 0;
+				z-index: 40;
+				background: rgba(38, 56, 74, .45);
+				opacity: 0;
+				visibility: hidden;
+				transition: opacity .25s ease, visibility .25s ease;
+			}
+
+			.drawer {
+				display: flex;
+				flex-direction: column;
+				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 50;
+				width: min(78vw, 280px);
+				padding: 20px 16px;
+				background: var(--card);
+				box-shadow: 4px 0 24px rgba(38, 56, 74, .18);
+				transform: translateX(-105%);
+				visibility: hidden;
+				transition: transform .28s ease, visibility .28s ease;
+			}
+
+			html.drawer-open .drawer {
+				transform: translateX(0);
+				visibility: visible;
+			}
+
+			html.drawer-open .drawer-overlay {
+				opacity: 1;
+				visibility: visible;
+			}
+
+			.drawer-title {
+				margin: 4px 4px 16px;
+				font-size: 18px;
+				text-align: left;
+			}
+
+			.drawer a {
+				display: flex;
+				align-items: center;
+				gap: 12px;
+				min-height: 52px;
+				padding: 0 14px;
+				margin-bottom: 8px;
+				border-radius: 10px;
+				background: var(--bg);
+				color: var(--text);
+				font-size: 15px;
+				font-weight: 600;
+				text-decoration: none;
+			}
+
+			.drawer a:active {
+				background: #e8eef5;
+			}
+
+			.drawer a i {
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background: var(--green);
+			}
+
+			.drawer a[href="#downloads"] i {
+				background: #3a7bd5;
+			}
+
+			.drawer a[href="#speedtest"] i {
+				background: var(--teal-text);
 			}
 
 			.section {
@@ -111,20 +239,37 @@
 			}
 
 			.nav-container {
-				grid-template-columns: repeat(2, minmax(0, 1fr));
+				grid-template-columns: repeat(3, minmax(0, 1fr));
 				gap: 10px;
 			}
 
-			button {
+			.nav-container button {
 				min-height: 50px;
 				font-size: 14px;
-				padding: 12px;
+				padding: 10px 8px;
+				overflow-wrap: anywhere;
 			}
 		}
 
 		@media (max-width: 420px) {
+			body {
+				padding-left: 10px;
+				padding-right: 10px;
+			}
+
+			.section {
+				padding: 16px 12px;
+				margin-bottom: 16px;
+			}
+
 			.nav-container {
-				grid-template-columns: 1fr;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 8px;
+			}
+
+			.nav-container button {
+				min-height: 48px;
+				font-size: 13px;
 			}
 		}
 	</style>
@@ -140,8 +285,16 @@
 </head>
 
 <body>
+	<button type="button" class="drawer-toggle" aria-label="打开目录" aria-controls="drawer" aria-expanded="false"><span></span><span></span><span></span></button>
+	<div class="drawer-overlay" hidden></div>
+	<nav class="drawer" id="drawer" aria-label="页面目录" aria-hidden="true">
+		<h2 class="drawer-title">目录</h2>
+		<a href="#nav"><i></i>功能导航</a>
+		<a href="#downloads"><i></i>常用下载</a>
+		<a href="#speedtest"><i></i>测速</a>
+	</nav>
 	<main>
-		<section class="section">
+		<section class="section" id="nav">
 			<h2>功能导航</h2>
 			<div class="nav-container">
 				<button value="https://tool.pc.wiki/">LDTools</button>
@@ -176,7 +329,7 @@
 				<button value="https://ittools-jgw.12156844.xyz/">IT-Tools</button>
 			</div>
 		</section>
-		<section class="section">
+		<section class="section" id="downloads">
 			<h2>常用下载</h2>
 			<div class="nav-container download-section">
 				<button value="https://down-tencent.huorong.cn/sysdiag-all-x64-6.0.7.12-2025.09.24.3.exe">火绒安全</button>
@@ -190,7 +343,7 @@
 				<button value="https://gh-proxy.org/https://raw.githubusercontent.com/summer19940609/mac-config/main/Windows11%E8%BD%BB%E6%9D%BE%E8%AE%BE%E7%BD%AE1.11%E6%AD%A3%E5%BC%8F%E7%89%88%E3%80%9020250[...]">工具合集</button>
 			</div>
 		</section>
-		<section class="section">
+		<section class="section" id="speedtest">
 			<h2>测速</h2>
 			<div class="nav-container speedtest-section">
 				<button data-new-tab value="https://www.google.com/search?q=internet+speed+test">谷歌测速</button>
@@ -200,6 +353,44 @@
 			</div>
 		</section>
 	</main>
+	<script>
+		(() => {
+			const root = document.documentElement;
+			const toggle = document.querySelector(".drawer-toggle");
+			const drawer = document.getElementById("drawer");
+			const overlay = document.querySelector(".drawer-overlay");
+			overlay.hidden = false;
+
+			const setOpen = open => {
+				root.classList.toggle("drawer-open", open);
+				toggle.setAttribute("aria-expanded", open);
+				toggle.setAttribute("aria-label", open ? "关闭目录" : "打开目录");
+				drawer.setAttribute("aria-hidden", !open);
+			};
+
+			toggle.addEventListener("click", () => setOpen(!root.classList.contains("drawer-open")));
+			overlay.addEventListener("click", () => setOpen(false));
+			document.addEventListener("keydown", e => {
+				if (e.key === "Escape" && root.classList.contains("drawer-open")) {
+					setOpen(false);
+					toggle.focus();
+				}
+			});
+			drawer.addEventListener("click", e => {
+				const link = e.target.closest('a[href^="#"]');
+				if (!link) return;
+				const target = document.querySelector(link.getAttribute("href"));
+				if (!target) return;
+				e.preventDefault();
+				setOpen(false);
+				target.scrollIntoView({ behavior: "smooth", block: "start" });
+				history.replaceState(null, "", link.getAttribute("href"));
+			});
+			matchMedia("(min-width: 769px)").addEventListener("change", e => {
+				if (e.matches) setOpen(false);
+			});
+		})();
+	</script>
 </body>
 
 </html>
