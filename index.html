@@ -30,6 +30,10 @@
 			--blue-border: #bddcff;
 			--blue-text: #1565c0;
 			--blue-hover: #d8edff;
+
+			--teal-bg: #e6f6f3;
+			--teal-border: #a9ddd4;
+			--teal-text: #00796b;
 		}
 
 		body {
@@ -89,6 +93,12 @@
 			background: var(--blue-bg);
 			color: var(--blue-text);
 			border: 1px solid var(--blue-border);
+		}
+
+		.speedtest-section button {
+			background: var(--teal-bg);
+			color: var(--teal-text);
+			border: 1px solid var(--teal-border);
 		}
 
 		@media (max-width: 768px) {
@@ -182,7 +192,7 @@
 		</section>
 		<section class="section">
 			<h2>测速</h2>
-			<div class="nav-container">
+			<div class="nav-container speedtest-section">
 				<button data-new-tab value="https://www.google.com/search?q=internet+speed+test">谷歌测速</button>
 				<button data-new-tab value="https://speed.cloudflare.com/">Cloudflare 测速</button>
 				<button data-new-tab value="https://www.speedtest.net/">Speedtest</button>
